@@ -572,17 +572,23 @@ export default function App() {
 
           <div className="max-w-2xl mx-auto">
             {certifications.map((cert, i) => (
-              <div key={i} className="glass-card p-8 flex items-center gap-6 hover:shadow-xl transition-shadow hover:scale-[1.02]">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white flex-shrink-0">
+              <a
+                key={i}
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card p-8 flex items-center gap-6 hover:shadow-xl transition-all hover:scale-[1.02] cursor-pointer group"
+              >
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform">
                   {cert.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{cert.title}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">{cert.title}</h3>
                   <p className="text-brand-600 dark:text-brand-400 font-semibold">{cert.issuer}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{cert.date}</p>
                 </div>
-                <Award className="w-8 h-8 text-terminal-amber ml-auto flex-shrink-0" />
-              </div>
+                <Award className="w-8 h-8 text-terminal-amber ml-auto flex-shrink-0 group-hover:rotate-12 transition-transform" />
+              </a>
             ))}
           </div>
         </div>
@@ -596,28 +602,30 @@ export default function App() {
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="glass-card p-8 sm:p-10 hover:shadow-xl transition-shadow">
-              <div className="flex items-start gap-6">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white flex-shrink-0">
-                  <GraduationCap className="w-7 h-7" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                    {t.education.degree}
-                  </h3>
-                  <p className="text-brand-600 dark:text-brand-400 font-semibold text-lg">
-                    {t.education.school}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400 font-mono text-sm mt-2">{t.education.period}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {t.education.tags.map((tag, i) => (
-                      <span key={i} className="skill-badge text-xs">{tag}</span>
-                    ))}
+          <div className="max-w-3xl mx-auto space-y-6">
+            {t.education.items.map((edu, i) => (
+              <div key={i} className="glass-card p-8 sm:p-10 hover:shadow-xl transition-shadow">
+                <div className="flex items-start gap-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white flex-shrink-0">
+                    <GraduationCap className="w-7 h-7" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                      {edu.degree}
+                    </h3>
+                    <p className="text-brand-600 dark:text-brand-400 font-semibold text-lg">
+                      {edu.school}
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-400 font-mono text-sm mt-2">{edu.period} · {edu.location}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {edu.tags.map((tag, ti) => (
+                        <span key={ti} className="skill-badge text-xs">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </Section>

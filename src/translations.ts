@@ -177,6 +177,7 @@ export const translations = {
           title: 'MultiCloud Network Associate',
           issuer: 'Aviatrix',
           date: 'Expires: Sep 20, 2028',
+          link: 'https://www.credly.com/badges/b518bd52-eba0-4859-aaf7-d8d671686ea2/linked_in_profile',
         },
       ],
     },
@@ -184,10 +185,22 @@ export const translations = {
     /* ─── EDUCATION ─── */
     education: {
       heading: 'Education',
-      degree: 'National Engineering Degree in Computer Science',
-      school: 'ESPRIT — Private Higher School of Engineering and Technology',
-      period: 'Sep 2022 – Sep 2025 · Tunisia',
-      tags: ['Cloud Computing', 'DevOps', 'Software Engineering', 'Networking', 'Distributed Systems'],
+      items: [
+        {
+          degree: 'National Engineering Degree in Computer Science',
+          school: 'ESPRIT — Private Higher School of Engineering and Technology',
+          period: 'Sep 2022 – Sep 2025',
+          location: 'Tunisia',
+          tags: ['Cloud Computing', 'DevOps', 'Software Engineering', 'Networking', 'Distributed Systems'],
+        },
+        {
+          degree: "Bachelor's Degree in Mechatronics Engineering",
+          school: 'Higher Institute of Technological Studies of Béja (ISET Béja)',
+          period: 'Sep 2018 – Jun 2021',
+          location: 'Tunisia',
+          tags: ['Industrial Automation', 'PLC Programming', 'Computer Networks', 'Embedded Systems', 'IT Infrastructure'],
+        },
+      ],
     },
 
     /* ─── CONTACT ─── */
@@ -387,6 +400,7 @@ export const translations = {
           title: 'MultiCloud Network Associate',
           issuer: 'Aviatrix',
           date: 'Expire : 20 Sep 2028',
+          link: 'https://www.credly.com/badges/b518bd52-eba0-4859-aaf7-d8d671686ea2/linked_in_profile',
         },
       ],
     },
@@ -394,10 +408,22 @@ export const translations = {
     /* ─── EDUCATION ─── */
     education: {
       heading: 'Formation',
-      degree: "Diplôme National d'Ingénieur en Informatique",
-      school: "ESPRIT — École Supérieure Privée d'Ingénierie et de Technologies",
-      period: 'Sep 2022 – Sep 2025 · Tunisie',
-      tags: ['Cloud Computing', 'DevOps', 'Génie Logiciel', 'Réseaux', 'Systèmes Distribués'],
+      items: [
+        {
+          degree: "Diplôme National d'Ingénieur en Informatique",
+          school: "ESPRIT — École Supérieure Privée d'Ingénierie et de Technologies",
+          period: 'Sep 2022 – Sep 2025',
+          location: 'Tunisie',
+          tags: ['Cloud Computing', 'DevOps', 'Génie Logiciel', 'Réseaux', 'Systèmes Distribués'],
+        },
+        {
+          degree: 'Licence en Génie Mécatronique',
+          school: 'Institut Supérieur des Études Technologiques de Béja (ISET Béja)',
+          period: 'Sep 2018 – Juin 2021',
+          location: 'Tunisie',
+          tags: ['Automatisation Industrielle', 'Programmation PLC', 'Réseaux Informatiques', 'Systèmes Embarqués', 'Infrastructure IT'],
+        },
+      ],
     },
 
     /* ─── CONTACT ─── */
