@@ -4,8 +4,9 @@ import {
   ChevronDown, Cloud, Server, Shield, Container,
   GitBranch, Activity, Network, Award, GraduationCap,
   Code2, Layers, HardDrive,
-  ArrowRight, Globe, Zap, BookOpen
+  ArrowRight, Globe, Zap, BookOpen, Languages, Users
 } from 'lucide-react';
+import { translations } from './translations';
 
 /* ─── Intersection Observer Hook ─── */
 function useInView(threshold = 0.15) {
@@ -71,10 +72,13 @@ function TypingText({ texts }: { texts: string[] }) {
 export default function App() {
   const [dark, setDark] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'fr'>('en');
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
     setDark(saved ? saved === 'dark' : true);
+    const savedLang = localStorage.getItem('language') as 'en' | 'fr' | null;
+    setLanguage(savedLang || 'en');
   }, []);
 
   useEffect(() => {
@@ -82,157 +86,111 @@ export default function App() {
     localStorage.setItem('theme', dark ? 'dark' : 'light');
   }, [dark]);
 
+  const toggleLanguage = () => {
+    const newLang = language === 'en' ? 'fr' : 'en';
+    setLanguage(newLang);
+    localStorage.setItem('language', newLang);
+  };
+
+  const cvLinks = {
+    en: 'https://drive.google.com/uc?export=download&id=1-ql96PCwiaMvd_C-gh1tQtg7pnUA3oP3',
+    fr: 'https://drive.google.com/uc?export=download&id=1ZFXNKsu356uliNQzl8TwX38s2NMGWoIz',
+  };
+
+  const t = translations[language];
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMenuOpen(false);
   };
 
-  const navItems = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Certifications', 'Education', 'Contact'];
+  const navIds = ['home', 'about', 'skills', 'experience', 'projects', 'certifications', 'education', 'contact'];
 
   /* ─── DATA ─── */
 
   const skillCategories = [
     {
       icon: <Cloud className="w-6 h-6" />,
-      title: 'Cloud Platforms',
+      title: t.skills.categories[0].title,
       skills: ['AWS', 'Google Cloud', 'Azure', 'OpenStack'],
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: <Container className="w-6 h-6" />,
-      title: 'Containers & Orchestration',
+      title: t.skills.categories[1].title,
       skills: ['Docker', 'Docker Compose', 'Kubernetes', 'Helm', 'AKS', 'Strimzi'],
       color: 'from-cyan-500 to-teal-500',
     },
     {
       icon: <GitBranch className="w-6 h-6" />,
-      title: 'CI/CD & DevOps Tools',
+      title: t.skills.categories[2].title,
       skills: ['Git', 'GitHub', 'GitLab CI/CD', 'Jenkins', 'ArgoCD', 'Vault', 'SonarCloud', 'Nexus', 'Trivy'],
       color: 'from-teal-500 to-green-500',
     },
     {
       icon: <Layers className="w-6 h-6" />,
-      title: 'Infrastructure as Code',
+      title: t.skills.categories[3].title,
       skills: ['Terraform', 'OpenTofu', 'Ansible', 'Bash Scripting', 'Heat (OpenStack)'],
       color: 'from-purple-500 to-blue-500',
     },
     {
       icon: <Activity className="w-6 h-6" />,
-      title: 'Monitoring & Logging',
-      skills: ['Prometheus', 'Grafana', 'EFK Stack', 'Promtail', 'Loki'],
+      title: t.skills.categories[4].title,
+      skills: ['Prometheus', 'Grafana', 'EFK Stack', 'Promtail', 'Loki', 'Zabbix'],
       color: 'from-orange-500 to-red-500',
     },
     {
       icon: <HardDrive className="w-6 h-6" />,
-      title: 'Storage & Virtualization',
-      skills: ['NAS/SAN', 'NFS', 'FTP', 'SMB', 'Ceph', 'RAID', 'VMware', 'VirtualBox', 'KVM', 'Proxmox'],
+      title: t.skills.categories[5].title,
+      skills: ['NAS/SAN', 'NFS', 'FTP', 'SMB', 'Ceph', 'RAID', 'VMware', 'VirtualBox', 'KVM', 'Proxmox', 'Rsync'],
       color: 'from-rose-500 to-pink-500',
     },
     {
       icon: <Network className="w-6 h-6" />,
-      title: 'Networking & Security',
+      title: t.skills.categories[6].title,
       skills: ['TCP/IP', 'DNS', 'DHCP', 'HTTP/HTTPS', 'VPN', 'VLAN', 'Firewall', 'SSH'],
       color: 'from-emerald-500 to-teal-500',
     },
     {
       icon: <Code2 className="w-6 h-6" />,
-      title: 'Programming & OS',
+      title: t.skills.categories[7].title,
       skills: ['Python', 'Java', 'Golang', 'Linux (Ubuntu, Manjaro, Pop!_OS)', 'Windows'],
       color: 'from-amber-500 to-orange-500',
     },
   ];
 
-  const experiences = [
-    {
-      role: 'Cloud Engineer',
-      company: 'Devoteam',
-      period: 'Feb 2025 – Aug 2025',
-      description: [
-        'Designed, deployed, and automated cloud infrastructures on Azure.',
-        'Implemented a Kafka cluster in AKS using the Strimzi operator.',
-        'Managed production monitoring and observability with Prometheus, Grafana, and the EFK stack.',
-      ],
-      tags: ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Prometheus', 'Grafana', 'EFK'],
-    },
-    {
-      role: 'DevOps Engineer Intern',
-      company: 'Capgemini Engineering',
-      period: 'Jun 2024 – Aug 2024',
-      description: [
-        'Designed and implemented a full-stack web application with fully automated CI/CD pipelines.',
-        'Containerized and orchestrated services using Docker and Kubernetes, improving availability and scalability.',
-      ],
-      tags: ['Docker', 'Kubernetes', 'CI/CD', 'Full-Stack'],
-    },
-    {
-      role: 'Full Stack Engineer Intern',
-      company: 'BH Bank',
-      period: 'Jul 2023 – Sep 2023',
-      description: [
-        'Developed an internal trainee management application using Laravel, MySQL, and Bootstrap.',
-        'Digitized and optimized HR workflows for the organization.',
-      ],
-      tags: ['Laravel', 'MySQL', 'Bootstrap'],
-    },
-    {
-      role: 'IT Technician Intern',
-      company: 'Tunisair Technics',
-      period: 'Feb 2021 – Jun 2021',
-      description: [
-        'Built an RFID-based stock management system with JavaFX interface and MySQL database.',
-        'Enabled real-time tracking of aircraft parts across the warehouse.',
-      ],
-      tags: ['JavaFX', 'MySQL', 'RFID', 'Inventory'],
-    },
+  const experienceTags = [
+    ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Prometheus', 'Grafana', 'EFK'],
+    ['Docker', 'Kubernetes', 'CI/CD', 'Full-Stack'],
+    ['Laravel', 'MySQL', 'Bootstrap'],
+    ['JavaFX', 'MySQL', 'RFID', 'Inventory'],
   ];
 
-  const projects = [
-    {
-      title: 'Modern CI/CD Architecture for DevOps',
-      subtitle: 'End-to-End DevOps Pipeline',
-      description:
-        'Built a complete CI/CD pipeline automating deployment, testing, and monitoring of applications in real time. Integrated Jenkins, SonarCloud, Nexus, Docker, Trivy, Kubernetes, Terraform, AKS, Prometheus, and Grafana to ensure quality, security, and reliability.',
-      tags: ['Jenkins', 'SonarCloud', 'Nexus', 'Docker', 'Trivy', 'K8s', 'Terraform', 'AKS', 'Prometheus', 'Grafana'],
-      icon: <GitBranch className="w-8 h-8" />,
-      gradient: 'from-brand-600 to-cyan-500',
-    },
-    {
-      title: 'Cloud Infrastructure with OpenStack',
-      subtitle: 'IaaS/PaaS Private Cloud',
-      description:
-        'Designed and deployed a Cloud infrastructure using OpenStack, integrating an automated Kubernetes cluster for microservices deployment. Used Nova, Neutron, Keystone, Glance, Cinder, Swift, Heat, Horizon, and Magnum with Ansible, Prometheus, and Grafana.',
-      tags: ['OpenStack', 'Kubernetes', 'Ansible', 'Magnum', 'Heat', 'Prometheus', 'Grafana', 'Angular', 'Spring Boot'],
-      icon: <Cloud className="w-8 h-8" />,
-      gradient: 'from-purple-600 to-brand-500',
-    },
-    {
-      title: 'Azure Kafka Cluster (Strimzi on AKS)',
-      subtitle: 'Event Streaming Platform',
-      description:
-        'Deployed a production-grade Kafka cluster on Azure Kubernetes Service using the Strimzi operator. Implemented full observability with Prometheus and Grafana dashboards and log aggregation with EFK stack.',
-      tags: ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Helm', 'Prometheus', 'EFK'],
-      icon: <Server className="w-8 h-8" />,
-      gradient: 'from-teal-500 to-emerald-500',
-    },
-    {
-      title: 'Automated Infrastructure Provisioning',
-      subtitle: 'Terraform + Ansible',
-      description:
-        'Created reusable Terraform modules and Ansible playbooks for automated cloud infrastructure provisioning, configuration management, and application deployment across multi-cloud environments.',
-      tags: ['Terraform', 'Ansible', 'Bash', 'Multi-Cloud', 'IaC'],
-      icon: <Layers className="w-8 h-8" />,
-      gradient: 'from-amber-500 to-orange-500',
-    },
+  const experiences = t.experience.items.map((exp, i) => ({
+    ...exp,
+    tags: experienceTags[i],
+  }));
+
+  const projectMeta = [
+    { tags: ['Jenkins', 'SonarCloud', 'Nexus', 'Docker', 'Trivy', 'K8s', 'Terraform', 'AKS', 'Prometheus', 'Grafana'], icon: <GitBranch className="w-8 h-8" />, gradient: 'from-brand-600 to-cyan-500' },
+    { tags: ['OpenStack', 'Kubernetes', 'Ansible', 'Magnum', 'Heat', 'Prometheus', 'Grafana', 'Angular', 'Spring Boot'], icon: <Cloud className="w-8 h-8" />, gradient: 'from-purple-600 to-brand-500' },
+    { tags: ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Helm', 'Prometheus', 'EFK'], icon: <Server className="w-8 h-8" />, gradient: 'from-teal-500 to-emerald-500' },
+    { tags: ['Terraform', 'Ansible', 'Bash', 'Multi-Cloud', 'IaC'], icon: <Layers className="w-8 h-8" />, gradient: 'from-amber-500 to-orange-500' },
+    { tags: ['Zabbix', 'Linux', 'Windows', 'Monitoring', 'Alerting', 'Metrics', 'CPU', 'Memory', 'Disk', 'Bandwidth'], icon: <Activity className="w-8 h-8" />, gradient: 'from-green-500 to-emerald-500' },
+    { tags: ['pfSense', 'OpenVPN', 'Snort', 'Firewall', 'IDS', 'LAN', 'DMZ', 'WAN', 'Security', 'Network'], icon: <Shield className="w-8 h-8" />, gradient: 'from-red-500 to-rose-500' },
+    { tags: ['Microservices', 'Authentication', 'Docker', 'Spring Boot', 'API Gateway', 'Cloud', 'MySQL', 'REST API'], icon: <Server className="w-8 h-8" />, gradient: 'from-blue-500 to-indigo-500' },
+    { tags: ['Laravel', 'MySQL', 'Bootstrap', 'PHP', 'MVC', 'CRUD', 'HR Management', 'Web App'], icon: <Users className="w-8 h-8" />, gradient: 'from-pink-500 to-purple-500' },
   ];
 
-  const certifications = [
-    {
-      title: 'MultiCloud Network Associate',
-      issuer: 'Aviatrix',
-      date: 'Expires: Sep 20, 2028',
-      icon: <Globe className="w-8 h-8" />,
-    },
-  ];
+  const projects = t.projects.items.map((proj, i) => ({
+    ...proj,
+    ...projectMeta[i],
+  }));
+
+  const certifications = t.certifications.items.map((cert) => ({
+    ...cert,
+    icon: <Globe className="w-8 h-8" />,
+  }));
 
   /* ═══════════════════════════ RENDER ═══════════════════════════ */
 
@@ -244,18 +202,20 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
           {/* Logo */}
           <button onClick={() => scrollTo('home')} className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform">
-              NF
-            </div>
+            <img
+              src="/photo-cv.png"
+              alt="NF"
+              className="w-9 h-9 rounded-lg object-cover group-hover:scale-110 transition-transform ring-1 ring-brand-500/30"
+            />
             <span className="hidden sm:inline font-mono text-sm text-gray-500 dark:text-gray-400">~/nassim</span>
           </button>
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
+            {t.nav.items.map((item, idx) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item.toLowerCase())}
+                key={navIds[idx]}
+                onClick={() => scrollTo(navIds[idx])}
                 className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/60 transition-all"
               >
                 {item}
@@ -266,12 +226,20 @@ export default function App() {
           {/* Right side */}
           <div className="flex items-center gap-3">
             <a
-              href="/Nassim_Fatnassi_Hnifi_CV.pdf"
-              target="_blank"
+              href={cvLinks[language]}
+              download
               className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-lg hover:shadow-lg hover:shadow-brand-500/25 transition-all hover:scale-105"
             >
-              <BookOpen className="w-4 h-4" /> Resume
+              <BookOpen className="w-4 h-4" /> {t.nav.resume}
             </a>
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Toggle language"
+            >
+              <Languages className="w-4 h-4" />
+              {language === 'en' ? 'FR' : 'EN'}
+            </button>
             <button
               onClick={() => setDark(!dark)}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -288,10 +256,10 @@ export default function App() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-4 space-y-1">
-            {navItems.map((item) => (
+            {t.nav.items.map((item, idx) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item.toLowerCase())}
+                key={navIds[idx]}
+                onClick={() => scrollTo(navIds[idx])}
                 className="block w-full text-left px-4 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {item}
@@ -317,7 +285,7 @@ export default function App() {
             <div className="animate-fade-in">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-medium mb-6 border border-brand-500/20">
                 <span className="w-2 h-2 rounded-full bg-terminal-green animate-pulse" />
-                Available for opportunities
+                {t.hero.badge}
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
@@ -326,16 +294,11 @@ export default function App() {
               </h1>
 
               <div className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-6 min-h-[2.5rem]">
-                <TypingText texts={[
-                  'Cloud & DevOps Engineer',
-                  'Platform Engineer',
-                  'System Administrator',
-                  'Infrastructure Architect',
-                ]} />
+                <TypingText key={language} texts={[...t.hero.typingTexts]} />
               </div>
 
               <p className="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
-                Passionate about automation and system performance. I design reliable, modern, and scalable infrastructures combining technical expertise, rigor, and an innovative mindset.
+                {t.hero.description}
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -343,23 +306,19 @@ export default function App() {
                   onClick={() => scrollTo('projects')}
                   className="group flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-brand-500/25 hover:scale-105 transition-all"
                 >
-                  View Projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {t.hero.viewProjects} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => scrollTo('contact')}
                   className="px-7 py-3.5 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl font-semibold hover:border-brand-500 dark:hover:border-brand-500 hover:scale-105 transition-all"
                 >
-                  Get in Touch
+                  {t.hero.getInTouch}
                 </button>
               </div>
 
               {/* Quick stats */}
               <div className="flex gap-8 mt-12">
-                {[
-                  { value: '4+', label: 'Cloud Platforms' },
-                  { value: '4', label: 'Professional Roles' },
-                  { value: '3', label: 'Languages Spoken' },
-                ].map((s, i) => (
+                {t.hero.stats.map((s, i) => (
                   <div key={i}>
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">{s.value}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{s.label}</p>
@@ -385,7 +344,7 @@ export default function App() {
                   <p className="pl-4">- AWS, Azure, GCP, OpenStack</p>
                   <p className="text-terminal-amber">containers:</p>
                   <p className="pl-4">- Docker, Kubernetes, Helm</p>
-                  <p className="text-terminal-amber">iac:</p>
+                  <p className="text-terminal-amber">iac & automation:</p>
                   <p className="pl-4">- Terraform, Ansible, Bash</p>
                   <p className="text-terminal-amber">cicd:</p>
                   <p className="pl-4">- Jenkins, GitLab CI, ArgoCD</p>
@@ -412,23 +371,27 @@ export default function App() {
       <Section id="about" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white">About <span className="gradient-text">Me</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white">{t.about.heading[0]}<span className="gradient-text">{t.about.heading[1]}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Profile Card */}
             <div className="glass-card p-8 lg:col-span-1 flex flex-col items-center text-center">
-              <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white text-5xl font-bold mb-6 shadow-lg">
-                NF
-              </div>
+              <img
+                src="/photo-cv.png"
+                alt="Nassim Fatnassi Hnifi"
+                className="w-36 h-36 rounded-2xl object-cover object-top mb-6 shadow-lg ring-2 ring-brand-500/30"
+                style={{ imageRendering: 'auto' }}
+                loading="eager"
+              />
               <h3 className="text-xl font-bold mb-1">Nassim Fatnassi Hnifi</h3>
-              <p className="text-brand-600 dark:text-brand-400 font-medium mb-4">Cloud & DevOps Engineer</p>
+              <p className="text-brand-600 dark:text-brand-400 font-medium mb-4">{t.about.jobTitle}</p>
               <div className="flex gap-3 mb-6">
-                <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
+                <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi-a1698a186/-a1698a186/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
+                <a href="https://github.com/nassimfatnassi1999" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
                   <Github className="w-5 h-5" />
                 </a>
                 <a href="mailto:Fatnassihnifi.nassim@proton.me" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
@@ -443,7 +406,7 @@ export default function App() {
                   <Phone className="w-4 h-4 text-brand-500 flex-shrink-0" /> +216 28 021 325
                 </div>
                 <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                  <Globe className="w-4 h-4 text-brand-500 flex-shrink-0" /> English · French · Arabic
+                  <Globe className="w-4 h-4 text-brand-500 flex-shrink-0" /> {t.about.languages}
                 </div>
               </div>
             </div>
@@ -451,21 +414,21 @@ export default function App() {
             {/* Bio + Highlights */}
             <div className="lg:col-span-2 space-y-6">
               <div className="glass-card p-8">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Profile</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t.about.profileTitle}</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                  Cloud & DevOps Engineer passionate about <span className="text-brand-600 dark:text-brand-400 font-semibold">automation</span> and <span className="text-brand-600 dark:text-brand-400 font-semibold">system performance</span>. I combine technical expertise, rigor, and an innovative mindset to design reliable, modern, and scalable infrastructures.
+                  {t.about.profileP1} <span className="text-brand-600 dark:text-brand-400 font-semibold">{t.about.profileP1Bold1}</span> {t.about.profileP1Mid} <span className="text-brand-600 dark:text-brand-400 font-semibold">{t.about.profileP1Bold2}</span>{t.about.profileP1End}
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  From provisioning cloud resources on <span className="font-semibold text-terminal-cyan">AWS, Azure, GCP, and OpenStack</span> to orchestrating containers with <span className="font-semibold text-terminal-cyan">Kubernetes</span>, building CI/CD pipelines with <span className="font-semibold text-terminal-cyan">Jenkins and GitLab CI</span>, and implementing observability with <span className="font-semibold text-terminal-cyan">Prometheus & Grafana</span> — I deliver end-to-end infrastructure solutions.
+                  {t.about.profileP2Start}<span className="font-semibold text-terminal-cyan">{t.about.profileP2H1}</span>{t.about.profileP2Mid1}<span className="font-semibold text-terminal-cyan">{t.about.profileP2H2}</span>{t.about.profileP2Mid2}<span className="font-semibold text-terminal-cyan">{t.about.profileP2H3}</span>{t.about.profileP2Mid3}<span className="font-semibold text-terminal-cyan">{t.about.profileP2H4}</span>{t.about.profileP2End}
                 </p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
-                  { icon: <Cloud className="w-5 h-5" />, title: 'Cloud Architecture', desc: 'Multi-cloud design on AWS, Azure, GCP & OpenStack' },
-                  { icon: <Container className="w-5 h-5" />, title: 'Container Orchestration', desc: 'Docker, Kubernetes, Helm, Strimzi' },
-                  { icon: <Shield className="w-5 h-5" />, title: 'Security & Compliance', desc: 'Vault, Trivy, VPN, Firewall, SSH hardening' },
-                  { icon: <Zap className="w-5 h-5" />, title: 'Automation & IaC', desc: 'Terraform, Ansible, Bash, ArgoCD GitOps' },
+                  { icon: <Cloud className="w-5 h-5" />, title: t.about.highlights[0].title, desc: t.about.highlights[0].desc },
+                  { icon: <Container className="w-5 h-5" />, title: t.about.highlights[1].title, desc: t.about.highlights[1].desc },
+                  { icon: <Shield className="w-5 h-5" />, title: t.about.highlights[2].title, desc: t.about.highlights[2].desc },
+                  { icon: <Zap className="w-5 h-5" />, title: t.about.highlights[3].title, desc: t.about.highlights[3].desc },
                 ].map((item, i) => (
                   <div key={i} className="glass-card glow-border p-5 flex gap-4">
                     <div className="w-10 h-10 rounded-lg bg-brand-500/10 dark:bg-brand-500/20 flex items-center justify-center text-brand-600 dark:text-brand-400 flex-shrink-0">
@@ -487,9 +450,9 @@ export default function App() {
       <Section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white">Technical <span className="gradient-text">Skills</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white">{t.skills.heading[0]}<span className="gradient-text">{t.skills.heading[1]}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
-            <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">A comprehensive toolkit for building, deploying, and managing modern cloud-native infrastructure.</p>
+            <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{t.skills.subtitle}</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -514,7 +477,7 @@ export default function App() {
       <Section id="experience" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white">Professional <span className="gradient-text">Experience</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white">{t.experience.heading[0]}<span className="gradient-text">{t.experience.heading[1]}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
           </div>
 
@@ -562,12 +525,12 @@ export default function App() {
       <Section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white">Featured <span className="gradient-text">Projects</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white">{t.projects.heading[0]}<span className="gradient-text">{t.projects.heading[1]}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
-            <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Academic and professional projects showcasing cloud architecture, CI/CD pipelines, and infrastructure automation.</p>
+            <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{t.projects.subtitle}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, i) => (
               <div key={i} className="glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
                 {/* Header */}
@@ -603,7 +566,7 @@ export default function App() {
       <Section id="certifications" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white"><span className="gradient-text">Certifications</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white"><span className="gradient-text">{t.certifications.heading}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
           </div>
 
@@ -629,7 +592,7 @@ export default function App() {
       <Section id="education" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white"><span className="gradient-text">Education</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white"><span className="gradient-text">{t.education.heading}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
           </div>
 
@@ -641,15 +604,15 @@ export default function App() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                    National Engineering Degree in Computer Science
+                    {t.education.degree}
                   </h3>
                   <p className="text-brand-600 dark:text-brand-400 font-semibold text-lg">
-                    ESPRIT — Private Higher School of Engineering and Technology
+                    {t.education.school}
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400 font-mono text-sm mt-2">Sep 2022 – Sep 2025 · Tunisia</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-mono text-sm mt-2">{t.education.period}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {['Cloud Computing', 'DevOps', 'Software Engineering', 'Networking', 'Distributed Systems'].map((t, i) => (
-                      <span key={i} className="skill-badge text-xs">{t}</span>
+                    {t.education.tags.map((tag, i) => (
+                      <span key={i} className="skill-badge text-xs">{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -663,10 +626,10 @@ export default function App() {
       <Section id="contact" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-heading text-gray-900 dark:text-white">Get in <span className="gradient-text">Touch</span></h2>
+            <h2 className="section-heading text-gray-900 dark:text-white">{t.contact.heading[0]}<span className="gradient-text">{t.contact.heading[1]}</span></h2>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
             <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Looking for a Cloud & DevOps Engineer or Platform Engineer? Let's talk about how I can help build and automate your infrastructure.
+              {t.contact.subtitle}
             </p>
           </div>
 
@@ -677,7 +640,7 @@ export default function App() {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">Email</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">{t.contact.email}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 break-all">Fatnassihnifi.nassim@proton.me</p>
                 </div>
               </a>
@@ -687,7 +650,7 @@ export default function App() {
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">Phone</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">{t.contact.phone}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">+216 28 021 325</p>
                 </div>
               </a>
@@ -697,12 +660,12 @@ export default function App() {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">Location</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">{t.contact.location}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">Manouba, Tunis, Tunisia</p>
                 </div>
               </div>
 
-              <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi" target="_blank" rel="noopener noreferrer" className="glass-card glow-border p-6 flex items-center gap-5 hover:scale-[1.03] transition-all group">
+              <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi-a1698a186/" target="_blank" rel="noopener noreferrer" className="glass-card glow-border p-6 flex items-center gap-5 hover:scale-[1.03] transition-all group">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-600 to-brand-500 flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform">
                   <Linkedin className="w-6 h-6" />
                 </div>
@@ -722,10 +685,10 @@ export default function App() {
                 <span className="ml-4 text-xs text-gray-500 font-mono">contact@nassim</span>
               </div>
               <div className="terminal-body text-gray-300 space-y-1">
-                <p><span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> echo "Let's build something amazing together"</p>
-                <p className="text-white">Let's build something amazing together</p>
-                <p className="mt-2"><span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> mail -s "Collaboration" Fatnassihnifi.nassim@proton.me</p>
-                <p className="text-terminal-amber">Message sent successfully ✓</p>
+                <p><span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> {t.contact.terminalEcho}</p>
+                <p className="text-white">{t.contact.terminalOutput}</p>
+                <p className="mt-2"><span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> {t.contact.terminalMail}</p>
+                <p className="text-terminal-amber">{t.contact.terminalSuccess}</p>
                 <p className="mt-2"><span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> <span className="animate-terminal-blink">▎</span></p>
               </div>
             </div>
@@ -737,19 +700,21 @@ export default function App() {
       <footer className="py-10 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-terminal-cyan flex items-center justify-center text-white font-bold text-xs">
-              NF
-            </div>
+            <img
+              src="/photo-cv.png"
+              alt="NF"
+              className="w-8 h-8 rounded-lg object-cover ring-1 ring-brand-500/30"
+            />
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              © {new Date().getFullYear()} Nassim Fatnassi Hnifi — Cloud & DevOps Engineer
+              © {new Date().getFullYear()} {t.footer.copyright}
             </p>
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
+            <a href="https://www.linkedin.com/in/nassim-fatnassi-hnifi-a1698a186/-a1698a186/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
+            <a href="https://github.com/nassimfatnassi1999" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
               <Github className="w-5 h-5" />
             </a>
             <a href="mailto:Fatnassihnifi.nassim@proton.me" className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all">
