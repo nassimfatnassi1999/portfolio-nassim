@@ -1,0 +1,71 @@
+import { Section } from './Section';
+import { translations } from '../translations';
+import type { ReactNode } from 'react';
+
+type Translation = (typeof translations)[keyof typeof translations];
+
+type ProjectItem = {
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  icon: ReactNode;
+  gradient: string;
+};
+
+type ProjectsProps = {
+  t: Translation;
+  projects: ProjectItem[];
+};
+
+export function Projects({ t, projects }: ProjectsProps) {
+  return (
+    <Section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="section-heading text-gray-900 dark:text-white">
+            {t.projects.heading[0]}
+            <span className="gradient-text">{t.projects.heading[1]}</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
+          <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{t.projects.subtitle}</p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, idx) => (
+            <div key={idx} className="glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+              {/* Header */}
+              <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+                <div className="absolute inset-0 bg-black/10" />
+                {/* Decorative grid pattern */}
+                <div
+                  className="absolute inset-0 opacity-10"
+                  style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+                />
+                <div className="relative z-10 text-white text-center px-6">
+                  <div className="w-14 h-14 mx-auto rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    {project.icon}
+                  </div>
+                  <p className="text-sm font-medium opacity-80">{project.subtitle}</p>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{project.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, tagIdx) => (
+                    <span key={tagIdx} className="skill-badge text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
