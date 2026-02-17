@@ -74,6 +74,17 @@ export const translations = {
       heading: ['Professional ', 'Experience'],
       items: [
         {
+          role: 'Freelance Dev & Cloud Administrator',
+          company: 'Self-employed',
+          period: 'Sep 2025 – Present',
+          description: [
+            'End-to-End Development: Built high-performance, scalable web applications using React and Vite, ensuring modern UI/UX with TailwindCSS.',
+            'Production Deployment: Managed full deployment lifecycles on platforms like Gandi, handling domain configuration, hosting environment setup, and SSL security.',
+            'Infrastructure Management: Administered cloud hosting environments, ensuring reliability, security, and optimal performance for client applications.',
+          ],
+        },
+
+        {
           role: 'Cloud Engineer',
           company: 'Devoteam',
           period: 'Feb 2025 – Aug 2025',
@@ -118,6 +129,12 @@ export const translations = {
       heading: ['Featured ', 'Projects'],
       subtitle: 'Academic and professional projects showcasing cloud architecture, CI/CD pipelines, and infrastructure automation.',
       items: [
+        {
+          title: 'GeoDetectionReseaux',
+          subtitle: 'Freelance | Production Web App',
+          description:
+            'A complete freelance project involving end-to-end development and deployment. Built a responsive web application with React and TailwindCSS, and managed the entire production release including domain configuration and hosting on Gandi.',
+        },
         {
           title: 'Modern CI/CD Architecture for DevOps',
           subtitle: 'End-to-End DevOps Pipeline',
@@ -297,6 +314,16 @@ export const translations = {
       heading: ['Expérience ', 'Professionnelle'],
       items: [
         {
+          role: 'Développeur Freelance & Admin Cloud',
+          company: 'Indépendant',
+          period: 'Sep 2025 – Présent',
+          description: [
+            'Développement de bout en bout : Création d\'applications web performantes et évolutives avec React et Vite, assurant une UI/UX moderne avec TailwindCSS.',
+            'Déploiement en Production : Gestion complète des cycles de déploiement sur des plateformes comme Gandi, incluant la configuration de domaines et la sécurité SSL.',
+            'Gestion d\'Infrastructure : Administration des environnements d\'hébergement cloud, garantissant fiabilité, sécurité et performance optimale.',
+          ],
+        },
+        {
           role: 'Ingénieur Cloud',
           company: 'Devoteam',
           period: 'Fév 2025 – Août 2025',
@@ -341,6 +368,12 @@ export const translations = {
       heading: ['Projets ', 'Phares'],
       subtitle: "Projets académiques et professionnels mettant en valeur l'architecture cloud, les pipelines CI/CD et l'automatisation d'infrastructure.",
       items: [
+        {
+          title: 'GeoDetectionReseaux',
+          subtitle: 'Freelance | App Web en Production',
+          description:
+            'Un projet freelance complet impliquant le développement et le déploiement de bout en bout. Création d\'une application web responsive avec React et TailwindCSS, et gestion de la mise en production incluant la configuration de domaine et l\'hébergement sur Gandi.',
+        },
         {
           title: 'Architecture CI/CD Moderne pour DevOps',
           subtitle: 'Pipeline DevOps de bout en bout',

@@ -11,6 +11,7 @@ type ProjectItem = {
   tags: string[];
   icon: ReactNode;
   gradient: string;
+  link?: string;
 };
 
 type ProjectsProps = {
@@ -32,38 +33,54 @@ export function Projects({ t, projects }: ProjectsProps) {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, idx) => (
-            <div key={idx} className="glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
-              {/* Header */}
-              <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-black/10" />
-                {/* Decorative grid pattern */}
-                <div
-                  className="absolute inset-0 opacity-10"
-                  style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
-                />
-                <div className="relative z-10 text-white text-center px-6">
-                  <div className="w-14 h-14 mx-auto rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                    {project.icon}
+          {projects.map((project, idx) => {
+            const CardContent = (
+              <>
+                {/* Header */}
+                <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-black/10" />
+                  {/* Decorative grid pattern */}
+                  <div
+                    className="absolute inset-0 opacity-10"
+                    style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+                  />
+                  <div className="relative z-10 text-white text-center px-6">
+                    <div className="w-14 h-14 mx-auto rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                      {project.icon}
+                    </div>
+                    <p className="text-sm font-medium opacity-80">{project.subtitle}</p>
                   </div>
-                  <p className="text-sm font-medium opacity-80">{project.subtitle}</p>
                 </div>
-              </div>
 
-              {/* Body */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIdx) => (
-                    <span key={tagIdx} className="skill-badge text-xs">
-                      {tag}
-                    </span>
-                  ))}
+                {/* Body */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIdx) => (
+                      <span key={tagIdx} className="skill-badge text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+              </>
+            );
+
+            return (
+              <div key={idx} className="glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+                {project.link ? (
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+                    {CardContent}
+                  </a>
+                ) : (
+                  <div className="h-full">{CardContent}</div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </Section>
