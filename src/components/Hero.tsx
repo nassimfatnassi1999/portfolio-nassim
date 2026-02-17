@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { translations } from '../translations';
 import { TypingText } from './TypingText';
 import { RamadanLantern } from './RamadanLantern';
-import { TerminalTypewriter } from './TerminalTypewriter';
+import { Terminal } from './Terminal';
 import { CrescentMoon } from './CrescentMoon';
 
 type Translation = (typeof translations)[keyof typeof translations];
@@ -16,7 +15,6 @@ type HeroProps = {
 };
 
 export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps) {
-  const [showRamadanOutput, setShowRamadanOutput] = useState(false);
   return (
     <section id="home" className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center">
       {/* Background decorations */}
@@ -28,7 +26,7 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <RamadanLantern />
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left — Text */}
           <div className="animate-fade-in relative">
             <CrescentMoon />
@@ -47,9 +45,14 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
               <TypingText key={language} texts={[...t.hero.typingTexts]} />
             </div>
 
-            <p className="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
+            <p className="text-lg text-gray-500 dark:text-gray-400 mb-6 max-w-xl leading-relaxed">
               {t.hero.description}
             </p>
+
+            {/* Mobile Terminal */}
+            <div className="block md:hidden mb-8">
+              <Terminal variant="mobile" />
+            </div>
 
             <div className="flex flex-wrap gap-4">
               <button
@@ -78,71 +81,8 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
           </div>
 
           {/* Right — Terminal Card */}
-          <div className="animate-fade-in hidden lg:block" style={{ animationDelay: '0.3s' }}>
-            <div className="terminal-window animate-pulse-glow">
-              <div className="terminal-header">
-                <span className="terminal-dot bg-red-500" />
-                <span className="terminal-dot bg-yellow-500" />
-                <span className="terminal-dot bg-green-500" />
-                <span className="ml-4 text-xs text-gray-500 font-mono">nassim@cloud ~ </span>
-              </div>
-              <div className="terminal-body text-gray-300 space-y-2">
-                <p>
-                  <span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> whoami
-                </p>
-                <p className="text-white">nassim.fatnassi — Cloud & DevOps Engineer</p>
-                <p className="mt-3">
-                  <span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> cat skills.yaml
-                </p>
-                <p className="text-terminal-amber">cloud:</p>
-                <p className="pl-4">- AWS, Azure, GCP, OpenStack</p>
-                <p className="text-terminal-amber">containers:</p>
-                <p className="pl-4">- Docker, Kubernetes, Helm</p>
-                <p className="text-terminal-amber">iac & automation:</p>
-                <p className="pl-4">- Terraform, Ansible, Bash</p>
-                <p className="text-terminal-amber">cicd:</p>
-                <p className="pl-4">- Jenkins, GitLab CI, ArgoCD</p>
-                <p className="text-terminal-amber">monitoring:</p>
-                <p className="pl-4">- Prometheus, Grafana, EFK</p>
-                <p className="mt-3">
-                  <span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> kubectl get nodes
-                </p>
-                <p className="text-green-400">NAME        STATUS  ROLES   AGE</p>
-                <p>node-01     Ready   master  365d</p>
-                <p>node-02     Ready   worker  365d</p>
-                <p>node-03     Ready   worker  365d</p>
-
-                <div className="mt-2 min-h-[60px]">
-                  <div className="flex">
-                    <span className="text-terminal-green mr-2">➜</span>
-                    <span className="text-terminal-cyan mr-2">~</span>
-                    <TerminalTypewriter
-                      text="cat ramadan.txt"
-                      delay={3000}
-                      speed={50}
-                      onComplete={() => setShowRamadanOutput(true)}
-                      showCursor={!showRamadanOutput}
-                    />
-                  </div>
-
-                  {showRamadanOutput && (
-                    <div className="mt-1">
-                      <TerminalTypewriter
-                        text="Ramadan Kareem 🌙 - May this month bring peace and prosperity"
-                        className="text-[#00FF41]"
-                        speed={30}
-                        showCursor={false}
-                      />
-                      <span className="animate-pulse ml-1">🌙</span>
-                    </div>
-                  )}
-                </div>
-
-                {!showRamadanOutput && (
-                  <p className="mt-2" style={{ visibility: 'hidden' }}>placeholder</p>
-                )}
-              </div>
-            </div>
+          <div className="animate-fade-in hidden md:block" style={{ animationDelay: '0.3s' }}>
+            <Terminal variant="desktop" className="transform transition-all duration-300 hover:scale-[1.02]" />
           </div>
         </div>
 
@@ -153,3 +93,4 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
     </section>
   );
 }
+
