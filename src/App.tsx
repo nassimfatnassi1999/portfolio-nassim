@@ -16,6 +16,7 @@ import {
 import { translations } from './translations';
 import { NavBar } from './components/NavBar';
 import { Hero } from './components/Hero';
+import { NightSky } from './components/NightSky';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
@@ -151,7 +152,8 @@ export default function App() {
   /* ═══════════════════════════ RENDER ═══════════════════════════ */
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
+      {dark && <NightSky />}
       <NavBar
         t={t}
         navIds={navIds}

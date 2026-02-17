@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { translations } from '../translations';
 import { TypingText } from './TypingText';
+import { RamadanLantern } from './RamadanLantern';
+import { TerminalTypewriter } from './TerminalTypewriter';
+import { CrescentMoon } from './CrescentMoon';
 
 type Translation = (typeof translations)[keyof typeof translations];
 
@@ -12,6 +16,7 @@ type HeroProps = {
 };
 
 export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps) {
+  const [showRamadanOutput, setShowRamadanOutput] = useState(false);
   return (
     <section id="home" className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center">
       {/* Background decorations */}
@@ -22,9 +27,11 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
+        <RamadanLantern />
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left — Text */}
-          <div className="animate-fade-in">
+          <div className="animate-fade-in relative">
+            <CrescentMoon />
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-medium mb-6 border border-brand-500/20">
               <span className="w-2 h-2 rounded-full bg-terminal-green animate-pulse" />
               {t.hero.badge}
@@ -104,9 +111,36 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
                 <p>node-01     Ready   master  365d</p>
                 <p>node-02     Ready   worker  365d</p>
                 <p>node-03     Ready   worker  365d</p>
-                <p className="mt-2">
-                  <span className="text-terminal-green">➜</span> <span className="text-terminal-cyan">~</span> <span className="animate-terminal-blink">▎</span>
-                </p>
+
+                <div className="mt-2 min-h-[60px]">
+                  <div className="flex">
+                    <span className="text-terminal-green mr-2">➜</span>
+                    <span className="text-terminal-cyan mr-2">~</span>
+                    <TerminalTypewriter
+                      text="cat ramadan.txt"
+                      delay={3000}
+                      speed={50}
+                      onComplete={() => setShowRamadanOutput(true)}
+                      showCursor={!showRamadanOutput}
+                    />
+                  </div>
+
+                  {showRamadanOutput && (
+                    <div className="mt-1">
+                      <TerminalTypewriter
+                        text="Ramadan Kareem 🌙 - May this month bring peace and prosperity"
+                        className="text-[#00FF41]"
+                        speed={30}
+                        showCursor={false}
+                      />
+                      <span className="animate-pulse ml-1">🌙</span>
+                    </div>
+                  )}
+                </div>
+
+                {!showRamadanOutput && (
+                  <p className="mt-2" style={{ visibility: 'hidden' }}>placeholder</p>
+                )}
               </div>
             </div>
           </div>
