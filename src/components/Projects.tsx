@@ -21,7 +21,11 @@ type ProjectsProps = {
 
 export function Projects({ t, projects }: ProjectsProps) {
   return (
-    <Section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50">
+    <Section
+      id="projects"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50"
+      threshold={0}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="section-heading text-gray-900 dark:text-white">

@@ -26,8 +26,18 @@ export function useInView(threshold = 0.15) {
 }
 
 /* ─── Animated Section Wrapper ─── */
-export function Section({ children, className = '', id }: { children: ReactNode; className?: string; id?: string }) {
-  const { ref, inView } = useInView();
+export function Section({
+  children,
+  className = '',
+  id,
+  threshold = 0.15,
+}: {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+  threshold?: number;
+}) {
+  const { ref, inView } = useInView(threshold);
   return (
     <section
       id={id}
