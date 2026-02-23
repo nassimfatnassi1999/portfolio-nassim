@@ -117,7 +117,7 @@ export default function App() {
   ];
 
   const experienceTags = [
-    ['React', 'Vite', 'TailwindCSS', 'Gandi', 'Cloud Admin', 'Hosting'],
+    ['React', 'Vite', 'TailwindCSS', 'Gandi', 'VPS Linux', 'Nginx', 'CI/CD', 'Security'],
     ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Prometheus', 'Grafana', 'EFK'],
     ['Docker', 'Kubernetes', 'CI/CD', 'Full-Stack'],
     ['Laravel', 'MySQL', 'Bootstrap'],
@@ -130,6 +130,7 @@ export default function App() {
   }));
 
   const projectMeta = [
+    { tags: ['DevOps', 'VPS Linux', 'Nginx', 'Bash CI/CD', 'Security', 'UFW / Fail2ban', 'TLS/SSL', 'PM2'], icon: <Shield className="w-8 h-8" />, gradient: 'from-fuchsia-600 to-purple-600' },
     { tags: ['React', 'Vite', 'TailwindCSS', 'Gandi', 'Production', 'Hosting'], icon: <Globe className="w-8 h-8" />, gradient: 'from-blue-600 to-indigo-500', link: 'https://geodetectionreseaux.fr' },
     { tags: ['Jenkins', 'SonarCloud', 'Nexus', 'Docker', 'Trivy', 'K8s', 'Terraform', 'AKS', 'Prometheus', 'Grafana'], icon: <GitBranch className="w-8 h-8" />, gradient: 'from-brand-600 to-cyan-500' },
     { tags: ['OpenStack', 'Kubernetes', 'Ansible', 'Magnum', 'Heat', 'Prometheus', 'Grafana', 'Angular', 'Spring Boot'], icon: <Cloud className="w-8 h-8" />, gradient: 'from-purple-600 to-brand-500' },

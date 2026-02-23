@@ -61,7 +61,7 @@ export function Projects({ t, projects }: ProjectsProps) {
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
+                  <div className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 whitespace-pre-line">{project.description}</div>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, tagIdx) => (
                       <span key={tagIdx} className="skill-badge text-xs">

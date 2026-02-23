@@ -81,6 +81,9 @@ export const translations = {
             'End-to-End Development: Built high-performance, scalable web applications using React and Vite, ensuring modern UI/UX with TailwindCSS.',
             'Production Deployment: Managed full deployment lifecycles on platforms like Gandi, handling domain configuration, hosting environment setup, and SSL security.',
             'Infrastructure Management: Administered cloud hosting environments, ensuring reliability, security, and optimal performance for client applications.',
+            'Secure Cloud Provisioning (Apprensur CRM): Configured bare-metal Linux VPS environments for critical B2B SaaS solutions.',
+            'Automated CI/CD & Deployments: Developed robust Bash scripts for automated pipelines, process management (PM2), and Nginx reverse proxy configuration.',
+            'Server Security & Hardening: Implemented strict perimeter defense strategies using UFW, Fail2ban, and automated SSL/TLS management via Let\'s Encrypt.',
           ],
         },
 
@@ -129,6 +132,16 @@ export const translations = {
       heading: ['Featured ', 'Projects'],
       subtitle: 'Academic and professional projects showcasing cloud architecture, CI/CD pipelines, and infrastructure automation.',
       items: [
+        {
+          title: 'Apprensur CRM',
+          subtitle: 'B2B SaaS | Railway Industry',
+          description:
+            `System administration (Cloud/DevOps) and secure design of a critical training management solution.\n\n` +
+            `• Cloud & Infrastructure: Provisioning and configuration of a bare-metal Linux VPS.\n` +
+            `• DevOps & Deployment: Automated CI/CD pipelines via Bash scripts and process management (PM2).\n` +
+            `• Network & Web Server: Advanced reverse proxy configuration (Nginx) and Real-Time connection handling.\n` +
+            `• Security & Compliance: Server hardening (UFW, Fail2ban) and automated SSL/TLS certificate management.`,
+        },
         {
           title: 'GeoDetectionReseaux',
           subtitle: 'Freelance | Production Web App',
@@ -321,6 +334,9 @@ export const translations = {
             'Développement de bout en bout : Création d\'applications web performantes et évolutives avec React et Vite, assurant une UI/UX moderne avec TailwindCSS.',
             'Déploiement en Production : Gestion complète des cycles de déploiement sur des plateformes comme Gandi, incluant la configuration de domaines et la sécurité SSL.',
             'Gestion d\'Infrastructure : Administration des environnements d\'hébergement cloud, garantissant fiabilité, sécurité et performance optimale.',
+            'Provisionnement Cloud Sécurisé (Apprensur CRM) : Configuration de serveurs vierges (VPS Linux) pour des SaaS B2B critiques.',
+            'CI/CD & Déploiements Automatisés : Développement de scripts Bash robustes pour les pipelines d\'intégration, gestion des processus (PM2) et configuration de proxy inverse Nginx.',
+            'Sécurité & Durcissement Serveur : Implémentation stricte de défenses périmétriques via UFW, Fail2ban, et gestion automatisée SSL/TLS (Let\'s Encrypt).',
           ],
         },
         {
@@ -368,6 +384,16 @@ export const translations = {
       heading: ['Projets ', 'Phares'],
       subtitle: "Projets académiques et professionnels mettant en valeur l'architecture cloud, les pipelines CI/CD et l'automatisation d'infrastructure.",
       items: [
+        {
+          title: 'Apprensur CRM',
+          subtitle: 'SaaS B2B | Secteur Ferroviaire',
+          description:
+            `Administration système (Cloud/DevOps) et sécurisation d'une solution critique de gestion des formations.\n\n` +
+            `• Cloud & Infrastructure : Provisionnement et configuration de serveur vierge (VPS Linux).\n` +
+            `• DevOps & Déploiement : Automatisation des pipelines CI/CD via scripts Bash et gestion des processus (PM2).\n` +
+            `• Réseau & Web Server : Configuration avancée de proxy inverse (Nginx) et gestion des connexions Temps Réel.\n` +
+            `• Sécurité & Conformité : Durcissement serveur (UFW, Fail2ban) et gestion automatisée des certificats SSL/TLS.`,
+        },
         {
           title: 'GeoDetectionReseaux',
           subtitle: 'Freelance | App Web en Production',
