@@ -1,5 +1,6 @@
 import { Section } from './Section';
 import { translations } from '../translations';
+import { useProfile } from '../context/ProfileContext';
 
 type Translation = (typeof translations)[keyof typeof translations];
 
@@ -17,6 +18,13 @@ type ExperienceProps = {
 };
 
 export function Experience({ t, experiences }: ExperienceProps) {
+  const { profile, currentProfileId } = useProfile();
+
+  // Filter experiences based on current profile
+  const filteredExperiences = profile.experienceFilter
+    .filter((idx) => idx < experiences.length)
+    .map((idx) => experiences[idx]);
+
   return (
     <Section id="experience" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -28,12 +36,12 @@ export function Experience({ t, experiences }: ExperienceProps) {
           <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
         </div>
 
-        <div className="max-w-4xl mx-auto relative">
+        <div key={currentProfileId} className="max-w-4xl mx-auto relative profile-content-enter">
           {/* Timeline line */}
           <div className="timeline-line hidden md:block" />
 
           <div className="space-y-8">
-            {experiences.map((exp, idx) => (
+            {filteredExperiences.map((exp, idx) => (
               <div key={idx} className="relative md:pl-16">
                 {/* Dot */}
                 <div className="hidden md:flex absolute left-4 top-8 w-5 h-5 rounded-full bg-brand-500 border-4 border-white dark:border-gray-950 z-10" />

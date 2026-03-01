@@ -1,13 +1,13 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { translations } from '../translations';
-
-type Translation = (typeof translations)[keyof typeof translations];
+import { useProfile } from '../context/ProfileContext';
 
 type FooterProps = {
-  t: Translation;
+  language: 'en' | 'fr';
 };
 
-export function Footer({ t }: FooterProps) {
+export function Footer({ language }: FooterProps) {
+  const { profile } = useProfile();
+
   return (
     <footer className="py-10 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
@@ -17,7 +17,7 @@ export function Footer({ t }: FooterProps) {
             alt="NF"
             className="w-8 h-8 rounded-lg object-cover ring-1 ring-brand-500/30"
           />
-          <p className="text-sm text-gray-500 dark:text-gray-400">© {new Date().getFullYear()} {t.footer.copyright}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">© {new Date().getFullYear()} {profile.footerTitle[language]}</p>
         </div>
 
         <div className="flex items-center gap-4">

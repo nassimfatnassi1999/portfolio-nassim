@@ -1,14 +1,47 @@
-import { Cloud, Container, Github, Globe, Linkedin, Mail, MapPin, Phone, Shield, Zap } from 'lucide-react';
+import { Cloud, Container, Github, Globe, Linkedin, Mail, MapPin, Phone, Shield, Zap, Code2, Server, Cpu, Network } from 'lucide-react';
 import { Section } from './Section';
 import { translations } from '../translations';
+import { useProfile } from '../context/ProfileContext';
+import type { ReactNode } from 'react';
 
 type Translation = (typeof translations)[keyof typeof translations];
 
 type AboutProps = {
   t: Translation;
+  language: 'en' | 'fr';
 };
 
-export function About({ t }: AboutProps) {
+// Map highlight titles to icons
+const highlightIcons: Record<string, ReactNode> = {
+  'Cloud Architecture': <Cloud className="w-5 h-5" />,
+  'Architecture Cloud': <Cloud className="w-5 h-5" />,
+  'Container Orchestration': <Container className="w-5 h-5" />,
+  'Orchestration de Conteneurs': <Container className="w-5 h-5" />,
+  'Security & Compliance': <Shield className="w-5 h-5" />,
+  'Sécurité & Conformité': <Shield className="w-5 h-5" />,
+  'Automation & IaC': <Zap className="w-5 h-5" />,
+  'Automatisation & IaC': <Zap className="w-5 h-5" />,
+  'Frontend Development': <Code2 className="w-5 h-5" />,
+  'Développement Frontend': <Code2 className="w-5 h-5" />,
+  'Backend Engineering': <Server className="w-5 h-5" />,
+  'Ingénierie Backend': <Server className="w-5 h-5" />,
+  'Database Design': <Globe className="w-5 h-5" />,
+  'Conception BDD': <Globe className="w-5 h-5" />,
+  'DevOps & CI/CD': <Container className="w-5 h-5" />,
+  'Server Administration': <Cpu className="w-5 h-5" />,
+  'Administration Serveurs': <Cpu className="w-5 h-5" />,
+  'Network Engineering': <Network className="w-5 h-5" />,
+  'Ingénierie Réseau': <Network className="w-5 h-5" />,
+  'Security & Hardening': <Shield className="w-5 h-5" />,
+  'Sécurité & Durcissement': <Shield className="w-5 h-5" />,
+  'Monitoring & Backup': <Zap className="w-5 h-5" />,
+  'Monitoring & Sauvegarde': <Zap className="w-5 h-5" />,
+};
+
+export function About({ t, language }: AboutProps) {
+  const { profile } = useProfile();
+  const aboutData = profile.about[language];
+
   return (
     <Section id="about" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -31,7 +64,7 @@ export function About({ t }: AboutProps) {
               loading="eager"
             />
             <h3 className="text-xl font-bold mb-1">Nassim Fatnassi Hnifi</h3>
-            <p className="text-brand-600 dark:text-brand-400 font-medium mb-4">{t.about.jobTitle}</p>
+            <p className="text-brand-600 dark:text-brand-400 font-medium mb-4">{aboutData.jobTitle}</p>
             <div className="flex gap-3 mb-6">
               <a
                 href="https://www.linkedin.com/in/nassim-fatnassi-hnifi-a1698a186/-a1698a186/"
@@ -74,35 +107,30 @@ export function About({ t }: AboutProps) {
             <div className="glass-card p-8">
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t.about.profileTitle}</h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                {t.about.profileP1}{' '}
-                <span className="text-brand-600 dark:text-brand-400 font-semibold">{t.about.profileP1Bold1}</span>{' '}
-                {t.about.profileP1Mid}{' '}
-                <span className="text-brand-600 dark:text-brand-400 font-semibold">{t.about.profileP1Bold2}</span>
-                {t.about.profileP1End}
+                {aboutData.profileP1}{' '}
+                <span className="text-brand-600 dark:text-brand-400 font-semibold">{aboutData.profileP1Bold1}</span>{' '}
+                {aboutData.profileP1Mid}{' '}
+                <span className="text-brand-600 dark:text-brand-400 font-semibold">{aboutData.profileP1Bold2}</span>
+                {aboutData.profileP1End}
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {t.about.profileP2Start}
-                <span className="font-semibold text-terminal-cyan">{t.about.profileP2H1}</span>
-                {t.about.profileP2Mid1}
-                <span className="font-semibold text-terminal-cyan">{t.about.profileP2H2}</span>
-                {t.about.profileP2Mid2}
-                <span className="font-semibold text-terminal-cyan">{t.about.profileP2H3}</span>
-                {t.about.profileP2Mid3}
-                <span className="font-semibold text-terminal-cyan">{t.about.profileP2H4}</span>
-                {t.about.profileP2End}
+                {aboutData.profileP2Start}
+                <span className="font-semibold text-terminal-cyan">{aboutData.profileP2H1}</span>
+                {aboutData.profileP2Mid1}
+                <span className="font-semibold text-terminal-cyan">{aboutData.profileP2H2}</span>
+                {aboutData.profileP2Mid2}
+                <span className="font-semibold text-terminal-cyan">{aboutData.profileP2H3}</span>
+                {aboutData.profileP2Mid3}
+                <span className="font-semibold text-terminal-cyan">{aboutData.profileP2H4}</span>
+                {aboutData.profileP2End}
               </p>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                { icon: <Cloud className="w-5 h-5" />, title: t.about.highlights[0].title, desc: t.about.highlights[0].desc },
-                { icon: <Container className="w-5 h-5" />, title: t.about.highlights[1].title, desc: t.about.highlights[1].desc },
-                { icon: <Shield className="w-5 h-5" />, title: t.about.highlights[2].title, desc: t.about.highlights[2].desc },
-                { icon: <Zap className="w-5 h-5" />, title: t.about.highlights[3].title, desc: t.about.highlights[3].desc },
-              ].map((item, idx) => (
+              {aboutData.highlights.map((item, idx) => (
                 <div key={idx} className="glass-card glow-border p-5 flex gap-4">
                   <div className="w-10 h-10 rounded-lg bg-brand-500/10 dark:bg-brand-500/20 flex items-center justify-center text-brand-600 dark:text-brand-400 flex-shrink-0">
-                    {item.icon}
+                    {highlightIcons[item.title] || <Zap className="w-5 h-5" />}
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{item.title}</h4>

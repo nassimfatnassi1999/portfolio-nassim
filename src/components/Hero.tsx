@@ -2,8 +2,9 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { translations } from '../translations';
 import { TypingText } from './TypingText';
 import { RamadanLantern } from './RamadanLantern';
-import { Terminal } from './Terminal';
+import { DynamicTerminal } from './DynamicTerminal';
 import { CrescentMoon } from './CrescentMoon';
+import { useProfile } from '../context/ProfileContext';
 
 type Translation = (typeof translations)[keyof typeof translations];
 
@@ -15,6 +16,8 @@ type HeroProps = {
 };
 
 export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps) {
+  const { profile, currentProfileId } = useProfile();
+
   return (
     <section id="home" className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center">
       {/* Background decorations */}
@@ -42,16 +45,16 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
             </h1>
 
             <div className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-6 min-h-[2.5rem]">
-              <TypingText key={language} texts={[...t.hero.typingTexts]} />
+              <TypingText key={`${language}-${currentProfileId}`} texts={[...profile.typingTexts[language]]} />
             </div>
 
             <p className="text-lg text-gray-500 dark:text-gray-400 mb-6 max-w-xl leading-relaxed">
-              {t.hero.description}
+              {profile.heroDescription[language]}
             </p>
 
             {/* Mobile Terminal */}
             <div className="block md:hidden mb-8">
-              <Terminal variant="mobile" />
+              <DynamicTerminal key={`mobile-${currentProfileId}`} variant="mobile" />
             </div>
 
             <div className="flex flex-wrap gap-4">
@@ -82,7 +85,7 @@ export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps
 
           {/* Right — Terminal Card */}
           <div className="animate-fade-in hidden md:block" style={{ animationDelay: '0.3s' }}>
-            <Terminal variant="desktop" className="transform transition-all duration-300 hover:scale-[1.02]" />
+            <DynamicTerminal key={`desktop-${currentProfileId}`} variant="desktop" className="transform transition-all duration-300 hover:scale-[1.02]" />
           </div>
         </div>
 

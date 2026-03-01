@@ -185,3 +185,59 @@
 .animate-fade-in-star {
   animation: fade-in-star 0.8s ease-out forwards;
 }
+
+/* ─── Profile Transition Animations ─── */
+.profile-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.profile-transitioning {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.profile-content-enter {
+  animation: profileContentEnter 0.5s ease-out forwards;
+}
+
+@keyframes profileContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Profile Selector: Glitch on switch ─── */
+@keyframes profileGlitch {
+  0%   { transform: translate(0); filter: none; }
+  10%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+  20%  { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+  30%  { transform: translate(-1px, 2px); filter: hue-rotate(45deg); }
+  40%  { transform: translate(1px, -2px); filter: none; }
+  50%  { transform: translate(0); filter: none; }
+  100% { transform: translate(0); filter: none; }
+}
+
+.profile-glitch {
+  animation: profileGlitch 0.5s ease-out;
+}
+
+/* ─── Profile Dropdown: Stagger items ─── */
+@keyframes dropdownItemSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.profile-dropdown-item {
+  animation: dropdownItemSlide 0.2s ease-out both;
+}

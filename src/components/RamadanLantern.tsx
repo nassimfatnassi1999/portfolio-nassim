@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function RamadanLantern() {
     return (
         <div className="absolute top-0 right-10 lg:right-20 z-20 hidden md:block animate-fade-in-down origin-top" style={{ animationDelay: '0.5s' }}>

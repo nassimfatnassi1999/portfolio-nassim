@@ -2,18 +2,15 @@ import { useEffect, useState } from 'react';
 import {
   Activity,
   Cloud,
-  Code2,
-  Container,
   GitBranch,
-  HardDrive,
   Layers,
-  Network,
   Globe,
   Server,
   Shield,
   Users,
 } from 'lucide-react';
 import { translations } from './translations';
+import { ProfileProvider } from './context/ProfileContext';
 import { NavBar } from './components/NavBar';
 import { Hero } from './components/Hero';
 import { NightSky } from './components/NightSky';
@@ -49,11 +46,6 @@ export default function App() {
     localStorage.setItem('language', newLang);
   };
 
-  const cvLinks = {
-    en: 'https://drive.google.com/uc?export=download&id=1-ql96PCwiaMvd_C-gh1tQtg7pnUA3oP3',
-    fr: 'https://drive.google.com/uc?export=download&id=1ZFXNKsu356uliNQzl8TwX38s2NMGWoIz',
-  };
-
   const t = translations[language];
 
   const scrollTo = (id: string) => {
@@ -63,58 +55,7 @@ export default function App() {
 
   const navIds = ['home', 'about', 'skills', 'experience', 'projects', 'certifications', 'education', 'contact'];
 
-  /* ─── DATA ─── */
-
-  const skillCategories = [
-    {
-      icon: <Cloud className="w-6 h-6" />,
-      title: t.skills.categories[0].title,
-      skills: ['AWS', 'Google Cloud', 'Azure', 'OpenStack'],
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: <Container className="w-6 h-6" />,
-      title: t.skills.categories[1].title,
-      skills: ['Docker', 'Docker Compose', 'Kubernetes', 'Helm', 'AKS', 'Strimzi'],
-      color: 'from-cyan-500 to-teal-500',
-    },
-    {
-      icon: <GitBranch className="w-6 h-6" />,
-      title: t.skills.categories[2].title,
-      skills: ['Git', 'GitHub', 'GitLab CI/CD', 'Jenkins', 'ArgoCD', 'Vault', 'SonarCloud', 'Nexus', 'Trivy'],
-      color: 'from-teal-500 to-green-500',
-    },
-    {
-      icon: <Layers className="w-6 h-6" />,
-      title: t.skills.categories[3].title,
-      skills: ['Terraform', 'OpenTofu', 'Ansible', 'Bash Scripting', 'Heat (OpenStack)'],
-      color: 'from-purple-500 to-blue-500',
-    },
-    {
-      icon: <Activity className="w-6 h-6" />,
-      title: t.skills.categories[4].title,
-      skills: ['Prometheus', 'Grafana', 'EFK Stack', 'Promtail', 'Loki', 'Zabbix'],
-      color: 'from-orange-500 to-red-500',
-    },
-    {
-      icon: <HardDrive className="w-6 h-6" />,
-      title: t.skills.categories[5].title,
-      skills: ['NAS/SAN', 'NFS', 'FTP', 'SMB', 'Ceph', 'RAID', 'VMware', 'VirtualBox', 'KVM', 'Proxmox', 'Rsync'],
-      color: 'from-rose-500 to-pink-500',
-    },
-    {
-      icon: <Network className="w-6 h-6" />,
-      title: t.skills.categories[6].title,
-      skills: ['TCP/IP', 'DNS', 'DHCP', 'HTTP/HTTPS', 'VPN', 'VLAN', 'Firewall', 'SSH'],
-      color: 'from-emerald-500 to-teal-500',
-    },
-    {
-      icon: <Code2 className="w-6 h-6" />,
-      title: t.skills.categories[7].title,
-      skills: ['Python', 'Java', 'Golang', 'Linux (Ubuntu, Manjaro, Pop!_OS)', 'Windows'],
-      color: 'from-amber-500 to-orange-500',
-    },
-  ];
+  /* ─── DATA (kept for Experience/Projects that still use original arrays) ─── */
 
   const experienceTags = [
     ['React', 'Vite', 'TailwindCSS', 'Gandi', 'VPS Linux', 'Nginx', 'CI/CD', 'Security'],
@@ -155,43 +96,44 @@ export default function App() {
   /* ═══════════════════════════ RENDER ═══════════════════════════ */
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
-      {dark && <NightSky />}
-      <NavBar
-        t={t}
-        navIds={navIds}
-        onNavClick={scrollTo}
-        cvLink={cvLinks[language]}
-        language={language}
-        toggleLanguage={toggleLanguage}
-        dark={dark}
-        toggleTheme={() => setDark(!dark)}
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-      />
+    <ProfileProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
+        {dark && <NightSky />}
+        <NavBar
+          t={t}
+          navIds={navIds}
+          onNavClick={scrollTo}
+          language={language}
+          toggleLanguage={toggleLanguage}
+          dark={dark}
+          toggleTheme={() => setDark(!dark)}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
 
-      <Hero
-        t={t}
-        language={language}
-        onProjectsClick={() => scrollTo('projects')}
-        onContactClick={() => scrollTo('contact')}
-      />
+        <Hero
+          t={t}
+          language={language}
+          onProjectsClick={() => scrollTo('projects')}
+          onContactClick={() => scrollTo('contact')}
+        />
 
-      <About t={t} />
+        <About t={t} language={language} />
 
-      <Skills t={t} skillCategories={skillCategories} />
+        <Skills t={t} language={language} />
 
-      <Experience t={t} experiences={experiences} />
+        <Experience t={t} experiences={experiences} />
 
-      <Projects t={t} projects={projects} />
+        <Projects t={t} projects={projects} />
 
-      <Certifications t={t} certifications={certifications} />
+        <Certifications t={t} certifications={certifications} />
 
-      <Education t={t} />
+        <Education t={t} />
 
-      <Contact t={t} />
+        <Contact t={t} language={language} />
 
-      <Footer t={t} />
-    </div>
+        <Footer language={language} />
+      </div>
+    </ProfileProvider>
   );
 }

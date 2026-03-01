@@ -1,14 +1,18 @@
 import { Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { Section } from './Section';
 import { translations } from '../translations';
+import { useProfile } from '../context/ProfileContext';
 
 type Translation = (typeof translations)[keyof typeof translations];
 
 type ContactProps = {
   t: Translation;
+  language: 'en' | 'fr';
 };
 
-export function Contact({ t }: ContactProps) {
+export function Contact({ t, language }: ContactProps) {
+  const { profile } = useProfile();
+
   return (
     <Section id="contact" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -18,7 +22,7 @@ export function Contact({ t }: ContactProps) {
             <span className="gradient-text">{t.contact.heading[1]}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
-          <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">{t.contact.subtitle}</p>
+          <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">{profile.contactSubtitle[language]}</p>
         </div>
 
         <div className="max-w-4xl mx-auto">

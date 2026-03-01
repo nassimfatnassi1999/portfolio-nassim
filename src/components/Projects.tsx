@@ -1,5 +1,6 @@
 import { Section } from './Section';
 import { translations } from '../translations';
+import { useProfile } from '../context/ProfileContext';
 import type { ReactNode } from 'react';
 
 type Translation = (typeof translations)[keyof typeof translations];
@@ -20,6 +21,13 @@ type ProjectsProps = {
 };
 
 export function Projects({ t, projects }: ProjectsProps) {
+  const { profile, currentProfileId } = useProfile();
+
+  // Filter projects based on current profile
+  const filteredProjects = profile.projectFilter
+    .filter((idx) => idx < projects.length)
+    .map((idx) => projects[idx]);
+
   return (
     <Section
       id="projects"
@@ -36,14 +44,13 @@ export function Projects({ t, projects }: ProjectsProps) {
           <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{t.projects.subtitle}</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, idx) => {
+        <div key={currentProfileId} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 profile-content-enter">
+          {filteredProjects.map((project, idx) => {
             const CardContent = (
               <>
                 {/* Header */}
                 <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/10" />
-                  {/* Decorative grid pattern */}
                   <div
                     className="absolute inset-0 opacity-10"
                     style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
