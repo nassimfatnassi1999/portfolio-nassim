@@ -1,0 +1,348 @@
+{
+  "profiles": {
+    "cloud-devops": {
+      "id": "cloud-devops",
+      "key": "cloud",
+      "title": {
+        "en": "Cloud & DevOps Engineer",
+        "fr": "Ingénieur Cloud & DevOps"
+      },
+      "tagline": {
+        "en": "Designing reliable, modern, and scalable infrastructures",
+        "fr": "Conception d'infrastructures fiables, modernes et scalables"
+      },
+      "theme": {
+        "primaryColor": "#00D4AA",
+        "secondaryColor": "#0A1929",
+        "accentColor": "#FF6B35",
+        "terminalStyle": "modern-cloud",
+        "backgroundEffect": "floating-clouds",
+        "fontFamily": "JetBrains Mono",
+        "iconSet": "cloud-icons"
+      },
+      "heroDescription": {
+        "en": "Passionate about automation and system performance. I design reliable, modern, and scalable infrastructures combining technical expertise, rigor, and an innovative mindset.",
+        "fr": "Passionné par l'automatisation et la performance système. Je conçois des infrastructures fiables, modernes et évolutives alliant expertise technique, rigueur et esprit d'innovation."
+      },
+      "typingTexts": {
+        "en": ["Cloud & DevOps Engineer", "Platform Engineer", "Infrastructure Architect"],
+        "fr": ["Ingénieur Cloud & DevOps", "Ingénieur Plateforme", "Architecte Infrastructure"]
+      },
+      "about": {
+        "en": {
+          "jobTitle": "Cloud & DevOps Engineer",
+          "profileP1": "Cloud & DevOps Engineer passionate about",
+          "profileP1Bold1": "automation",
+          "profileP1Mid": "and",
+          "profileP1Bold2": "system performance",
+          "profileP1End": ". I combine technical expertise, rigor, and an innovative mindset to design reliable, modern, and scalable infrastructures.",
+          "profileP2Start": "From provisioning cloud resources on ",
+          "profileP2H1": "AWS, Azure, GCP, and OpenStack",
+          "profileP2Mid1": " to orchestrating containers with ",
+          "profileP2H2": "Kubernetes",
+          "profileP2Mid2": ", building CI/CD pipelines with ",
+          "profileP2H3": "Jenkins and GitLab CI",
+          "profileP2Mid3": ", and implementing observability with ",
+          "profileP2H4": "Prometheus & Grafana",
+          "profileP2End": " — I deliver end-to-end infrastructure solutions.",
+          "highlights": [
+            { "title": "Cloud Architecture", "desc": "Multi-cloud design on AWS, Azure, GCP & OpenStack" },
+            { "title": "Container Orchestration", "desc": "Docker, Kubernetes, Helm, Strimzi" },
+            { "title": "Security & Compliance", "desc": "Vault, Trivy, VPN, Firewall, SSH hardening" },
+            { "title": "Automation & IaC", "desc": "Terraform, Ansible, Bash, ArgoCD GitOps" }
+          ]
+        },
+        "fr": {
+          "jobTitle": "Ingénieur Cloud & DevOps",
+          "profileP1": "Ingénieur Cloud & DevOps passionné par",
+          "profileP1Bold1": "l'automatisation",
+          "profileP1Mid": "et",
+          "profileP1Bold2": "la performance système",
+          "profileP1End": ". Je combine expertise technique, rigueur et esprit d'innovation pour concevoir des infrastructures fiables, modernes et évolutives.",
+          "profileP2Start": "Du provisionnement des ressources cloud sur ",
+          "profileP2H1": "AWS, Azure, GCP et OpenStack",
+          "profileP2Mid1": " à l'orchestration de conteneurs avec ",
+          "profileP2H2": "Kubernetes",
+          "profileP2Mid2": ", en passant par la construction de pipelines CI/CD avec ",
+          "profileP2H3": "Jenkins et GitLab CI",
+          "profileP2Mid3": ", et la mise en place de l'observabilité avec ",
+          "profileP2H4": "Prometheus & Grafana",
+          "profileP2End": " — je fournis des solutions d'infrastructure de bout en bout.",
+          "highlights": [
+            { "title": "Architecture Cloud", "desc": "Conception multi-cloud sur AWS, Azure, GCP & OpenStack" },
+            { "title": "Orchestration de Conteneurs", "desc": "Docker, Kubernetes, Helm, Strimzi" },
+            { "title": "Sécurité & Conformité", "desc": "Vault, Trivy, VPN, Firewall, durcissement SSH" },
+            { "title": "Automatisation & IaC", "desc": "Terraform, Ansible, Bash, ArgoCD GitOps" }
+          ]
+        }
+      },
+      "skills": {
+        "en": [
+          { "categoryTitle": "Cloud Platforms", "skills": ["AWS", "Google Cloud", "Azure", "OpenStack"], "color": "from-blue-500 to-cyan-500" },
+          { "categoryTitle": "Containers & Orchestration", "skills": ["Docker", "Docker Compose", "Kubernetes", "Helm", "AKS", "Strimzi"], "color": "from-cyan-500 to-teal-500" },
+          { "categoryTitle": "CI/CD & DevOps Tools", "skills": ["Git", "GitHub", "GitLab CI/CD", "Jenkins", "ArgoCD", "Vault", "SonarCloud", "Nexus", "Trivy"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Infrastructure as Code", "skills": ["Terraform", "OpenTofu", "Ansible", "Bash Scripting", "Heat (OpenStack)"], "color": "from-purple-500 to-blue-500" },
+          { "categoryTitle": "Monitoring & Logging", "skills": ["Prometheus", "Grafana", "EFK Stack", "Promtail", "Loki", "Zabbix"], "color": "from-orange-500 to-red-500" },
+          { "categoryTitle": "Storage & Virtualization", "skills": ["NAS/SAN", "NFS", "FTP", "SMB", "Ceph", "RAID", "VMware", "VirtualBox", "KVM", "Proxmox", "Rsync"], "color": "from-rose-500 to-pink-500" },
+          { "categoryTitle": "Networking & Security", "skills": ["TCP/IP", "DNS", "DHCP", "HTTP/HTTPS", "VPN", "VLAN", "Firewall", "SSH"], "color": "from-emerald-500 to-teal-500" },
+          { "categoryTitle": "Programming & OS", "skills": ["Python", "Java", "Golang", "Linux (Ubuntu, Manjaro, Pop!_OS)", "Windows"], "color": "from-amber-500 to-orange-500" }
+        ],
+        "fr": [
+          { "categoryTitle": "Plateformes Cloud", "skills": ["AWS", "Google Cloud", "Azure", "OpenStack"], "color": "from-blue-500 to-cyan-500" },
+          { "categoryTitle": "Conteneurs & Orchestration", "skills": ["Docker", "Docker Compose", "Kubernetes", "Helm", "AKS", "Strimzi"], "color": "from-cyan-500 to-teal-500" },
+          { "categoryTitle": "CI/CD & Outils DevOps", "skills": ["Git", "GitHub", "GitLab CI/CD", "Jenkins", "ArgoCD", "Vault", "SonarCloud", "Nexus", "Trivy"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Infrastructure as Code", "skills": ["Terraform", "OpenTofu", "Ansible", "Bash Scripting", "Heat (OpenStack)"], "color": "from-purple-500 to-blue-500" },
+          { "categoryTitle": "Monitoring & Logging", "skills": ["Prometheus", "Grafana", "EFK Stack", "Promtail", "Loki", "Zabbix"], "color": "from-orange-500 to-red-500" },
+          { "categoryTitle": "Stockage & Virtualisation", "skills": ["NAS/SAN", "NFS", "FTP", "SMB", "Ceph", "RAID", "VMware", "VirtualBox", "KVM", "Proxmox", "Rsync"], "color": "from-rose-500 to-pink-500" },
+          { "categoryTitle": "Réseau & Sécurité", "skills": ["TCP/IP", "DNS", "DHCP", "HTTP/HTTPS", "VPN", "VLAN", "Firewall", "SSH"], "color": "from-emerald-500 to-teal-500" },
+          { "categoryTitle": "Programmation & OS", "skills": ["Python", "Java", "Golang", "Linux (Ubuntu, Manjaro, Pop!_OS)", "Windows"], "color": "from-amber-500 to-orange-500" }
+        ]
+      },
+      "experienceFilter": [0, 1, 2],
+      "projectFilter": [0, 1, 2, 3, 4, 5],
+      "cvLinks": {
+        "en": "https://drive.google.com/file/d/1-ql96PCwiaMvd_C-gh1tQtg7pnUA3oP3/view?usp=sharing",
+        "fr": "https://drive.google.com/file/d/1ZFXNKsu356uliNQzl8TwX38s2NMGWoIz/view?usp=sharing"
+      },
+      "contactSubtitle": {
+        "en": "Looking for a Cloud & DevOps Engineer or Platform Engineer? Let's talk about how I can help build and automate your infrastructure.",
+        "fr": "À la recherche d'un Ingénieur Cloud & DevOps ou Ingénieur Plateforme ? Discutons de comment je peux vous aider à construire et automatiser votre infrastructure."
+      },
+      "footerTitle": {
+        "en": "Nassim Fatnassi Hnifi — Cloud & DevOps Engineer",
+        "fr": "Nassim Fatnassi Hnifi — Ingénieur Cloud & DevOps"
+      },
+      "certifications": ["MultiCloud Network Associate - Aviatrix (Exp: Sep 2028)"]
+    },
+
+    "software": {
+      "id": "software",
+      "key": "software",
+      "title": {
+        "en": "Software Engineer",
+        "fr": "Ingénieur Logiciel"
+      },
+      "tagline": {
+        "en": "Building high-performance, scalable applications",
+        "fr": "Développement d'applications performantes et scalables"
+      },
+      "theme": {
+        "primaryColor": "#61DAFB",
+        "secondaryColor": "#1E1E1E",
+        "accentColor": "#FF79C6",
+        "terminalStyle": "ide-vscode",
+        "backgroundEffect": "matrix-code-rain",
+        "fontFamily": "Fira Code",
+        "iconSet": "code-icons"
+      },
+      "heroDescription": {
+        "en": "Passionate about crafting clean, scalable software. I build high-performance applications using modern frameworks, clean architecture, and agile methodologies.",
+        "fr": "Passionné par la création de logiciels propres et évolutifs. Je développe des applications performantes avec des frameworks modernes, une architecture propre et des méthodologies agiles."
+      },
+      "typingTexts": {
+        "en": ["Software Engineer", "Full Stack Developer", "Application Architect"],
+        "fr": ["Ingénieur Logiciel", "Développeur Full Stack", "Architecte Applicatif"]
+      },
+      "about": {
+        "en": {
+          "jobTitle": "Software Engineer",
+          "profileP1": "Software Engineer passionate about",
+          "profileP1Bold1": "clean code",
+          "profileP1Mid": "and",
+          "profileP1Bold2": "scalable architecture",
+          "profileP1End": ". I build performant, maintainable applications using modern technologies and best practices.",
+          "profileP2Start": "From building responsive UIs with ",
+          "profileP2H1": "React, Angular & TypeScript",
+          "profileP2Mid1": " to developing robust backends with ",
+          "profileP2H2": "Spring Boot & .NET",
+          "profileP2Mid2": ", managing databases with ",
+          "profileP2H3": "MySQL, PostgreSQL & MongoDB",
+          "profileP2Mid3": ", and containerizing with ",
+          "profileP2H4": "Docker & Kubernetes",
+          "profileP2End": " — I deliver end-to-end software solutions.",
+          "highlights": [
+            { "title": "Frontend Development", "desc": "React, Angular, TypeScript, Tailwind CSS" },
+            { "title": "Backend Engineering", "desc": "Spring Boot, .NET, Laravel, Node.js" },
+            { "title": "Database Design", "desc": "MySQL, PostgreSQL, Oracle DB, MongoDB" },
+            { "title": "DevOps & CI/CD", "desc": "Docker, Jenkins, GitLab CI, SonarQube" }
+          ]
+        },
+        "fr": {
+          "jobTitle": "Ingénieur Logiciel",
+          "profileP1": "Ingénieur Logiciel passionné par",
+          "profileP1Bold1": "le code propre",
+          "profileP1Mid": "et",
+          "profileP1Bold2": "l'architecture scalable",
+          "profileP1End": ". Je développe des applications performantes et maintenables avec des technologies modernes et les meilleures pratiques.",
+          "profileP2Start": "De la construction d'interfaces responsives avec ",
+          "profileP2H1": "React, Angular & TypeScript",
+          "profileP2Mid1": " au développement de backends robustes avec ",
+          "profileP2H2": "Spring Boot & .NET",
+          "profileP2Mid2": ", en gérant les bases de données avec ",
+          "profileP2H3": "MySQL, PostgreSQL & MongoDB",
+          "profileP2Mid3": ", et la conteneurisation avec ",
+          "profileP2H4": "Docker & Kubernetes",
+          "profileP2End": " — je fournis des solutions logicielles de bout en bout.",
+          "highlights": [
+            { "title": "Développement Frontend", "desc": "React, Angular, TypeScript, Tailwind CSS" },
+            { "title": "Ingénierie Backend", "desc": "Spring Boot, .NET, Laravel, Node.js" },
+            { "title": "Conception BDD", "desc": "MySQL, PostgreSQL, Oracle DB, MongoDB" },
+            { "title": "DevOps & CI/CD", "desc": "Docker, Jenkins, GitLab CI, SonarQube" }
+          ]
+        }
+      },
+      "skills": {
+        "en": [
+          { "categoryTitle": "Programming Languages", "skills": ["C", "C#", "Python", "Java", "JavaScript", "TypeScript"], "color": "from-blue-500 to-indigo-500" },
+          { "categoryTitle": "Frontend Frameworks", "skills": ["React", "Angular", "Bootstrap", "Tailwind CSS", "Vite"], "color": "from-cyan-500 to-blue-500" },
+          { "categoryTitle": "Backend Frameworks", "skills": ["Spring Boot", ".NET", "Laravel", "Node.js"], "color": "from-green-500 to-emerald-500" },
+          { "categoryTitle": "Databases", "skills": ["MySQL", "PostgreSQL", "Oracle DB", "MongoDB"], "color": "from-orange-500 to-amber-500" },
+          { "categoryTitle": "API & Architecture", "skills": ["REST API", "Microservices", "MVC", "API Gateway"], "color": "from-purple-500 to-pink-500" },
+          { "categoryTitle": "DevOps & Tools", "skills": ["Git", "GitHub", "GitLab CI/CD", "Jenkins", "Maven", "SonarQube", "Docker"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Testing & Quality", "skills": ["JUnit", "SonarQube", "Trivy", "Code Review"], "color": "from-rose-500 to-red-500" },
+          { "categoryTitle": "IDE & Collaboration", "skills": ["VS Code", "IntelliJ IDEA", "Jira", "Agile/Scrum"], "color": "from-amber-500 to-orange-500" }
+        ],
+        "fr": [
+          { "categoryTitle": "Langages de Programmation", "skills": ["C", "C#", "Python", "Java", "JavaScript", "TypeScript"], "color": "from-blue-500 to-indigo-500" },
+          { "categoryTitle": "Frameworks Frontend", "skills": ["React", "Angular", "Bootstrap", "Tailwind CSS", "Vite"], "color": "from-cyan-500 to-blue-500" },
+          { "categoryTitle": "Frameworks Backend", "skills": ["Spring Boot", ".NET", "Laravel", "Node.js"], "color": "from-green-500 to-emerald-500" },
+          { "categoryTitle": "Bases de Données", "skills": ["MySQL", "PostgreSQL", "Oracle DB", "MongoDB"], "color": "from-orange-500 to-amber-500" },
+          { "categoryTitle": "API & Architecture", "skills": ["REST API", "Microservices", "MVC", "API Gateway"], "color": "from-purple-500 to-pink-500" },
+          { "categoryTitle": "DevOps & Outils", "skills": ["Git", "GitHub", "GitLab CI/CD", "Jenkins", "Maven", "SonarQube", "Docker"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Tests & Qualité", "skills": ["JUnit", "SonarQube", "Trivy", "Revue de Code"], "color": "from-rose-500 to-red-500" },
+          { "categoryTitle": "IDE & Collaboration", "skills": ["VS Code", "IntelliJ IDEA", "Jira", "Agile/Scrum"], "color": "from-amber-500 to-orange-500" }
+        ]
+      },
+      "experienceFilter": [0, 1, 2, 3],
+      "projectFilter": [0, 1, 2, 8, 9],
+      "cvLinks": {
+        "en": "https://drive.google.com/file/d/1EIeWTHW6uGZp7pi7e_jrUL7u_rhMprKl/view?usp=sharing",
+        "fr": "https://drive.google.com/file/d/1QpTlLhwKvXXG9Mdg0ZrUW4R1zBagLINC/view?usp=sharing"
+      },
+      "contactSubtitle": {
+        "en": "Looking for a Software Engineer or Full Stack Developer? Let's discuss how I can help build your next application.",
+        "fr": "À la recherche d'un Ingénieur Logiciel ou Développeur Full Stack ? Discutons de comment je peux construire votre prochaine application."
+      },
+      "footerTitle": {
+        "en": "Nassim Fatnassi Hnifi — Software Engineer",
+        "fr": "Nassim Fatnassi Hnifi — Ingénieur Logiciel"
+      },
+      "certifications": ["MultiCloud Network Associate - Aviatrix (Exp: Sep 2028)"]
+    },
+
+    "system-admin": {
+      "id": "system-admin",
+      "key": "sysadmin",
+      "title": {
+        "en": "Systems Administrator",
+        "fr": "Administrateur Systèmes et Réseaux"
+      },
+      "tagline": {
+        "en": "Managing, securing, and optimizing IT infrastructures",
+        "fr": "Gestion, sécurisation et optimisation des infrastructures IT"
+      },
+      "theme": {
+        "primaryColor": "#00FF00",
+        "secondaryColor": "#0C0C0C",
+        "accentColor": "#FFB800",
+        "terminalStyle": "retro-terminal",
+        "backgroundEffect": "server-rack-particles",
+        "fontFamily": "Courier Prime",
+        "iconSet": "server-icons"
+      },
+      "heroDescription": {
+        "en": "Passionate about system reliability and network security. I manage, secure, and optimize IT infrastructures with proactive monitoring and automation.",
+        "fr": "Passionné par la fiabilité des systèmes et la sécurité réseau. Je gère, sécurise et optimise les infrastructures IT avec un monitoring proactif et l'automatisation."
+      },
+      "typingTexts": {
+        "en": ["Systems Administrator", "Network Engineer", "IT Infrastructure Specialist"],
+        "fr": ["Administrateur Systèmes", "Ingénieur Réseau", "Spécialiste Infrastructure IT"]
+      },
+      "about": {
+        "en": {
+          "jobTitle": "Systems Administrator",
+          "profileP1": "Systems Administrator passionate about",
+          "profileP1Bold1": "infrastructure reliability",
+          "profileP1Mid": "and",
+          "profileP1Bold2": "network security",
+          "profileP1End": ". I manage, secure, and optimize IT environments with proactive monitoring and proven automation strategies.",
+          "profileP2Start": "From managing servers on ",
+          "profileP2H1": "Linux & Windows Server",
+          "profileP2Mid1": " to configuring networks with ",
+          "profileP2H2": "VLANs, VPNs & Firewalls",
+          "profileP2Mid2": ", automating with ",
+          "profileP2H3": "Bash, Ansible & Terraform",
+          "profileP2Mid3": ", and monitoring with ",
+          "profileP2H4": "Prometheus, Grafana & Zabbix",
+          "profileP2End": " — I ensure resilient and secure infrastructure operations.",
+          "highlights": [
+            { "title": "Server Administration", "desc": "Linux, Windows Server, VMware, Proxmox, KVM" },
+            { "title": "Network Engineering", "desc": "VLANs, VPNs, DNS, DHCP, Firewall, TCP/IP" },
+            { "title": "Security & Hardening", "desc": "pfSense, Snort IDS, SSH hardening, ACL" },
+            { "title": "Monitoring & Backup", "desc": "Prometheus, Grafana, Zabbix, Veeam, Rsync" }
+          ]
+        },
+        "fr": {
+          "jobTitle": "Administrateur Systèmes et Réseaux",
+          "profileP1": "Administrateur Systèmes passionné par",
+          "profileP1Bold1": "la fiabilité des infrastructures",
+          "profileP1Mid": "et",
+          "profileP1Bold2": "la sécurité réseau",
+          "profileP1End": ". Je gère, sécurise et optimise les environnements IT avec un monitoring proactif et des stratégies d'automatisation éprouvées.",
+          "profileP2Start": "De la gestion de serveurs sur ",
+          "profileP2H1": "Linux & Windows Server",
+          "profileP2Mid1": " à la configuration réseau avec ",
+          "profileP2H2": "VLANs, VPNs & Firewalls",
+          "profileP2Mid2": ", l'automatisation avec ",
+          "profileP2H3": "Bash, Ansible & Terraform",
+          "profileP2Mid3": ", et le monitoring avec ",
+          "profileP2H4": "Prometheus, Grafana & Zabbix",
+          "profileP2End": " — j'assure des opérations d'infrastructure résilientes et sécurisées.",
+          "highlights": [
+            { "title": "Administration Serveurs", "desc": "Linux, Windows Server, VMware, Proxmox, KVM" },
+            { "title": "Ingénierie Réseau", "desc": "VLANs, VPNs, DNS, DHCP, Firewall, TCP/IP" },
+            { "title": "Sécurité & Durcissement", "desc": "pfSense, Snort IDS, durcissement SSH, ACL" },
+            { "title": "Monitoring & Sauvegarde", "desc": "Prometheus, Grafana, Zabbix, Veeam, Rsync" }
+          ]
+        }
+      },
+      "skills": {
+        "en": [
+          { "categoryTitle": "Operating Systems", "skills": ["Linux (Ubuntu, Manjaro, Pop!_OS)", "Windows Server"], "color": "from-green-500 to-emerald-500" },
+          { "categoryTitle": "Automation & Scripting", "skills": ["Bash Scripting", "Ansible", "Terraform"], "color": "from-blue-500 to-cyan-500" },
+          { "categoryTitle": "Networking", "skills": ["LAN/WAN", "VLANs", "VPNs", "TCP/IP", "DNS", "DHCP", "Firewall"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Hardware & Routing", "skills": ["Routers", "Switches", "Firewalls (NAT, ACL)"], "color": "from-orange-500 to-red-500" },
+          { "categoryTitle": "Virtualization", "skills": ["VMware", "Proxmox", "KVM", "VirtualBox"], "color": "from-purple-500 to-indigo-500" },
+          { "categoryTitle": "Storage & Backup", "skills": ["NAS/SAN", "NFS", "RAID", "Ceph", "Veeam", "Rsync"], "color": "from-rose-500 to-pink-500" },
+          { "categoryTitle": "Monitoring & Logging", "skills": ["Prometheus", "Grafana", "Zabbix", "EFK Stack"], "color": "from-amber-500 to-orange-500" },
+          { "categoryTitle": "Security", "skills": ["pfSense", "OpenVPN", "Snort IDS", "SSH Hardening", "UFW", "Fail2ban"], "color": "from-red-500 to-rose-500" }
+        ],
+        "fr": [
+          { "categoryTitle": "Systèmes d'Exploitation", "skills": ["Linux (Ubuntu, Manjaro, Pop!_OS)", "Windows Server"], "color": "from-green-500 to-emerald-500" },
+          { "categoryTitle": "Automatisation & Scripting", "skills": ["Bash Scripting", "Ansible", "Terraform"], "color": "from-blue-500 to-cyan-500" },
+          { "categoryTitle": "Réseaux", "skills": ["LAN/WAN", "VLANs", "VPNs", "TCP/IP", "DNS", "DHCP", "Firewall"], "color": "from-teal-500 to-green-500" },
+          { "categoryTitle": "Matériel & Routage", "skills": ["Routeurs", "Switches", "Firewalls (NAT, ACL)"], "color": "from-orange-500 to-red-500" },
+          { "categoryTitle": "Virtualisation", "skills": ["VMware", "Proxmox", "KVM", "VirtualBox"], "color": "from-purple-500 to-indigo-500" },
+          { "categoryTitle": "Stockage & Sauvegarde", "skills": ["NAS/SAN", "NFS", "RAID", "Ceph", "Veeam", "Rsync"], "color": "from-rose-500 to-pink-500" },
+          { "categoryTitle": "Monitoring & Logging", "skills": ["Prometheus", "Grafana", "Zabbix", "EFK Stack"], "color": "from-amber-500 to-orange-500" },
+          { "categoryTitle": "Sécurité", "skills": ["pfSense", "OpenVPN", "Snort IDS", "Durcissement SSH", "UFW", "Fail2ban"], "color": "from-red-500 to-rose-500" }
+        ]
+      },
+      "experienceFilter": [0, 1, 4],
+      "projectFilter": [0, 5, 6, 7],
+      "cvLinks": {
+        "en": "https://drive.google.com/file/d/1PaKulB_WzUGrK1xBZYDj_qbF2CIT-HWs/view?usp=sharing",
+        "fr": "https://drive.google.com/file/d/1Bjby9RKXzV-Fff3ofmAxSEMOZrtjYmwE/view?usp=sharing"
+      },
+      "contactSubtitle": {
+        "en": "Looking for a Systems Administrator or Network Engineer? Let's talk about how I can manage and secure your infrastructure.",
+        "fr": "À la recherche d'un Administrateur Systèmes ou Ingénieur Réseau ? Discutons de comment je peux gérer et sécuriser votre infrastructure."
+      },
+      "footerTitle": {
+        "en": "Nassim Fatnassi Hnifi — Systems Administrator",
+        "fr": "Nassim Fatnassi Hnifi — Administrateur Systèmes et Réseaux"
+      },
+      "certifications": ["MultiCloud Network Associate - Aviatrix (Exp: Sep 2028)"]
+    }
+  }
+}
