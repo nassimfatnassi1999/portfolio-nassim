@@ -17,6 +17,7 @@ node_modules/
 build/
 .cache/
 .vite/
+dist-ssr/
 
 # ----------------------------
 
@@ -47,7 +48,8 @@ pnpm-debug.log*
 
 # ----------------------------
 
-.vscode/
+.vscode/*
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
