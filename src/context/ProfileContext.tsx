@@ -78,8 +78,6 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     const params = new URLSearchParams(window.location.search);
     const urlRole = params.get('role');
     if (urlRole && urlRole in profiles) return urlRole as ProfileId;
-    const saved = localStorage.getItem('portfolio-profile');
-    if (saved && saved in profiles) return saved as ProfileId;
     return 'cloud-devops';
   });
 
