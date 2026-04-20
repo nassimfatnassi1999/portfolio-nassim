@@ -74,16 +74,16 @@ export const translations = {
       heading: ['Professional ', 'Experience'],
       items: [
         {
-          role: 'Freelance Dev & Cloud Administrator',
-          company: 'Self-employed',
-          period: 'Sep 2025 – Present',
+          role: 'Full Stack & Systems Engineer',
+          company: 'APPRENSUR',
+          period: 'Jan 2025 – Present',
           description: [
-            'End-to-End Development: Built high-performance, scalable web applications using React and Vite, ensuring modern UI/UX with TailwindCSS.',
-            'Production Deployment: Managed full deployment lifecycles on platforms like Gandi, handling domain configuration, hosting environment setup, and SSL security.',
-            'Infrastructure Management: Administered cloud hosting environments, ensuring reliability, security, and optimal performance for client applications.',
-            'Secure Cloud Provisioning: Configured bare-metal Linux VPS environments for critical B2B SaaS solutions.',
-            'Automated CI/CD & Deployments: Developed robust Bash scripts for automated pipelines, process management (PM2), and Nginx reverse proxy configuration.',
-            'Server Security & Hardening: Implemented strict perimeter defense strategies using UFW, Fail2ban, and automated SSL/TLS management via Let\'s Encrypt.',
+            'Designed and developed CRM web applications using React and NestJS.',
+            'Designed and managed databases with PostgreSQL.',
+            'Deployed applications on Linux VPS in production environments.',
+            'System and network administration (SSH, firewall, configuration, maintenance) with hardening security measures.',
+            'Hosting management (Gandi, VPS) and implementation of backup & recovery solutions.',
+            'Implemented a CI/CD pipeline with Jenkins (build, tests, deployment) with application deployment via PM2 and Nginx SSL configuration.',
           ],
         },
 
@@ -143,6 +143,12 @@ export const translations = {
           subtitle: 'Freelance | Production Web App',
           description:
             'A complete freelance project involving end-to-end development and deployment. Built a responsive web application with React and TailwindCSS, and managed the entire production release including domain configuration and hosting on Gandi.',
+        },
+        {
+          title: 'ViolencesHopital',
+          subtitle: 'Freelance | Production Web App',
+          description:
+            'A showcase website for a health awareness initiative. Built a responsive web application with React and TailwindCSS, and managed the entire production release including domain configuration and hosting on Gandi.',
         },
         {
           title: 'Modern CI/CD Architecture for DevOps',
@@ -323,16 +329,16 @@ export const translations = {
       heading: ['Expérience ', 'Professionnelle'],
       items: [
         {
-          role: 'Développeur Freelance & Admin Cloud',
-          company: 'Indépendant',
-          period: 'Sep 2025 – Présent',
+          role: 'Ingénieur Full Stack & Systèmes',
+          company: 'APPRENSUR',
+          period: 'Janv 2025 – Présent',
           description: [
-            'Développement de bout en bout : Création d\'applications web performantes et évolutives avec React et Vite, assurant une UI/UX moderne avec TailwindCSS.',
-            'Déploiement en Production : Gestion complète des cycles de déploiement sur des plateformes comme Gandi, incluant la configuration de domaines et la sécurité SSL.',
-            'Gestion d\'Infrastructure : Administration des environnements d\'hébergement cloud, garantissant fiabilité, sécurité et performance optimale.',
-            'Provisionnement Cloud Sécurisé : Configuration de serveurs vierges (VPS Linux) pour des SaaS B2B critiques.',
-            'CI/CD & Déploiements Automatisés : Développement de scripts Bash robustes pour les pipelines d\'intégration, gestion des processus (PM2) et configuration de proxy inverse Nginx.',
-            'Sécurité & Durcissement Serveur : Implémentation stricte de défenses périmétriques via UFW, Fail2ban, et gestion automatisée SSL/TLS (Let\'s Encrypt).',
+            'Conception et développement des applications web CRM avec React et NestJS.',
+            'Conception et gestion de la base de données avec PostgreSQL.',
+            'Déploiement des applications sur VPS Linux en environnement de prod.',
+            'Administration système et réseau (SSH, firewall, configuration, maintenance) avec mise en place de mesures de sécurisation hardening.',
+            'Gestion des hébergements (Gandi, VPS) et implémentation de solutions de backup & recovery.',
+            'Mise en place d\'un pipeline CI/CD avec Jenkins (build, tests, déploiement) avec déploiement applicatif via PM2 et configuration de Nginx avec SSL.',
           ],
         },
         {
@@ -391,6 +397,12 @@ export const translations = {
           subtitle: 'Freelance | App Web en Production',
           description:
             'Un projet freelance complet impliquant le développement et le déploiement de bout en bout. Création d\'une application web responsive avec React et TailwindCSS, et gestion de la mise en production incluant la configuration de domaine et l\'hébergement sur Gandi.',
+        },
+        {
+          title: 'ViolencesHopital',
+          subtitle: 'Freelance | Site Vitrine en Production',
+          description:
+            'Un site vitrine pour une initiative de sensibilisation à la santé. Création d\'une application web responsive avec React et TailwindCSS, et gestion de la mise en production incluant la configuration de domaine et l\'hébergement sur Gandi.',
         },
         {
           title: 'Architecture CI/CD Moderne pour DevOps',
