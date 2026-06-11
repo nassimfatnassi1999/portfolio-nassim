@@ -61,7 +61,7 @@ export default function App() {
   /* ─── DATA (kept for Experience/Projects that still use original arrays) ─── */
 
   const experienceTags = [
-    ['React', 'NestJS', 'PostgreSQL', 'Jenkins', 'PM2', 'Nginx', 'Linux VPS', 'Security'],
+    ['React', 'Next.js', 'NestJS', 'PostgreSQL', 'Prisma', 'MinIO', 'RBAC', 'Jenkins', 'Nginx', 'Linux VPS'],
     ['Azure', 'AKS', 'Kafka', 'Strimzi', 'Prometheus', 'Grafana', 'EFK'],
     ['Docker', 'Kubernetes', 'CI/CD', 'Full-Stack'],
     ['Laravel', 'MySQL', 'Bootstrap'],
