@@ -81,7 +81,10 @@ export function Projects({ t, projects }: ProjectsProps) {
             );
 
             return (
-              <div key={idx} className="glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+              <div
+                key={idx}
+                className={`glass-card overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${project.link ? 'cursor-pointer' : ''}`}
+              >
                 {project.link ? (
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
                     {CardContent}

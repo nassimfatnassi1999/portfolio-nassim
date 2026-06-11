@@ -133,6 +133,24 @@ export const translations = {
       subtitle: 'Academic and professional projects showcasing cloud architecture, CI/CD pipelines, and infrastructure automation.',
       items: [
         {
+          title: 'Stockini ERP',
+          subtitle: 'Freelance | ERP & Business Management SaaS',
+          description:
+            'Designed and developed a production-ready ERP platform that centralizes inventory, sales, purchasing, finance, treasury, customer and supplier management. Built with a modern full-stack architecture using Next.js, NestJS, PostgreSQL, Prisma, Redis, and MinIO object storage.',
+        },
+        {
+          title: 'Meat Halal',
+          subtitle: 'Freelance | Production Website',
+          description:
+            'Designed and deployed a professional halal meat showcase and ordering website with a modern mobile-first responsive interface, product presentation, contact and quotation workflows, SEO optimization, performance improvements, domain configuration, hosting, SSL/TLS security, and ongoing maintenance.',
+        },
+        {
+          title: 'GeoDetection Networks CRM',
+          subtitle: 'Freelance | Production SaaS CRM',
+          description:
+            'Designed and built a production-ready business CRM from scratch for utility network detection projects. Delivered the complete full-stack architecture using Next.js, NestJS and PostgreSQL, with secure JWT authentication and RBAC, request and worksite management, DT-DICT workflows, field interventions, deliverables and quality control, KPI dashboards, statistics, reporting, and MinIO-based document storage. Deployed on a hardened Linux VPS with Docker, Nginx, automated CI/CD, backups, monitoring, and security best practices.',
+        },
+        {
           title: 'Apprensur CRM',
           subtitle: 'B2B SaaS | Railway Industry',
           description:
@@ -386,6 +404,24 @@ export const translations = {
       heading: ['Projets ', 'Phares'],
       subtitle: "Projets académiques et professionnels mettant en valeur l'architecture cloud, les pipelines CI/CD et l'automatisation d'infrastructure.",
       items: [
+        {
+          title: 'Stockini ERP',
+          subtitle: "Freelance | SaaS ERP & Gestion d'Entreprise",
+          description:
+            "Conception et développement d'une plateforme ERP production-ready centralisant la gestion des stocks, des ventes, des achats, de la finance, de la trésorerie, des clients et des fournisseurs. Architecture full-stack moderne basée sur Next.js, NestJS, PostgreSQL, Prisma, Redis et le stockage objet MinIO.",
+        },
+        {
+          title: 'Meat Halal',
+          subtitle: 'Freelance | Site Web en Production',
+          description:
+            "Conception et déploiement d'un site professionnel de présentation et de commande de viande halal avec une interface responsive moderne pensée mobile-first, une présentation des produits, des parcours de contact et de demande de devis, des optimisations SEO et de performance, la configuration du domaine, l'hébergement, la sécurisation SSL/TLS et la maintenance continue.",
+        },
+        {
+          title: 'GeoDetection Réseaux CRM',
+          subtitle: 'Freelance | Production SaaS CRM',
+          description:
+            "Conception et développement de A à Z d'un CRM métier production-ready dédié aux projets de détection de réseaux. Réalisation de l'architecture full-stack avec Next.js, NestJS et PostgreSQL, authentification JWT sécurisée et RBAC, gestion des demandes et chantiers, workflows DT-DICT, interventions terrain, livrables et contrôle qualité, tableaux de bord KPI, statistiques, reporting et stockage documentaire avec MinIO. Déploiement sur un VPS Linux renforcé avec Docker, Nginx, CI/CD automatisée, sauvegardes, monitoring et bonnes pratiques de sécurité.",
+        },
         {
           title: 'Apprensur CRM',
           subtitle: 'SaaS B2B | Secteur Ferroviaire',

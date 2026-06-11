@@ -8,6 +8,9 @@ import {
   Server,
   Shield,
   Users,
+  Store,
+  Database,
+  Boxes,
 } from 'lucide-react';
 import { translations } from './translations';
 import { ProfileProvider } from './context/ProfileContext';
@@ -71,6 +74,22 @@ export default function App() {
   }));
 
   const projectMeta = [
+    {
+      tags: ['Next.js', 'React', 'TypeScript', 'NestJS', 'PostgreSQL', 'Prisma', 'Redis', 'MinIO', 'Docker', 'Nginx', 'Linux', 'ERP', 'CRM', 'RBAC', 'JWT', 'SaaS'],
+      icon: <Boxes className="w-8 h-8" />,
+      gradient: 'from-indigo-600 to-violet-700',
+    },
+    {
+      tags: ['React', 'Vite', 'TypeScript', 'TailwindCSS', 'Responsive Design', 'SEO', 'Performance', 'Gandi', 'Hosting', 'SSL/TLS'],
+      icon: <Store className="w-8 h-8" />,
+      gradient: 'from-green-600 to-green-700',
+      link: 'https://meat-halal.com',
+    },
+    {
+      tags: ['Next.js', 'NestJS', 'PostgreSQL', 'Prisma', 'TypeScript', 'TailwindCSS', 'Docker', 'Nginx', 'Linux VPS', 'JWT', 'RBAC', 'MinIO', 'CI/CD'],
+      icon: <Database className="w-8 h-8" />,
+      gradient: 'from-blue-600 to-violet-700',
+    },
     { tags: ['DevOps', 'VPS Linux', 'Nginx', 'Bash CI/CD', 'Security', 'UFW / Fail2ban', 'TLS/SSL', 'PM2'], icon: <Shield className="w-8 h-8" />, gradient: 'from-fuchsia-600 to-purple-600' },
     { tags: ['React', 'Vite', 'TailwindCSS', 'Gandi', 'Production', 'Hosting'], icon: <Globe className="w-8 h-8" />, gradient: 'from-blue-600 to-indigo-500', link: 'https://geodetectionreseaux.fr' },
     { tags: ['React', 'Vite', 'TailwindCSS', 'Gandi', 'Production', 'Hosting'], icon: <Globe className="w-8 h-8" />, gradient: 'from-blue-600 to-indigo-500', link: 'https://violences-hopital.com' },
