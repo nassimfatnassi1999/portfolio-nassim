@@ -129,8 +129,54 @@ export const translations = {
     /* ─── PROJECTS ─── */
     projects: {
       heading: ['Featured ', 'Projects'],
-      subtitle: 'Academic and professional projects showcasing cloud architecture, CI/CD pipelines, and infrastructure automation.',
+      subtitle: 'Flagship mobile products and professional projects spanning AI, productivity, cloud architecture, CI/CD, and infrastructure automation.',
+      mobileBadge: 'Mobile App',
+      keyFeatures: 'Key Features',
+      liveDemo: 'Live Demo',
+      github: 'GitHub',
+      unavailable: 'Unavailable',
+      privateRepository: 'Private repository',
       items: [
+        {
+          title: 'Z – AI Voice Email Assistant',
+          subtitle: 'Mobile Application • AI • Productivity',
+          description:
+            "An AI-powered mobile application that transforms spoken conversations into professional emails in seconds. Users speak naturally while the app understands intent, generates a structured email, and supports editing, tone adjustment, translation, preview, and direct sending. Built for secure enterprise environments, with AI processing contained inside the company's infrastructure.",
+          features: [
+            'Voice-to-email generation',
+            'Speech-to-text',
+            'AI email generation',
+            'Professional email formatting',
+            'Tone customization',
+            'Multi-language support',
+            'Email editing',
+            'Preview before sending',
+            'Authentication',
+            'Enterprise security',
+            'Internal AI deployment',
+            'Responsive Flutter UI',
+          ],
+        },
+        {
+          title: 'Job Tracker',
+          subtitle: 'Mobile Application • Productivity',
+          description:
+            'A modern Flutter mobile application that helps job seekers manage their entire application process from one place. Users can organize applications, track interview stages, manage CV versions, monitor application status, schedule follow-ups, and visualize progress through an intuitive dashboard.',
+          features: [
+            'Job application tracking',
+            'Interview management',
+            'Company management',
+            'Status timeline',
+            'Notes',
+            'Attach CV',
+            'Attach cover letter',
+            'Search & filters',
+            'Statistics dashboard',
+            'Offline support',
+            'Local database',
+            'Beautiful Material Design UI',
+          ],
+        },
         {
           title: 'Stockini ERP',
           subtitle: 'Freelance | ERP & Business Management SaaS',
@@ -400,8 +446,54 @@ export const translations = {
     /* ─── PROJECTS ─── */
     projects: {
       heading: ['Projets ', 'Phares'],
-      subtitle: "Projets académiques et professionnels mettant en valeur l'architecture cloud, les pipelines CI/CD et l'automatisation d'infrastructure.",
+      subtitle: "Produits mobiles phares et projets professionnels couvrant l'IA, la productivité, l'architecture cloud, le CI/CD et l'automatisation d'infrastructure.",
+      mobileBadge: 'App Mobile',
+      keyFeatures: 'Fonctionnalités clés',
+      liveDemo: 'Démo en direct',
+      github: 'GitHub',
+      unavailable: 'Indisponible',
+      privateRepository: 'Dépôt privé',
       items: [
+        {
+          title: 'Z – AI Voice Email Assistant',
+          subtitle: 'Application Mobile • IA • Productivité',
+          description:
+            "Une application mobile alimentée par l'IA qui transforme les conversations vocales en e-mails professionnels en quelques secondes. L'utilisateur parle naturellement tandis que l'application comprend l'intention, génère un e-mail structuré et permet la modification, l'ajustement du ton, la traduction, la prévisualisation et l'envoi direct. Conçue pour les environnements d'entreprise sécurisés, avec un traitement IA entièrement hébergé dans l'infrastructure interne.",
+          features: [
+            "Génération d'e-mails par la voix",
+            'Reconnaissance vocale',
+            "Génération d'e-mails par IA",
+            "Mise en forme professionnelle d'e-mails",
+            'Personnalisation du ton',
+            'Support multilingue',
+            "Modification d'e-mails",
+            "Prévisualisation avant l'envoi",
+            'Authentification',
+            "Sécurité d'entreprise",
+            'Déploiement IA interne',
+            'Interface Flutter responsive',
+          ],
+        },
+        {
+          title: 'Job Tracker',
+          subtitle: 'Application Mobile • Productivité',
+          description:
+            "Une application mobile Flutter moderne qui aide les candidats à gérer l'ensemble de leur recherche d'emploi depuis un seul endroit. Les utilisateurs peuvent organiser leurs candidatures, suivre les étapes des entretiens, gérer les versions de leur CV, surveiller les statuts, planifier les relances et visualiser leur progression dans un tableau de bord intuitif.",
+          features: [
+            'Suivi des candidatures',
+            'Gestion des entretiens',
+            'Gestion des entreprises',
+            'Chronologie des statuts',
+            'Notes',
+            'Ajout de CV',
+            'Ajout de lettre de motivation',
+            'Recherche et filtres',
+            'Tableau de bord statistique',
+            'Mode hors ligne',
+            'Base de données locale',
+            'Belle interface Material Design',
+          ],
+        },
         {
           title: 'Stockini ERP',
           subtitle: "Freelance | SaaS ERP & Gestion d'Entreprise",

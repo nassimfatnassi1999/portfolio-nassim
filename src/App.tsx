@@ -11,6 +11,9 @@ import {
   Store,
   Database,
   Boxes,
+  Briefcase,
+  Mic,
+  Sparkles,
 } from 'lucide-react';
 import { translations } from './translations';
 import { ProfileProvider } from './context/ProfileContext';
@@ -74,6 +77,25 @@ export default function App() {
   }));
 
   const projectMeta = [
+    {
+      tags: ['Flutter', 'Dart', 'NestJS', 'PostgreSQL', 'JWT', 'Docker', 'AI', 'Speech-to-Text', 'REST API', 'Groq LLM', 'Linux'],
+      icon: (
+        <div className="relative" aria-hidden="true">
+          <Mic className="w-8 h-8" />
+          <Sparkles className="w-4 h-4 absolute -right-3 -top-2" />
+        </div>
+      ),
+      gradient: 'from-blue-600 to-purple-600',
+      isMobile: true,
+      liveDemo: 'https://drive.google.com/file/d/1Rg8uM8sDo7jywzyfcDDggqW36_TpAo6Z/view?usp=sharing',
+      demoLabel: 'Demo',
+    },
+    {
+      tags: ['Flutter', 'Dart', 'Isar', 'Riverpod', 'Material 3', 'Responsive UI', 'Local Storage', 'Charts', 'PDF', 'Notifications'],
+      icon: <Briefcase className="w-8 h-8" />,
+      gradient: 'from-orange-500 to-red-600',
+      isMobile: true,
+    },
     {
       tags: ['Next.js', 'React', 'TypeScript', 'NestJS', 'PostgreSQL', 'Prisma', 'Redis', 'MinIO', 'Docker', 'Nginx', 'Linux', 'ERP', 'CRM', 'RBAC', 'JWT', 'SaaS'],
       icon: <Boxes className="w-8 h-8" />,
