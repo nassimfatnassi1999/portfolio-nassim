@@ -1,95 +1,81 @@
-import { ArrowRight, ChevronDown } from 'lucide-react';
-import { translations } from '../translations';
+import { ArrowRight, ChevronDown, Network } from 'lucide-react';
+import type { LocalizedPortfolio, Locale } from '../types/portfolio';
 import { TypingText } from './TypingText';
 import { DynamicTerminal } from './DynamicTerminal';
-import { useProfile } from '../context/ProfileContext';
-
-type Translation = (typeof translations)[keyof typeof translations];
 
 type HeroProps = {
-  t: Translation;
+  portfolio: LocalizedPortfolio;
+  language: Locale;
   onProjectsClick: () => void;
+  onInfrastructureClick: () => void;
   onContactClick: () => void;
-  language: 'en' | 'fr';
 };
 
-export function Hero({ t, onProjectsClick, onContactClick, language }: HeroProps) {
-  const { profile, currentProfileId } = useProfile();
-
+export function Hero({
+  portfolio,
+  language,
+  onProjectsClick,
+  onInfrastructureClick,
+  onContactClick,
+}: HeroProps) {
   return (
-    <section id="home" className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-brand-500/10 dark:bg-brand-500/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-terminal-cyan/10 dark:bg-terminal-cyan/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] bg-terminal-green/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
-      </div>
-
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left — Text */}
-          <div className="animate-fade-in relative">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-medium mb-6 border border-brand-500/20">
-              <span className="w-2 h-2 rounded-full bg-terminal-green animate-pulse" />
-              {t.hero.badge}
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+          <div className="animate-fade-in">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-600 dark:text-brand-400">
+              <span className="h-2 w-2 rounded-full bg-terminal-green" />
+              {portfolio.identity.availability}
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
-              <span className="text-gray-900 dark:text-white">Nassim</span>
-              <br />
-              <span className="gradient-text">Fatnassi Hnifi</span>
+            <h1 className="mb-5 text-5xl font-extrabold leading-tight sm:text-6xl lg:text-7xl">
+              <span className="text-gray-900 dark:text-white">{portfolio.identity.name}</span>
             </h1>
-
-            <div className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-6 min-h-[2.5rem]">
-              <TypingText key={`${language}-${currentProfileId}`} texts={[...profile.typingTexts[language]]} />
+            <p className="mb-3 text-xl font-semibold text-gray-800 dark:text-gray-100 sm:text-2xl">
+              {portfolio.identity.title}
+            </p>
+            <div className="mb-6 min-h-10 text-lg text-gray-600 dark:text-gray-400 sm:text-xl">
+              <TypingText key={language} texts={portfolio.hero.disciplines} />
             </div>
-
-            <p className="text-lg text-gray-500 dark:text-gray-400 mb-6 max-w-xl leading-relaxed">
-              {profile.heroDescription[language]}
+            <p className="mb-7 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+              {portfolio.identity.description}
             </p>
 
-            {/* Mobile Terminal */}
-            <div className="block md:hidden mb-8">
-              <DynamicTerminal key={`mobile-${currentProfileId}`} variant="mobile" />
+            <div className="mb-8 md:hidden">
+              <DynamicTerminal variant="mobile" />
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={onProjectsClick}
-                className="group flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-brand-500/25 hover:scale-105 transition-all"
-              >
-                {t.hero.viewProjects} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-wrap gap-3">
+              <button onClick={onProjectsClick} className="group flex min-h-11 items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white hover:bg-brand-500">
+                {portfolio.hero.actions.projects} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <button
-                onClick={onContactClick}
-                className="px-7 py-3.5 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl font-semibold hover:border-brand-500 dark:hover:border-brand-500 hover:scale-105 transition-all"
-              >
-                {t.hero.getInTouch}
+              <button onClick={onInfrastructureClick} className="flex min-h-11 items-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 font-semibold dark:border-gray-700 dark:bg-gray-900">
+                <Network className="h-4 w-4" /> {portfolio.hero.actions.infrastructure}
+              </button>
+              <button onClick={onContactClick} className="min-h-11 rounded-xl border border-gray-300 px-6 py-3 font-semibold dark:border-gray-700">
+                {portfolio.hero.actions.contact}
               </button>
             </div>
 
-            {/* Quick stats */}
-            <div className="flex gap-8 mt-12">
-              {t.hero.stats.map((stat, idx) => (
-                <div key={idx}>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{stat.label}</p>
+            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-gray-200 pt-6 dark:border-gray-800">
+              {portfolio.hero.facts.map((fact) => (
+                <div key={fact.label}>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{fact.value}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">{fact.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — Terminal Card */}
-          <div className="animate-fade-in hidden md:block" style={{ animationDelay: '0.3s' }}>
-            <DynamicTerminal key={`desktop-${currentProfileId}`} variant="desktop" className="transform transition-all duration-300 hover:scale-[1.02]" />
+          <div className="hidden md:block">
+            <DynamicTerminal variant="desktop" />
           </div>
         </div>
 
-        <div className="flex justify-center mt-16 lg:mt-8">
-          <ChevronDown className="w-7 h-7 text-gray-400 animate-bounce" />
+        <div className="mt-12 flex justify-center">
+          <ChevronDown className="h-7 w-7 animate-bounce text-gray-400" />
         </div>
       </div>
     </section>
   );
 }
-

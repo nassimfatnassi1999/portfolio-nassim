@@ -1,79 +1,30 @@
+import type { Experience as ExperienceRecord } from '../types/portfolio';
 import { Section } from './Section';
-import { translations } from '../translations';
-import { useProfile } from '../context/ProfileContext';
-
-type Translation = (typeof translations)[keyof typeof translations];
-
-type ExperienceItem = {
-  role: string;
-  company: string;
-  period: string;
-  description: ReadonlyArray<string>;
-  tags: ReadonlyArray<string>;
-};
 
 type ExperienceProps = {
-  t: Translation;
-  experiences: ExperienceItem[];
+  experiences: ExperienceRecord[];
+  labels: Record<string, string>;
 };
 
-export function Experience({ t, experiences }: ExperienceProps) {
-  const { profile, currentProfileId } = useProfile();
-
-  // Filter experiences based on current profile
-  const filteredExperiences = profile.experienceFilter
-    .filter((idx) => idx < experiences.length)
-    .map((idx) => experiences[idx]);
-
+export function Experience({ experiences, labels }: ExperienceProps) {
   return (
-    <Section id="experience" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="section-heading text-gray-900 dark:text-white">
-            {t.experience.heading[0]}
-            <span className="gradient-text">{t.experience.heading[1]}</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
-        </div>
-
-        <div key={currentProfileId} className="max-w-4xl mx-auto relative profile-content-enter">
-          {/* Timeline line */}
-          <div className="timeline-line hidden md:block" />
-
-          <div className="space-y-8">
-            {filteredExperiences.map((exp, idx) => (
-              <div key={idx} className="relative md:pl-16">
-                {/* Dot */}
-                <div className="hidden md:flex absolute left-4 top-8 w-5 h-5 rounded-full bg-brand-500 border-4 border-white dark:border-gray-950 z-10" />
-                <div className="glass-card p-6 sm:p-8 hover:shadow-xl transition-shadow">
-                  <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
-                      <p className="text-brand-600 dark:text-brand-400 font-semibold">{exp.company}</p>
-                    </div>
-                    <span className="text-sm font-mono text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-lg">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <ul className="space-y-2 mb-4">
-                    {exp.description.map((detail, detailIdx) => (
-                      <li key={detailIdx} className="flex items-start gap-3 text-gray-600 dark:text-gray-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 flex-shrink-0" />
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag, tagIdx) => (
-                      <span key={tagIdx} className="skill-badge text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+    <Section id="experience" className="px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="section-heading text-gray-900 dark:text-white">{labels.experience}</h2>
+        <div className="mt-12 space-y-6">
+          {experiences.map((experience) => (
+            <article key={experience.id} data-experience-id={experience.id} className="glass-card p-6 sm:p-8">
+              <header className="flex flex-wrap justify-between gap-4 border-b border-gray-200 pb-5 dark:border-gray-800">
+                <div><p className="font-mono text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400">{experience.company}</p><h3 className="mt-1 text-xl font-bold">{experience.role}</h3></div>
+                <time className="font-mono text-sm text-gray-500">{experience.period}</time>
+              </header>
+              <div className="mt-6 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+                <div><h4 className="text-sm font-semibold">{labels.mission}</h4><p className="mt-2 leading-7 text-gray-600 dark:text-gray-400">{experience.mission}</p></div>
+                <div><h4 className="text-sm font-semibold">{labels.contributions}</h4><ul className="mt-2 space-y-2 text-gray-600 dark:text-gray-400">{experience.contributions.map((item) => <li key={item} className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />{item}</li>)}</ul></div>
               </div>
-            ))}
-          </div>
+              <div className="mt-6 flex flex-wrap gap-2">{experience.environment.map((item) => <span key={item} className="skill-badge text-xs">{item}</span>)}</div>
+            </article>
+          ))}
         </div>
       </div>
     </Section>
