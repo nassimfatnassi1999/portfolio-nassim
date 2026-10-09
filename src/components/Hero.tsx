@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronDown, Network } from 'lucide-react';
 import type { LocalizedPortfolio, Locale } from '../types/portfolio';
 import { TypingText } from './TypingText';
-import { DynamicTerminal } from './DynamicTerminal';
+import { InfrastructureTerminal } from './InfrastructureTerminal';
 
 type HeroProps = {
   portfolio: LocalizedPortfolio;
@@ -19,7 +19,7 @@ export function Hero({
   onContactClick,
 }: HeroProps) {
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8">
+    <section id="home" aria-labelledby="hero-title" className="relative flex min-h-screen scroll-mt-20 items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8">
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div className="animate-fade-in">
@@ -28,21 +28,22 @@ export function Hero({
               {portfolio.identity.availability}
             </div>
 
-            <h1 className="mb-5 text-5xl font-extrabold leading-tight sm:text-6xl lg:text-7xl">
+            <h1 id="hero-title" className="mb-5 text-5xl font-extrabold leading-tight sm:text-6xl lg:text-7xl">
               <span className="text-gray-900 dark:text-white">{portfolio.identity.name}</span>
             </h1>
             <p className="mb-3 text-xl font-semibold text-gray-800 dark:text-gray-100 sm:text-2xl">
               {portfolio.identity.title}
             </p>
             <div className="mb-6 min-h-10 text-lg text-gray-600 dark:text-gray-400 sm:text-xl">
-              <TypingText key={language} texts={portfolio.hero.disciplines} />
+              <span className="sr-only">{portfolio.hero.disciplines.join(', ')}</span>
+              <span aria-hidden="true"><TypingText key={language} texts={portfolio.hero.disciplines} /></span>
             </div>
             <p className="mb-7 max-w-xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
               {portfolio.identity.description}
             </p>
 
             <div className="mb-8 md:hidden">
-              <DynamicTerminal variant="mobile" />
+              <InfrastructureTerminal variant="mobile" />
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -68,12 +69,12 @@ export function Hero({
           </div>
 
           <div className="hidden md:block">
-            <DynamicTerminal variant="desktop" />
+            <InfrastructureTerminal variant="desktop" />
           </div>
         </div>
 
         <div className="mt-12 flex justify-center">
-          <ChevronDown className="h-7 w-7 animate-bounce text-gray-400" />
+          <ChevronDown aria-hidden="true" className="h-7 w-7 animate-bounce text-gray-400" />
         </div>
       </div>
     </section>

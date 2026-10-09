@@ -148,6 +148,22 @@
   opacity: 0.55;
 }
 
+.infra-path-text,
+.terminal-step-in {
+  animation: console-step-in 280ms ease-out both;
+}
+
+@keyframes console-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

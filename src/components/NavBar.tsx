@@ -1,5 +1,7 @@
 import { BookOpen, Languages, Menu, Moon, Sun, X } from 'lucide-react';
 import type { LocalizedPortfolio, Locale } from '../types/portfolio';
+import { useActiveSection } from '../hooks/useActiveSection';
+import { RotatingInfraPath } from './RotatingInfraPath';
 
 type NavBarProps = {
   portfolio: LocalizedPortfolio;
@@ -24,8 +26,10 @@ export function NavBar({
   menuOpen,
   setMenuOpen,
 }: NavBarProps) {
+  const activeSection = useActiveSection(navIds);
+
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-gray-200/60 bg-white/80 backdrop-blur-xl transition-colors dark:border-gray-800/60 dark:bg-gray-950/80">
+    <nav aria-label={portfolio.labels.navigation} className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl transition-colors dark:border-slate-800/80 dark:bg-[#070b13]/90">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <button onClick={() => onNavClick('home')} className="group flex items-center gap-2" aria-label={portfolio.navigation[0].label}>
@@ -33,13 +37,24 @@ export function NavBar({
             <span className="hidden font-mono text-sm text-gray-500 dark:text-gray-400 sm:inline">~/nassim</span>
           </button>
           <span className="hidden text-gray-300 dark:text-gray-600 sm:block">|</span>
-          <span className="hidden rounded-md border border-gray-700/60 bg-gray-950 px-2.5 py-1 font-mono text-sm text-terminal-green sm:inline">~/infra</span>
+          <RotatingInfraPath />
         </div>
 
         <div className="hidden items-center gap-1 lg:flex">
           {portfolio.navigation.map((item, index) => (
-            <button key={item.id} onClick={() => onNavClick(navIds[index])} className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-100 hover:text-brand-600 dark:text-gray-400 dark:hover:bg-gray-800/60 dark:hover:text-brand-400">
+            <button
+              key={item.id}
+              onClick={() => onNavClick(navIds[index])}
+              aria-current={activeSection === navIds[index] ? 'page' : undefined}
+              data-section-target={navIds[index]}
+              className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                activeSection === navIds[index]
+                  ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-brand-600 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-brand-400'
+              }`}
+            >
               {item.label}
+              {activeSection === navIds[index] && <span aria-hidden="true" className="absolute inset-x-3 -bottom-px h-px bg-brand-500" />}
             </button>
           ))}
         </div>
@@ -63,7 +78,13 @@ export function NavBar({
       {menuOpen && (
         <div className="space-y-1 border-t border-gray-200 bg-white px-4 py-4 dark:border-gray-800 dark:bg-gray-950 lg:hidden">
           {portfolio.navigation.map((item, index) => (
-            <button key={item.id} onClick={() => onNavClick(navIds[index])} className="block w-full rounded-lg px-4 py-2.5 text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
+            <button
+              key={item.id}
+              onClick={() => onNavClick(navIds[index])}
+              aria-current={activeSection === navIds[index] ? 'page' : undefined}
+              data-section-target={navIds[index]}
+              className={`block min-h-11 w-full rounded-lg px-4 py-2.5 text-left ${activeSection === navIds[index] ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`}
+            >
               {item.label}
             </button>
           ))}
