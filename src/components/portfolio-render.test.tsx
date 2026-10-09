@@ -8,6 +8,8 @@ import { About } from './About';
 import { EngineeringExpertise } from './EngineeringExpertise';
 import { Experience } from './Experience';
 import { Projects } from './Projects';
+import { InfrastructureStack } from './InfrastructureStack';
+import { ProductionToolbox } from './ProductionToolbox';
 import { NavBar } from './NavBar';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -70,6 +72,26 @@ describe('unified portfolio rendering', () => {
       expect(projects).toContain(escapeText(project.outcome.text));
     }
     expect(projects).not.toContain('type="checkbox"');
+  });
+
+  it.each(['en', 'fr'] as const)('models infrastructure capabilities without presenting a fictional stack in %s', (locale) => {
+    const portfolio = getPortfolio(locale);
+    const landscape = renderToStaticMarkup(<InfrastructureStack portfolio={portfolio} />);
+    const toolbox = renderToStaticMarkup(<ProductionToolbox portfolio={portfolio} />);
+
+    for (const group of ['foundations', 'virtualization', 'cloud-platforms', 'runtime-delivery', 'automation', 'networking', 'observability']) {
+      expect(landscape).toContain(`data-capability-group="${group}"`);
+    }
+    expect(landscape.match(/data-layer="compute-platforms"/g)).toHaveLength(2);
+    expect(landscape.match(/data-scope="cross-cutting"/g)).toHaveLength(2);
+    expect(landscape).toContain(portfolio.labels.infrastructureIntro.replace('—', '—'));
+
+    expect(toolbox).toContain('role="tablist"');
+    expect(toolbox).toContain('role="tabpanel"');
+    expect(toolbox).toContain('aria-selected="true"');
+    for (const domain of portfolio.technologyDomains) {
+      expect(toolbox).toContain(`data-domain-id="${domain.id}"`);
+    }
   });
 
   it('renders one unified professional identity without legacy role controls', () => {

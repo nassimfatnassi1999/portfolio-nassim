@@ -5,8 +5,9 @@ import { NavBar } from './components/NavBar';
 import { Hero } from './components/Hero';
 import { InfrastructureBackdrop } from './components/InfrastructureBackdrop';
 import { About } from './components/About';
-import { Skills } from './components/Skills';
 import { EngineeringExpertise } from './components/EngineeringExpertise';
+import { InfrastructureStack } from './components/InfrastructureStack';
+import { ProductionToolbox } from './components/ProductionToolbox';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Certifications } from './components/Certifications';
@@ -87,7 +88,8 @@ export default function App() {
       <EngineeringExpertise portfolio={portfolio} />
       <Experience experiences={portfolio.experiences} labels={portfolio.labels} />
       <Projects projects={portfolio.projects} labels={portfolio.labels} />
-      <Skills id="infrastructure" portfolio={portfolio} infrastructure />
+      <InfrastructureStack portfolio={portfolio} />
+      <ProductionToolbox portfolio={portfolio} />
       <Certifications certifications={portfolio.certifications} heading={portfolio.labels.certifications} />
       <Education education={portfolio.education} heading={portfolio.labels.education} />
       <Contact portfolio={portfolio} />
