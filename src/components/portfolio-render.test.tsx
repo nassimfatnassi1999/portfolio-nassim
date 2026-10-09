@@ -10,6 +10,10 @@ import { Experience } from './Experience';
 import { Projects } from './Projects';
 import { InfrastructureStack } from './InfrastructureStack';
 import { ProductionToolbox } from './ProductionToolbox';
+import { Certifications } from './Certifications';
+import { Education } from './Education';
+import { Contact } from './Contact';
+import { Footer } from './Footer';
 import { NavBar } from './NavBar';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -92,6 +96,37 @@ describe('unified portfolio rendering', () => {
     for (const domain of portfolio.technologyDomains) {
       expect(toolbox).toContain(`data-domain-id="${domain.id}"`);
     }
+  });
+
+  it.each(['en', 'fr'] as const)('preserves credentials, education, contact and localized resumes in %s', (locale) => {
+    const portfolio = getPortfolio(locale);
+    const certifications = renderToStaticMarkup(<Certifications certifications={portfolio.certifications} heading={portfolio.labels.certifications} />);
+    const education = renderToStaticMarkup(<Education education={portfolio.education} heading={portfolio.labels.education} />);
+    const contact = renderToStaticMarkup(<Contact portfolio={portfolio} />);
+    const footer = renderToStaticMarkup(<Footer portfolio={portfolio} />);
+
+    expect(certifications.match(/data-certification-id=/g)).toHaveLength(1);
+    expect(certifications).toContain(portfolio.certifications[0].url);
+    expect(education.match(/data-education-id=/g)).toHaveLength(2);
+    expect(contact).toContain(escapeText(portfolio.contact.heading));
+    for (const href of [portfolio.identity.linkedin, portfolio.identity.github, `mailto:${portfolio.identity.email}`, portfolio.identity.phoneHref]) {
+      expect(contact).toContain(href);
+    }
+    for (const href of [portfolio.identity.linkedin, portfolio.identity.github, `mailto:${portfolio.identity.email}`]) expect(footer).toContain(href);
+    expect(contact).toContain(portfolio.resumes.primary.url.replace(/&/g, '&amp;'));
+    expect(contact).toContain(portfolio.labels.alternateResumes);
+    for (const resume of portfolio.resumes.alternates) expect(contact).toContain(resume.url.replace(/&/g, '&amp;'));
+    expect(footer).toContain(escapeText(portfolio.identity.title));
+  });
+
+  it('keeps all six inventoried resume URLs reachable across both locales', () => {
+    const markup = (['en', 'fr'] as const).map((locale) => renderToStaticMarkup(<Contact portfolio={getPortfolio(locale)} />)).join('');
+    const resumes = (['en', 'fr'] as const).flatMap((locale) => {
+      const portfolio = getPortfolio(locale);
+      return [portfolio.resumes.primary, ...portfolio.resumes.alternates];
+    });
+    expect(new Set(resumes.map((resume) => resume.url)).size).toBe(6);
+    for (const resume of resumes) expect(markup).toContain(resume.url.replace(/&/g, '&amp;'));
   });
 
   it('renders one unified professional identity without legacy role controls', () => {
