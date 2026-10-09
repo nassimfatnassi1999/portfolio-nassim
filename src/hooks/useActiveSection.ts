@@ -4,28 +4,39 @@ export function useActiveSection(sectionIds: readonly string[]): string {
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? 'home');
 
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') {
-      setActiveSection(sectionIds[0] ?? 'home');
-      return;
-    }
-
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
     if (elements.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveSection(visible.target.id);
-      },
-      { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.25, 0.6] },
-    );
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const documentBottom = document.documentElement.scrollHeight - 2;
+      if (window.scrollY + window.innerHeight >= documentBottom) {
+        setActiveSection(elements[elements.length - 1].id);
+        return;
+      }
 
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+      const marker = window.scrollY + Math.min(window.innerHeight * 0.25, 220);
+      const current = elements.reduce((selected, element) => {
+        const top = element.getBoundingClientRect().top + window.scrollY;
+        return top <= marker ? element : selected;
+      }, elements[0]);
+      setActiveSection(current.id);
+    };
+    const scheduleUpdate = () => {
+      if (frame === 0) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      if (frame !== 0) window.cancelAnimationFrame(frame);
+    };
   }, [sectionIds]);
 
   return activeSection;

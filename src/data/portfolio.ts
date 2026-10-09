@@ -554,7 +554,7 @@ export const portfolioSource = {
   ],
   resumes: [
     {
-      id: 'cloud-devops-resume',
+      id: 'primary-infrastructure-resume',
       label: text('Cloud & DevOps Resume', 'CV Cloud & DevOps'),
       urls: {
         en: 'https://drive.google.com/file/d/1-ql96PCwiaMvd_C-gh1tQtg7pnUA3oP3/view?usp=sharing',
