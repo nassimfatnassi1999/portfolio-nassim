@@ -28,6 +28,10 @@
   ::selection {
     @apply bg-brand-400/30 text-slate-950 dark:text-white;
   }
+
+  .skip-link {
+    @apply fixed left-4 top-3 z-[60] -translate-y-20 rounded-lg bg-slate-950 px-4 py-3 font-semibold text-white transition-transform focus:translate-y-0 dark:bg-white dark:text-slate-950;
+  }
 }
 
 @layer components {

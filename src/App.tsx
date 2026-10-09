@@ -14,6 +14,7 @@ import { Certifications } from './components/Certifications';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { useReducedMotion } from './hooks/useReducedMotion';
 
 const navIds = [
   'home',
@@ -42,11 +43,16 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [language, setLanguage] = useState<Locale>(readLanguage);
   const portfolio = useMemo(() => getPortfolio(language), [language]);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
     window.localStorage.setItem('theme', dark ? 'dark' : 'light');
   }, [dark]);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   const toggleLanguage = () => {
     setLanguage((current) => {
@@ -57,12 +63,13 @@ export default function App() {
   };
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
     setMenuOpen(false);
   };
 
   return (
     <div className="relative min-h-screen bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
+      <a href="#main-content" className="skip-link">{portfolio.labels.skipToContent}</a>
       <InfrastructureBackdrop />
       <NavBar
         portfolio={portfolio}
@@ -76,23 +83,25 @@ export default function App() {
         setMenuOpen={setMenuOpen}
       />
 
-      <Hero
-        portfolio={portfolio}
-        language={language}
-        onProjectsClick={() => scrollTo('projects')}
-        onInfrastructureClick={() => scrollTo('infrastructure')}
-        onContactClick={() => scrollTo('contact')}
-      />
+      <main id="main-content">
+        <Hero
+          portfolio={portfolio}
+          language={language}
+          onProjectsClick={() => scrollTo('projects')}
+          onInfrastructureClick={() => scrollTo('infrastructure')}
+          onContactClick={() => scrollTo('contact')}
+        />
 
-      <About portfolio={portfolio} />
-      <EngineeringExpertise portfolio={portfolio} />
-      <Experience experiences={portfolio.experiences} labels={portfolio.labels} />
-      <Projects projects={portfolio.projects} labels={portfolio.labels} />
-      <InfrastructureStack portfolio={portfolio} />
-      <ProductionToolbox portfolio={portfolio} />
-      <Certifications certifications={portfolio.certifications} heading={portfolio.labels.certifications} />
-      <Education education={portfolio.education} heading={portfolio.labels.education} />
-      <Contact portfolio={portfolio} />
+        <About portfolio={portfolio} />
+        <EngineeringExpertise portfolio={portfolio} />
+        <Experience experiences={portfolio.experiences} labels={portfolio.labels} />
+        <Projects projects={portfolio.projects} labels={portfolio.labels} />
+        <InfrastructureStack portfolio={portfolio} />
+        <ProductionToolbox portfolio={portfolio} />
+        <Certifications certifications={portfolio.certifications} heading={portfolio.labels.certifications} />
+        <Education education={portfolio.education} heading={portfolio.labels.education} />
+        <Contact portfolio={portfolio} />
+      </main>
       <Footer portfolio={portfolio} />
     </div>
   );

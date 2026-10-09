@@ -20,6 +20,7 @@ import { StatusIndicator } from './ui/StatusIndicator';
 import { SurfaceCard } from './ui/SurfaceCard';
 import { TechnologyBadge } from './ui/TechnologyBadge';
 import { TerminalWindow } from './ui/TerminalWindow';
+import indexSource from '../../index.html?raw';
 
 const escapeText = (value: string) => value
   .replace(/&/g, '&amp;')
@@ -29,6 +30,40 @@ const escapeText = (value: string) => value
   .replace(/>/g, '&gt;');
 
 describe('unified portfolio rendering', () => {
+  it('uses the approved recruiter metadata and only existing visual assets', () => {
+    expect(indexSource).toContain('<title>Nassim Fatnassi Hnifi | Cloud, DevOps &amp; Systems Engineer</title>');
+    expect(indexSource).toContain('content="Cloud &amp; DevOps Engineer and Systems Administrator specializing in Linux, Kubernetes, VMware, automation, monitoring and production infrastructure."');
+    expect(indexSource).toContain('name="keywords"');
+    expect(indexSource).toContain('name="theme-color"');
+    expect(indexSource).toContain('property="og:type" content="profile"');
+    expect(indexSource).toContain('type="application/ld+json"');
+    expect(indexSource).toContain('/photo-cv.png');
+    expect(indexSource).not.toContain('/vite.svg');
+  });
+
+  it('renders semantic landmarks, unique ordered sections and labelled controls', () => {
+    const markup = renderToStaticMarkup(<App />);
+    expect(markup.match(/<h1\b/g)).toHaveLength(1);
+    expect(markup).toContain('<main id="main-content"');
+    expect(markup).toContain('<nav aria-label=');
+    expect(markup).toContain('<footer');
+    expect(markup).toContain('aria-controls="mobile-navigation"');
+    expect(markup).toContain('aria-live="polite"');
+
+    const sectionIds = [...markup.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]);
+    expect(new Set(sectionIds).size).toBe(sectionIds.length);
+    const approved = ['home', 'about', 'expertise', 'experience', 'projects', 'infrastructure', 'certifications', 'education', 'contact'];
+    const positions = approved.map((id) => sectionIds.indexOf(id));
+    expect(positions.every((position) => position >= 0)).toBe(true);
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
+
+    for (const match of markup.matchAll(/<(a|button)\b([^>]*)>([\s\S]*?)<\/\1>/g)) {
+      const [, , attributes, children] = match;
+      const visibleText = children.replace(/<[^>]+>/g, '').trim();
+      expect(visibleText.length > 0 || attributes.includes('aria-label=')).toBe(true);
+    }
+  });
+
   it('keeps the profile narrative and four engineering domains complete but distinct from the toolbox', () => {
     const portfolio = getPortfolio('en');
     const about = renderToStaticMarkup(<About portfolio={portfolio} />);

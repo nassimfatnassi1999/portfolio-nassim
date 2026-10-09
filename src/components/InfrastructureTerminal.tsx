@@ -19,6 +19,7 @@ export function InfrastructureTerminal({ variant = 'desktop' }: { variant?: 'des
   }, [reducedMotion]);
 
   return (
+    <div aria-live="polite" aria-atomic="false">
     <TerminalWindow title="nassim@infra:~$" className={variant === 'mobile' ? 'text-[10px]' : ''}>
       <div className="min-w-0 space-y-3 text-[11px] sm:text-xs lg:text-[13px]">
         <div>
@@ -62,6 +63,7 @@ export function InfrastructureTerminal({ variant = 'desktop' }: { variant?: 'des
         )}
       </div>
     </TerminalWindow>
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 export function TerminalWindow({ title, children, className = '' }: { title: string; children: ReactNode; className?: string }) {
   return (
-    <div className={`terminal-window ${className}`}>
+    <div role="region" aria-label={title} className={`terminal-window ${className}`}>
       <div className="terminal-header">
         <div aria-hidden="true" className="flex gap-1.5">
           <span className="terminal-dot bg-slate-500" />
