@@ -3,7 +3,7 @@ import { getPortfolio } from './data/portfolio';
 import type { Locale } from './types/portfolio';
 import { NavBar } from './components/NavBar';
 import { Hero } from './components/Hero';
-import { NightSky } from './components/NightSky';
+import { InfrastructureBackdrop } from './components/InfrastructureBackdrop';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
@@ -61,7 +61,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
-      {dark && <NightSky />}
+      <InfrastructureBackdrop />
       <NavBar
         portfolio={portfolio}
         navIds={navIds}
