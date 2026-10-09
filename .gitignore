@@ -89,6 +89,7 @@ coverage/
 *.local
 .vercel
 .netlify
+.worktrees/
 
 # ----------------------------
 
