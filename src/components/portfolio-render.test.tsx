@@ -6,6 +6,8 @@ import { getReducedMotionPreference } from '../hooks/useReducedMotion';
 import { InfrastructureBackdrop } from './InfrastructureBackdrop';
 import { About } from './About';
 import { EngineeringExpertise } from './EngineeringExpertise';
+import { Experience } from './Experience';
+import { Projects } from './Projects';
 import { NavBar } from './NavBar';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -13,13 +15,20 @@ import { SurfaceCard } from './ui/SurfaceCard';
 import { TechnologyBadge } from './ui/TechnologyBadge';
 import { TerminalWindow } from './ui/TerminalWindow';
 
+const escapeText = (value: string) => value
+  .replace(/&/g, '&amp;')
+  .replace(/'/g, '&#x27;')
+  .replace(/"/g, '&quot;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;');
+
 describe('unified portfolio rendering', () => {
   it('keeps the profile narrative and four engineering domains complete but distinct from the toolbox', () => {
     const portfolio = getPortfolio('en');
     const about = renderToStaticMarkup(<About portfolio={portfolio} />);
     const expertise = renderToStaticMarkup(<EngineeringExpertise portfolio={portfolio} />);
 
-    for (const paragraph of portfolio.about.paragraphs) expect(about).toContain(paragraph.replace(/&/g, '&amp;'));
+    for (const paragraph of portfolio.about.paragraphs) expect(about).toContain(escapeText(paragraph));
     expect(portfolio.about.paragraphs).toHaveLength(3);
     expect(about).toContain(portfolio.identity.linkedin);
     expect(about).toContain(portfolio.identity.github);
@@ -31,6 +40,36 @@ describe('unified portfolio rendering', () => {
     for (const domain of portfolio.technologyDomains) {
       for (const technology of domain.technologies) expect(expertise).not.toContain(`>${technology}<`);
     }
+  });
+
+  it.each(['en', 'fr'] as const)('preserves ordered experience and project evidence in %s', (locale) => {
+    const portfolio = getPortfolio(locale);
+    const experience = renderToStaticMarkup(<Experience experiences={portfolio.experiences} labels={portfolio.labels} />);
+    const projects = renderToStaticMarkup(<Projects projects={portfolio.projects} labels={portfolio.labels} />);
+
+    expect(experience.match(/data-experience-id=/g)).toHaveLength(5);
+    expect(projects.match(/data-project-id=/g)).toHaveLength(16);
+    const experiencePositions = portfolio.experiences.map((item) => experience.indexOf(`data-experience-id="${item.id}"`));
+    expect(experiencePositions.every((position) => position >= 0)).toBe(true);
+    expect(experiencePositions).toEqual([...experiencePositions].sort((a, b) => a - b));
+
+    const projectPositions = portfolio.projects.map((item) => projects.indexOf(`data-project-id="${item.id}"`));
+    expect(projectPositions.every((position) => position >= 0)).toBe(true);
+    expect(projectPositions).toEqual([...projectPositions].sort((a, b) => a - b));
+    expect(portfolio.projects.map((project) => project.priority)).toEqual([
+      ...portfolio.projects.filter((project) => project.priority === 'infrastructure'),
+      ...portfolio.projects.filter((project) => project.priority === 'mixed'),
+      ...portfolio.projects.filter((project) => project.priority === 'application'),
+    ].map((project) => project.priority));
+    expect(portfolio.projects.some((project) => project.priority === 'application')).toBe(true);
+
+    for (const project of portfolio.projects) {
+      expect(projects).toContain(`data-project-priority="${project.priority}"`);
+      expect(projects).toContain(`data-outcome-kind="${project.outcome.kind}"`);
+      expect(projects).toContain(escapeText(project.role));
+      expect(projects).toContain(escapeText(project.outcome.text));
+    }
+    expect(projects).not.toContain('type="checkbox"');
   });
 
   it('renders one unified professional identity without legacy role controls', () => {
