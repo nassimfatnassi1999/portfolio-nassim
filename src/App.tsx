@@ -6,6 +6,7 @@ import { Hero } from './components/Hero';
 import { InfrastructureBackdrop } from './components/InfrastructureBackdrop';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
+import { EngineeringExpertise } from './components/EngineeringExpertise';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Certifications } from './components/Certifications';
@@ -83,7 +84,7 @@ export default function App() {
       />
 
       <About portfolio={portfolio} />
-      <Skills id="expertise" portfolio={portfolio} />
+      <EngineeringExpertise portfolio={portfolio} />
       <Experience experiences={portfolio.experiences} labels={portfolio.labels} />
       <Projects projects={portfolio.projects} labels={portfolio.labels} />
       <Skills id="infrastructure" portfolio={portfolio} infrastructure />

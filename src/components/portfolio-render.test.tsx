@@ -4,6 +4,8 @@ import App from '../App';
 import { getPortfolio } from '../data/portfolio';
 import { getReducedMotionPreference } from '../hooks/useReducedMotion';
 import { InfrastructureBackdrop } from './InfrastructureBackdrop';
+import { About } from './About';
+import { EngineeringExpertise } from './EngineeringExpertise';
 import { NavBar } from './NavBar';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -12,6 +14,25 @@ import { TechnologyBadge } from './ui/TechnologyBadge';
 import { TerminalWindow } from './ui/TerminalWindow';
 
 describe('unified portfolio rendering', () => {
+  it('keeps the profile narrative and four engineering domains complete but distinct from the toolbox', () => {
+    const portfolio = getPortfolio('en');
+    const about = renderToStaticMarkup(<About portfolio={portfolio} />);
+    const expertise = renderToStaticMarkup(<EngineeringExpertise portfolio={portfolio} />);
+
+    for (const paragraph of portfolio.about.paragraphs) expect(about).toContain(paragraph.replace(/&/g, '&amp;'));
+    expect(portfolio.about.paragraphs).toHaveLength(3);
+    expect(about).toContain(portfolio.identity.linkedin);
+    expect(about).toContain(portfolio.identity.github);
+    expect(about).toContain(`mailto:${portfolio.identity.email}`);
+    expect(about).toContain(portfolio.identity.phoneHref);
+
+    expect(expertise.match(/data-expertise-id=/g)).toHaveLength(4);
+    for (const item of portfolio.expertise) expect(expertise).toContain(`data-expertise-id="${item.id}"`);
+    for (const domain of portfolio.technologyDomains) {
+      for (const technology of domain.technologies) expect(expertise).not.toContain(`>${technology}<`);
+    }
+  });
+
   it('renders one unified professional identity without legacy role controls', () => {
     const markup = renderToStaticMarkup(<App />);
 
