@@ -63,7 +63,7 @@ export function ProductionToolbox({ portfolio }: { portfolio: LocalizedPortfolio
             data-active-domain={activeDomain.id}
             className="p-6 sm:p-8"
           >
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-brand-600 dark:text-brand-400">{activeDomain.label}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-brand-700 dark:text-brand-400">{activeDomain.label}</p>
             <p className="mt-3 max-w-2xl leading-7 text-slate-600 dark:text-slate-400">{activeDomain.description}</p>
             <div className="mt-6 flex flex-wrap gap-2.5">
               {activeDomain.technologies.map((technology) => <TechnologyBadge key={technology}>{technology}</TechnologyBadge>)}

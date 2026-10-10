@@ -17,16 +17,16 @@ export function Contact({ portfolio }: { portfolio: LocalizedPortfolio }) {
         <div className="surface-card overflow-hidden">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
             <div className="p-8 sm:p-10">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400">08 / {portfolio.contact.terminalStatus}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">08 / {portfolio.contact.terminalStatus}</p>
               <h2 className="mt-4 text-4xl font-bold sm:text-5xl">{portfolio.contact.heading}</h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">{portfolio.contact.subheading}</p>
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
                 {contactLinks.map(({ label, value, href, icon: Icon }) => <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="flex min-h-16 items-center gap-3 rounded-xl border border-slate-200 p-4 transition-colors hover:border-brand-400/50 hover:bg-brand-500/5 dark:border-slate-800"><Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-brand-500" /><span className="min-w-0"><span className="block text-xs text-slate-500">{label}</span><span className="block truncate text-sm font-medium">{value}</span></span></a>)}
               </div>
-              <div className="mt-7"><a href={portfolio.resumes.primary.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-brand-500"><BookOpen aria-hidden="true" className="h-4 w-4" />{portfolio.labels.downloadResume}</a></div>
+              <div className="mt-7"><a href={portfolio.resumes.primary.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-brand-800"><BookOpen aria-hidden="true" className="h-4 w-4" />{portfolio.labels.downloadResume}</a></div>
               <div className="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
                 <p id="alternate-resumes" className="mb-3 font-mono text-xs uppercase tracking-[0.12em] text-slate-500">{portfolio.labels.alternateResumes}</p>
-                <div aria-labelledby="alternate-resumes" className="flex flex-wrap gap-3">{portfolio.resumes.alternates.map((resume) => <a key={resume.id} href={resume.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-4 py-3 text-sm font-semibold transition-colors hover:border-brand-400/60 hover:text-brand-600 dark:border-slate-700 dark:hover:text-brand-400">{resume.label}</a>)}</div>
+                <div aria-labelledby="alternate-resumes" className="flex flex-wrap gap-3">{portfolio.resumes.alternates.map((resume) => <a key={resume.id} href={resume.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-4 py-3 text-sm font-semibold transition-colors hover:border-brand-400/60 hover:text-brand-700 dark:border-slate-700 dark:hover:text-brand-400">{resume.label}</a>)}</div>
               </div>
             </div>
             <div className="border-t border-slate-200 bg-slate-100/50 p-6 dark:border-slate-800 dark:bg-slate-950/30 lg:border-l lg:border-t-0 lg:p-8">

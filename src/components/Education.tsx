@@ -14,8 +14,8 @@ export function Education({ education, heading }: { education: EducationRecord[]
           {education.map((item) => (
             <li key={item.id}>
             <SurfaceCard as="article" data-education-id={item.id} className="flex gap-5 p-6 sm:p-8">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-600 dark:text-brand-400"><GraduationCap aria-hidden="true" className="h-6 w-6" /></div>
-              <div><h3 className="text-xl font-bold">{item.degree}</h3><p className="mt-1 font-medium text-brand-600 dark:text-brand-400">{item.school}</p><p className="mt-2 font-mono text-sm text-gray-500">{item.period} · {item.location}</p><div className="mt-4 flex flex-wrap gap-2">{item.domains.map((domain) => <TechnologyBadge key={domain}>{domain}</TechnologyBadge>)}</div></div>
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-700 dark:text-brand-400"><GraduationCap aria-hidden="true" className="h-6 w-6" /></div>
+              <div><h3 className="text-xl font-bold">{item.degree}</h3><p className="mt-1 font-medium text-brand-700 dark:text-brand-400">{item.school}</p><p className="mt-2 font-mono text-sm text-gray-500">{item.period} · {item.location}</p><div className="mt-4 flex flex-wrap gap-2">{item.domains.map((domain) => <TechnologyBadge key={domain}>{domain}</TechnologyBadge>)}</div></div>
             </SurfaceCard>
             </li>
           ))}

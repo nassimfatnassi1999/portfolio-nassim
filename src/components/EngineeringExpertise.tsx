@@ -21,7 +21,7 @@ export function EngineeringExpertise({ portfolio }: { portfolio: LocalizedPortfo
             return (
               <SurfaceCard key={item.id} as="article" data-expertise-id={item.id} className="group p-6 sm:p-7">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-700 dark:text-brand-400">
                     <Icon aria-hidden="true" className="h-5 w-5" />
                   </div>
                   <div>

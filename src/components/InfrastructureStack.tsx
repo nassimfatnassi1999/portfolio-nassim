@@ -12,11 +12,12 @@ type CapabilityPanelProps = {
   children: ReactNode;
   layer?: string;
   scope?: string;
+  scopeLabel?: string;
   domainMembers?: string[];
   className?: string;
 };
 
-function CapabilityPanel({ id, title, icon: Icon, children, layer, scope, domainMembers, className = '' }: CapabilityPanelProps) {
+function CapabilityPanel({ id, title, icon: Icon, children, layer, scope, scopeLabel, domainMembers, className = '' }: CapabilityPanelProps) {
   return (
     <SurfaceCard
       as="article"
@@ -31,7 +32,7 @@ function CapabilityPanel({ id, title, icon: Icon, children, layer, scope, domain
           <Icon aria-hidden="true" className="h-5 w-5" />
         </span>
         <div>
-          {scope && <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">{scope}</p>}
+          {scopeLabel && <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">{scopeLabel}</p>}
           <h3 className="font-bold text-slate-950 dark:text-slate-50">{title}</h3>
         </div>
       </div>
@@ -95,15 +96,13 @@ export function InfrastructureStack({ portfolio }: { portfolio: LocalizedPortfol
             </div>
           </CapabilityPanel>
 
-          <CapabilityPanel id="automation" title={portfolio.labels.automation} icon={Settings2} scope="cross-cutting" domainMembers={['infrastructure-as-code', 'scripting', 'devops-cicd']} className="lg:col-span-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">{portfolio.labels.crossCutting}</p>
+          <CapabilityPanel id="automation" title={portfolio.labels.automation} icon={Settings2} scope="cross-cutting" scopeLabel={portfolio.labels.crossCutting} domainMembers={['infrastructure-as-code', 'scripting', 'devops-cicd']} className="lg:col-span-6">
             <RelationshipLabel relationship="delivers-to" label={portfolio.labels.deliversTo} />
-            <div className="mt-3 space-y-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /><DomainSummary domain={domain('devops-cicd')} /></div>
+            <div className="space-y-3 lg:mt-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /><DomainSummary domain={domain('devops-cicd')} /></div>
           </CapabilityPanel>
-          <CapabilityPanel id="observability" title={domain('observability').label} icon={Activity} scope="cross-cutting" className="lg:col-span-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">{portfolio.labels.crossCutting}</p>
+          <CapabilityPanel id="observability" title={domain('observability').label} icon={Activity} scope="cross-cutting" scopeLabel={portfolio.labels.crossCutting} className="lg:col-span-6">
             <RelationshipLabel relationship="observes" label={portfolio.labels.observes} />
-            <p className="mt-3">{domain('observability').description}</p>
+            <p className="lg:mt-3">{domain('observability').description}</p>
           </CapabilityPanel>
         </div>
       </div>

@@ -23,7 +23,7 @@ export function Experience({ experiences, labels }: ExperienceProps) {
               </div>
               <SurfaceCard as="article" data-experience-id={experience.id} className="p-6 sm:p-8">
                 <header className="border-b border-slate-200/80 pb-5 dark:border-slate-800">
-                  <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-600 dark:text-brand-400">{experience.company}</p>
+                  <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-400">{experience.company}</p>
                   <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-slate-50">{experience.role}</h3>
                 </header>
                 <div className="mt-6 grid gap-7 lg:grid-cols-[0.8fr_1.2fr]">

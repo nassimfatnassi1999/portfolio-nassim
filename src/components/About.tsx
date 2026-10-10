@@ -13,15 +13,15 @@ export function About({ portfolio }: { portfolio: LocalizedPortfolio }) {
           <SurfaceCard as="aside" className="mt-12 p-8 text-center">
             <img src={portfolio.identity.portrait} alt={portfolio.identity.name} className="mx-auto mb-6 h-36 w-36 rounded-2xl object-cover object-top ring-2 ring-brand-500/30" />
             <h3 className="text-xl font-bold">{portfolio.identity.name}</h3>
-            <p className="mt-2 text-sm font-medium text-brand-600 dark:text-brand-400">{portfolio.identity.shortTitle}</p>
+            <p className="mt-2 text-sm font-medium text-brand-700 dark:text-brand-400">{portfolio.identity.shortTitle}</p>
             <div className="my-6 flex justify-center gap-3">
-              <a href={portfolio.identity.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-600 dark:bg-slate-800 dark:hover:text-brand-400"><Linkedin className="h-5 w-5" /></a>
-              <a href={portfolio.identity.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-600 dark:bg-slate-800 dark:hover:text-brand-400"><Github className="h-5 w-5" /></a>
-              <a href={`mailto:${portfolio.identity.email}`} aria-label={portfolio.labels.email} className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-600 dark:bg-slate-800 dark:hover:text-brand-400"><Mail className="h-5 w-5" /></a>
+              <a href={portfolio.identity.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-700 dark:bg-slate-800 dark:hover:text-brand-400"><Linkedin className="h-5 w-5" /></a>
+              <a href={portfolio.identity.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-700 dark:bg-slate-800 dark:hover:text-brand-400"><Github className="h-5 w-5" /></a>
+              <a href={`mailto:${portfolio.identity.email}`} aria-label={portfolio.labels.email} className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-100 transition-colors hover:text-brand-700 dark:bg-slate-800 dark:hover:text-brand-400"><Mail className="h-5 w-5" /></a>
             </div>
             <div className="space-y-3 text-left text-sm text-gray-600 dark:text-gray-400">
               <p className="flex items-center gap-3"><MapPin className="h-4 w-4 text-brand-500" /> {portfolio.identity.location}</p>
-              <a href={portfolio.identity.phoneHref} className="flex items-center gap-3 transition-colors hover:text-brand-600 dark:hover:text-brand-400"><Phone className="h-4 w-4 text-brand-500" /> {portfolio.identity.phoneDisplay}</a>
+              <a href={portfolio.identity.phoneHref} className="flex items-center gap-3 transition-colors hover:text-brand-700 dark:hover:text-brand-400"><Phone className="h-4 w-4 text-brand-500" /> {portfolio.identity.phoneDisplay}</a>
               <p className="flex items-center gap-3"><Globe2 className="h-4 w-4 text-brand-500" /> {portfolio.identity.languages}</p>
             </div>
           </SurfaceCard>

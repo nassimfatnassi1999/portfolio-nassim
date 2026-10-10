@@ -128,7 +128,9 @@ describe('unified portfolio rendering', () => {
     expect(landscape).toContain('data-domain-members="containers middleware application-workloads"');
     expect(landscape).toContain('data-domain-members="infrastructure-as-code scripting devops-cicd"');
     for (const relationship of ['runs-on', 'delivers-to', 'observes']) expect(landscape).toContain(`data-relationship="${relationship}"`);
+    for (const label of [portfolio.labels.runsOn, portfolio.labels.deliversTo, portfolio.labels.observes]) expect(landscape).toContain(escapeText(label));
     expect(landscape).toContain(portfolio.labels.infrastructureIntro.replace('—', '—'));
+    if (locale === 'fr') expect(landscape).not.toContain('>cross-cutting<');
 
     expect(toolbox).toContain('role="tablist"');
     expect(toolbox).toContain('role="tabpanel"');

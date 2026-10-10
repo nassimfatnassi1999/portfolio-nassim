@@ -18,7 +18,7 @@ export function RotatingInfraPath() {
     <span
       aria-hidden="true"
       data-path-values={INFRA_PATHS.join(' ')}
-      className="hidden min-w-[8.5rem] items-center gap-2 rounded-md border border-slate-700/80 bg-[#080d17] px-2.5 py-1.5 font-mono text-xs text-emerald-400 shadow-inner sm:inline-flex"
+      className="hidden min-w-[8.5rem] items-center gap-2 rounded-md border border-slate-700/80 bg-[#080d17] px-2.5 py-1.5 font-mono text-xs text-emerald-400 shadow-inner 2xl:inline-flex"
     >
       <Cloud className="h-3.5 w-3.5 text-sky-400" />
       <span key={reducedMotion ? 'infra' : INFRA_PATHS[index]} className="infra-path-text">

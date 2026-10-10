@@ -36,7 +36,7 @@ export function Projects({ projects, labels }: ProjectsProps) {
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">{project.title}</h3>
-                <p className="mt-1 text-sm font-medium text-brand-600 dark:text-brand-400">{project.subtitle}</p>
+                <p className="mt-1 text-sm font-medium text-brand-700 dark:text-brand-400">{project.subtitle}</p>
 
                 <dl className="mt-6 space-y-5 text-sm leading-6">
                   <div><dt className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">{labels.problem}</dt><dd className="mt-1 text-slate-600 dark:text-slate-400">{project.problem}</dd></div>
@@ -57,7 +57,7 @@ export function Projects({ projects, labels }: ProjectsProps) {
                 <div className="mt-6 flex flex-wrap gap-2">{project.technologies.map((item) => <TechnologyBadge key={item}>{item}</TechnologyBadge>)}</div>
                 {project.links.length > 0 && (
                   <div className="mt-auto flex flex-wrap gap-x-5 pt-6">
-                    {project.links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.label}: ${project.title}`} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-500 dark:text-brand-400">{link.label}<ExternalLink aria-hidden="true" className="h-4 w-4" /></a>)}
+                    {project.links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.label}: ${project.title}`} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-800 dark:text-brand-400">{link.label}<ExternalLink aria-hidden="true" className="h-4 w-4" /></a>)}
                   </div>
                 )}
               </div>

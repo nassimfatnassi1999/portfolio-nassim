@@ -23,7 +23,7 @@ export function Hero({
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div className="animate-fade-in">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-600 dark:text-brand-400">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-700 dark:text-brand-400">
               <span className="h-2 w-2 rounded-full bg-terminal-green" />
               {portfolio.identity.availability}
             </div>
@@ -47,13 +47,13 @@ export function Hero({
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <button onClick={onProjectsClick} className="group flex min-h-11 items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white hover:bg-brand-500">
+              <button onClick={onProjectsClick} className="group flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-6 py-3 font-semibold text-white hover:bg-brand-800">
                 {portfolio.hero.actions.projects} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <button onClick={onInfrastructureClick} className="flex min-h-11 items-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 font-semibold dark:border-gray-700 dark:bg-gray-900">
+              <button onClick={onInfrastructureClick} className="flex min-h-11 items-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 font-semibold text-slate-900 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100">
                 <Network className="h-4 w-4" /> {portfolio.hero.actions.infrastructure}
               </button>
-              <button onClick={onContactClick} className="min-h-11 rounded-xl border border-gray-300 px-6 py-3 font-semibold dark:border-gray-700">
+              <button onClick={onContactClick} className="min-h-11 rounded-xl border border-gray-300 px-6 py-3 font-semibold text-slate-900 dark:border-gray-700 dark:text-slate-100">
                 {portfolio.hero.actions.contact}
               </button>
             </div>
