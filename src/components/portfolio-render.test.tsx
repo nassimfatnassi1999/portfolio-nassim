@@ -128,6 +128,11 @@ describe('unified portfolio rendering', () => {
     expect(landscape).toContain('data-domain-members="containers middleware application-workloads"');
     expect(landscape).toContain('data-domain-members="infrastructure-as-code scripting devops-cicd"');
     for (const relationship of ['runs-on', 'delivers-to', 'observes']) expect(landscape).toContain(`data-relationship="${relationship}"`);
+    expect(landscape.indexOf('data-relationship="delivers-to"')).toBeLessThan(landscape.indexOf('data-capability-group="automation"'));
+    expect(landscape.indexOf('data-relationship="observes"')).toBeLessThan(landscape.indexOf('data-capability-group="observability"'));
+    for (const relationship of ['runs-on', 'delivers-to', 'observes']) {
+      expect(landscape).toMatch(new RegExp(`data-relationship="${relationship}"[^>]*>[\\s\\S]*?↑`));
+    }
     for (const label of [portfolio.labels.runsOn, portfolio.labels.deliversTo, portfolio.labels.observes]) expect(landscape).toContain(escapeText(label));
     expect(landscape).toContain(portfolio.labels.infrastructureIntro.replace('—', '—'));
     if (locale === 'fr') expect(landscape).not.toContain('>cross-cutting<');
@@ -154,6 +159,8 @@ describe('unified portfolio rendering', () => {
     expect(terminal).toContain(escapeText(portfolio.identity.title));
     expect(terminal).toContain(portfolio.labels.terminalSystems);
     expect(terminal).toContain(portfolio.labels.terminalOperational);
+    expect(terminal).toMatch(/<div role="region"[^>]*>[\s\S]*?whoami/);
+    expect(terminal).not.toContain('<div aria-hidden="true"><div role="region"');
     expect(terminal).not.toContain('aria-live=');
   });
 

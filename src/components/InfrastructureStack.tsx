@@ -96,13 +96,16 @@ export function InfrastructureStack({ portfolio }: { portfolio: LocalizedPortfol
             </div>
           </CapabilityPanel>
 
+          <div className="hidden lg:col-span-12 lg:grid lg:grid-cols-2">
+            <RelationshipLabel relationship="delivers-to" label={portfolio.labels.deliversTo} direction="up" />
+            <RelationshipLabel relationship="observes" label={portfolio.labels.observes} direction="up" />
+          </div>
+
           <CapabilityPanel id="automation" title={portfolio.labels.automation} icon={Settings2} scope="cross-cutting" scopeLabel={portfolio.labels.crossCutting} domainMembers={['infrastructure-as-code', 'scripting', 'devops-cicd']} className="lg:col-span-6">
-            <RelationshipLabel relationship="delivers-to" label={portfolio.labels.deliversTo} />
-            <div className="space-y-3 lg:mt-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /><DomainSummary domain={domain('devops-cicd')} /></div>
+            <div className="space-y-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /><DomainSummary domain={domain('devops-cicd')} /></div>
           </CapabilityPanel>
           <CapabilityPanel id="observability" title={domain('observability').label} icon={Activity} scope="cross-cutting" scopeLabel={portfolio.labels.crossCutting} className="lg:col-span-6">
-            <RelationshipLabel relationship="observes" label={portfolio.labels.observes} />
-            <p className="lg:mt-3">{domain('observability').description}</p>
+            <p>{domain('observability').description}</p>
           </CapabilityPanel>
         </div>
       </div>

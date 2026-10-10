@@ -26,53 +26,48 @@ export function InfrastructureTerminal({ portfolio, variant = 'desktop' }: Infra
 
   return (
     <div>
-      <p className="sr-only">
-        {portfolio.identity.name}. {portfolio.identity.title}. {portfolio.labels.terminalOperational}
-      </p>
-      <div aria-hidden="true">
-        <TerminalWindow title="nassim@infra:~$" className={variant === 'mobile' ? 'text-[10px]' : ''}>
-          <div className="min-w-0 space-y-3 text-[11px] sm:text-xs lg:text-[13px]">
-            <div>
-              <Command>whoami</Command>
-              <div className="mt-1 border-l border-slate-700 pl-3 text-slate-300">
-                <p className="font-semibold text-white">{portfolio.identity.name}</p>
-                <p>{portfolio.identity.title}</p>
+      <TerminalWindow title="nassim@infra:~$" className={variant === 'mobile' ? 'text-[10px]' : ''}>
+        <div className="min-w-0 space-y-3 text-[11px] sm:text-xs lg:text-[13px]">
+          <div>
+            <Command>whoami</Command>
+            <div className="mt-1 border-l border-slate-700 pl-3 text-slate-300">
+              <p className="font-semibold text-white">{portfolio.identity.name}</p>
+              <p>{portfolio.identity.title}</p>
+            </div>
+          </div>
+
+          {step >= 2 && (
+            <div className="terminal-step-in">
+              <Command>cat expertise.yaml</Command>
+              <div className="mt-1 grid grid-cols-[auto_1fr] gap-x-3 border-l border-slate-700 pl-3 text-slate-400">
+                <span className="text-sky-400">{portfolio.labels.terminalSystems}:</span><span>Linux · Windows · AIX · VMware</span>
+                <span className="text-sky-400">{portfolio.labels.terminalCloud}:</span><span>Azure · AWS · Google Cloud · OpenStack</span>
+                <span className="text-sky-400">{portfolio.labels.terminalPlatform}:</span><span>Docker · Kubernetes · Helm</span>
+                <span className="text-sky-400">{portfolio.labels.terminalOperations}:</span><span>CI/CD · IaC · Monitoring</span>
               </div>
             </div>
+          )}
 
-            {step >= 2 && (
-              <div className="terminal-step-in">
-                <Command>cat expertise.yaml</Command>
-                <div className="mt-1 grid grid-cols-[auto_1fr] gap-x-3 border-l border-slate-700 pl-3 text-slate-400">
-                  <span className="text-sky-400">{portfolio.labels.terminalSystems}:</span><span>Linux · Windows · AIX · VMware</span>
-                  <span className="text-sky-400">{portfolio.labels.terminalCloud}:</span><span>Azure · AWS · Google Cloud · OpenStack</span>
-                  <span className="text-sky-400">{portfolio.labels.terminalPlatform}:</span><span>Docker · Kubernetes · Helm</span>
-                  <span className="text-sky-400">{portfolio.labels.terminalOperations}:</span><span>CI/CD · IaC · Monitoring</span>
-                </div>
+          {step >= 3 && (
+            <div className="terminal-step-in">
+              <Command>kubectl get nodes</Command>
+              <div className="mt-1 overflow-hidden border-l border-slate-700 pl-3 text-slate-400">
+                <p className="whitespace-pre text-slate-500">{portfolio.labels.terminalNodeHeader}</p>
+                <p className="whitespace-pre"><span className="text-slate-300">master-01</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalControlPlane}</p>
+                <p className="whitespace-pre"><span className="text-slate-300">worker-01</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalWorker}</p>
+                <p className="whitespace-pre"><span className="text-slate-300">worker-02</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalWorker}</p>
               </div>
-            )}
+            </div>
+          )}
 
-            {step >= 3 && (
-              <div className="terminal-step-in">
-                <Command>kubectl get nodes</Command>
-                <div className="mt-1 overflow-hidden border-l border-slate-700 pl-3 text-slate-400">
-                  <p className="whitespace-pre text-slate-500">{portfolio.labels.terminalNodeHeader}</p>
-                  <p className="whitespace-pre"><span className="text-slate-300">master-01</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalControlPlane}</p>
-                  <p className="whitespace-pre"><span className="text-slate-300">worker-01</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalWorker}</p>
-                  <p className="whitespace-pre"><span className="text-slate-300">worker-02</span>  <span className="text-emerald-400">{portfolio.labels.terminalReady}</span>    {portfolio.labels.terminalWorker}</p>
-                </div>
-              </div>
-            )}
-
-            {step >= 4 && (
-              <div className="terminal-step-in">
-                <Command>uptime</Command>
-                <p className="mt-1 border-l border-slate-700 pl-3 font-semibold text-emerald-400">{portfolio.labels.terminalOperational}</p>
-              </div>
-            )}
-          </div>
-        </TerminalWindow>
-      </div>
+          {step >= 4 && (
+            <div className="terminal-step-in">
+              <Command>uptime</Command>
+              <p className="mt-1 border-l border-slate-700 pl-3 font-semibold text-emerald-400">{portfolio.labels.terminalOperational}</p>
+            </div>
+          )}
+        </div>
+      </TerminalWindow>
     </div>
   );
 }
