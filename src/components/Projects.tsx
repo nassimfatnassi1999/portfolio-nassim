@@ -1,5 +1,5 @@
 import { ExternalLink } from 'lucide-react';
-import type { Project } from '../types/portfolio';
+import type { Project, ProjectPriority } from '../types/portfolio';
 import { Section } from './Section';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
@@ -9,6 +9,12 @@ import { TechnologyBadge } from './ui/TechnologyBadge';
 type ProjectsProps = { projects: Project[]; labels: Record<string, string> };
 
 export function Projects({ projects, labels }: ProjectsProps) {
+  const priorityLabels: Record<ProjectPriority, string> = {
+    infrastructure: labels.priorityInfrastructure,
+    mixed: labels.priorityMixed,
+    application: labels.priorityApplication,
+  };
+
   return (
     <Section id="projects" className="scroll-mt-20 bg-white/50 px-4 py-24 dark:bg-slate-900/35 sm:px-6 lg:px-8" threshold={0}>
       <div className="mx-auto max-w-7xl">
@@ -25,7 +31,7 @@ export function Projects({ projects, labels }: ProjectsProps) {
               <div className="border-b border-slate-200/80 bg-slate-100/55 px-6 py-4 dark:border-slate-800 dark:bg-slate-950/45">
                 <div className="flex items-center justify-between gap-3">
                   <StatusIndicator label={project.status} />
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">{project.priority}</span>
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">{priorityLabels[project.priority]}</span>
                 </div>
               </div>
               <div className="flex flex-1 flex-col p-6">

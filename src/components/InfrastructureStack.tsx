@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Activity, Boxes, Cloud, Network, Server, Settings2, Workflow } from 'lucide-react';
+import { Activity, Boxes, Cloud, Server, Settings2, Workflow } from 'lucide-react';
 import type { LocalizedPortfolio, TechnologyDomain } from '../types/portfolio';
 import { Section } from './Section';
 import { SectionHeader } from './ui/SectionHeader';
@@ -12,16 +12,18 @@ type CapabilityPanelProps = {
   children: ReactNode;
   layer?: string;
   scope?: string;
+  domainMembers?: string[];
   className?: string;
 };
 
-function CapabilityPanel({ id, title, icon: Icon, children, layer, scope, className = '' }: CapabilityPanelProps) {
+function CapabilityPanel({ id, title, icon: Icon, children, layer, scope, domainMembers, className = '' }: CapabilityPanelProps) {
   return (
     <SurfaceCard
       as="article"
       data-capability-group={id}
       data-layer={layer}
       data-scope={scope}
+      data-domain-members={domainMembers?.join(' ')}
       className={`relative p-5 sm:p-6 ${className}`}
     >
       <div className="flex items-center gap-3">
@@ -42,6 +44,17 @@ function DomainSummary({ domain }: { domain: TechnologyDomain }) {
   return <div><p className="font-semibold text-slate-800 dark:text-slate-200">{domain.label}</p><p>{domain.description}</p></div>;
 }
 
+function RelationshipLabel({ relationship, label, direction = 'right' }: { relationship: string; label: string; direction?: 'right' | 'up' }) {
+  return (
+    <p
+      data-relationship={relationship}
+      className="hidden items-center justify-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 lg:flex"
+    >
+      <span aria-hidden="true">{direction === 'up' ? '↑' : '→'}</span> {label}
+    </p>
+  );
+}
+
 export function InfrastructureStack({ portfolio }: { portfolio: LocalizedPortfolio }) {
   const domain = (id: string) => {
     const match = portfolio.technologyDomains.find((item) => item.id === id);
@@ -55,8 +68,11 @@ export function InfrastructureStack({ portfolio }: { portfolio: LocalizedPortfol
         <SectionHeader eyebrow={`05 / ${portfolio.labels.infrastructure}`} title={portfolio.labels.infrastructure} description={portfolio.labels.infrastructureIntro} />
 
         <div className="relative mt-12 grid gap-5 lg:grid-cols-12">
-          <CapabilityPanel id="foundations" title={portfolio.labels.foundations} icon={Server} className="lg:col-span-12">
-            <DomainSummary domain={domain('systems')} />
+          <CapabilityPanel id="foundations" title={portfolio.labels.foundations} icon={Server} domainMembers={['systems', 'networking']} className="lg:col-span-12">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <DomainSummary domain={domain('systems')} />
+              <div data-capability-group="networking"><DomainSummary domain={domain('networking')} /></div>
+            </div>
           </CapabilityPanel>
 
           <CapabilityPanel id="virtualization" title={domain('virtualization').label} icon={Boxes} layer="compute-platforms" className="lg:col-span-6">
@@ -66,24 +82,28 @@ export function InfrastructureStack({ portfolio }: { portfolio: LocalizedPortfol
             <p>{domain('cloud').description}</p>
           </CapabilityPanel>
 
-          <CapabilityPanel id="runtime-delivery" title={portfolio.labels.runtimeDelivery} icon={Workflow} className="lg:col-span-12">
+          <div className="lg:col-span-12"><RelationshipLabel relationship="runs-on" label={portfolio.labels.runsOn} direction="up" /></div>
+
+          <CapabilityPanel id="runtime-delivery" title={portfolio.labels.runtimeDelivery} icon={Workflow} domainMembers={['containers', 'middleware', 'application-workloads']} className="lg:col-span-12">
             <div className="grid gap-4 sm:grid-cols-3">
               <DomainSummary domain={domain('containers')} />
               <DomainSummary domain={domain('middleware')} />
-              <DomainSummary domain={domain('devops-cicd')} />
+              <div data-capability-group="application-workloads">
+                <p className="font-semibold text-slate-800 dark:text-slate-200">{portfolio.labels.applicationWorkloads}</p>
+                <p>{portfolio.labels.applicationWorkloadsDescription}</p>
+              </div>
             </div>
           </CapabilityPanel>
 
-          <CapabilityPanel id="automation" title={portfolio.labels.automation} icon={Settings2} scope="cross-cutting" className="lg:col-span-4">
+          <CapabilityPanel id="automation" title={portfolio.labels.automation} icon={Settings2} scope="cross-cutting" domainMembers={['infrastructure-as-code', 'scripting', 'devops-cicd']} className="lg:col-span-6">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">{portfolio.labels.crossCutting}</p>
-            <div className="space-y-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /></div>
+            <RelationshipLabel relationship="delivers-to" label={portfolio.labels.deliversTo} />
+            <div className="mt-3 space-y-3"><DomainSummary domain={domain('infrastructure-as-code')} /><DomainSummary domain={domain('scripting')} /><DomainSummary domain={domain('devops-cicd')} /></div>
           </CapabilityPanel>
-          <CapabilityPanel id="networking" title={domain('networking').label} icon={Network} className="lg:col-span-4">
-            <p>{domain('networking').description}</p>
-          </CapabilityPanel>
-          <CapabilityPanel id="observability" title={domain('observability').label} icon={Activity} scope="cross-cutting" className="lg:col-span-4">
+          <CapabilityPanel id="observability" title={domain('observability').label} icon={Activity} scope="cross-cutting" className="lg:col-span-6">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">{portfolio.labels.crossCutting}</p>
-            <p>{domain('observability').description}</p>
+            <RelationshipLabel relationship="observes" label={portfolio.labels.observes} />
+            <p className="mt-3">{domain('observability').description}</p>
           </CapabilityPanel>
         </div>
       </div>

@@ -43,7 +43,7 @@ export function Hero({
             </p>
 
             <div className="mb-8 md:hidden">
-              <InfrastructureTerminal variant="mobile" />
+              <InfrastructureTerminal portfolio={portfolio} variant="mobile" />
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -69,7 +69,7 @@ export function Hero({
           </div>
 
           <div className="hidden md:block">
-            <InfrastructureTerminal variant="desktop" />
+            <InfrastructureTerminal portfolio={portfolio} variant="desktop" />
           </div>
         </div>
 

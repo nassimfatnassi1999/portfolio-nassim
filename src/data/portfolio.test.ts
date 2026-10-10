@@ -139,4 +139,27 @@ describe('unified portfolio content', () => {
     expect(portfolio.technologyDomains.length).toBeGreaterThanOrEqual(11);
     expect(portfolio.technologyDomains.every((domain) => domain.technologies.length > 0)).toBe(true);
   });
+
+  it('preserves the normalized technology allowlist from the content inventory', () => {
+    const technologies = getPortfolio('en').technologyDomains.flatMap((domain) => domain.technologies);
+    const inventoriedTechnologies = [
+      'Linux', 'RHEL', 'Ubuntu', 'Manjaro', 'Pop!_OS', 'Windows Server', 'AIX', 'SSH',
+      'LVM', 'RAID', 'NAS/SAN', 'NFS', 'FTP', 'SMB', 'Rsync', 'Veeam', 'Ceph', 'PM2',
+      'VMware', 'vSphere', 'ESXi', 'vCenter', 'KVM', 'Proxmox', 'VirtualBox',
+      'Azure', 'AWS', 'Google Cloud', 'OpenStack', 'AKS', 'Nova', 'Neutron', 'Keystone',
+      'Glance', 'Cinder', 'Swift', 'Heat', 'Horizon', 'Magnum', 'Docker', 'Docker Compose',
+      'Kubernetes', 'Helm', 'Harbor', 'Strimzi', 'Git', 'GitHub', 'GitLab CI/CD', 'Jenkins',
+      'Argo CD', 'Terraform', 'OpenTofu', 'Ansible', 'Bash', 'PowerShell', 'SonarCloud',
+      'SonarQube', 'Nexus', 'Trivy', 'Vault', 'Maven', 'Nginx', 'Tomcat', 'GlassFish',
+      'WebLogic', 'WebSphere', 'Spring Boot', '.NET', 'Laravel', 'Node.js', 'NestJS',
+      'Prometheus', 'Grafana', 'ELK', 'EFK', 'Loki', 'Promtail', 'Zabbix', 'TCP/IP',
+      'DNS', 'DHCP', 'HTTP/HTTPS', 'LAN/WAN', 'VLAN', 'VPN', 'OpenVPN', 'Firewall',
+      'NAT', 'ACL', 'Routers', 'Switches', 'pfSense', 'Snort IDS', 'DMZ', 'SSL/TLS',
+      'UFW', 'Fail2ban', 'Python', 'Java', 'Golang', 'C', 'C#', 'JavaScript', 'TypeScript',
+      'Dart', 'PHP', 'PostgreSQL', 'MySQL', 'Oracle Database', 'MongoDB', 'Redis', 'Isar',
+      'MinIO',
+    ];
+
+    expect(technologies).toEqual(expect.arrayContaining(inventoriedTechnologies));
+  });
 });

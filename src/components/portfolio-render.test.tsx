@@ -9,6 +9,7 @@ import { EngineeringExpertise } from './EngineeringExpertise';
 import { Experience } from './Experience';
 import { Projects } from './Projects';
 import { InfrastructureStack } from './InfrastructureStack';
+import { InfrastructureTerminal } from './InfrastructureTerminal';
 import { ProductionToolbox } from './ProductionToolbox';
 import { Certifications } from './Certifications';
 import { Education } from './Education';
@@ -48,7 +49,7 @@ describe('unified portfolio rendering', () => {
     expect(markup).toContain('<nav aria-label=');
     expect(markup).toContain('<footer');
     expect(markup).toContain('aria-controls="mobile-navigation"');
-    expect(markup).toContain('aria-live="polite"');
+    expect(markup).not.toContain('aria-live=');
 
     const sectionIds = [...markup.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]);
     expect(new Set(sectionIds).size).toBe(sectionIds.length);
@@ -121,8 +122,12 @@ describe('unified portfolio rendering', () => {
     for (const group of ['foundations', 'virtualization', 'cloud-platforms', 'runtime-delivery', 'automation', 'networking', 'observability']) {
       expect(landscape).toContain(`data-capability-group="${group}"`);
     }
+    expect(landscape).toContain('data-capability-group="application-workloads"');
     expect(landscape.match(/data-layer="compute-platforms"/g)).toHaveLength(2);
     expect(landscape.match(/data-scope="cross-cutting"/g)).toHaveLength(2);
+    expect(landscape).toContain('data-domain-members="containers middleware application-workloads"');
+    expect(landscape).toContain('data-domain-members="infrastructure-as-code scripting devops-cicd"');
+    for (const relationship of ['runs-on', 'delivers-to', 'observes']) expect(landscape).toContain(`data-relationship="${relationship}"`);
     expect(landscape).toContain(portfolio.labels.infrastructureIntro.replace('—', '—'));
 
     expect(toolbox).toContain('role="tablist"');
@@ -131,6 +136,23 @@ describe('unified portfolio rendering', () => {
     for (const domain of portfolio.technologyDomains) {
       expect(toolbox).toContain(`data-domain-id="${domain.id}"`);
     }
+  });
+
+  it('localizes project priorities and terminal presentation without live announcements', () => {
+    const portfolio = getPortfolio('fr');
+    const projects = renderToStaticMarkup(<Projects projects={portfolio.projects} labels={portfolio.labels} />);
+    const terminal = renderToStaticMarkup(<InfrastructureTerminal portfolio={portfolio} />);
+
+    for (const label of [portfolio.labels.priorityInfrastructure, portfolio.labels.priorityMixed, portfolio.labels.priorityApplication]) {
+      expect(projects).toContain(`>${label}</span>`);
+    }
+    expect(projects).not.toContain('>infrastructure</span>');
+    expect(projects).not.toContain('>mixed</span>');
+    expect(projects).not.toContain('>application</span>');
+    expect(terminal).toContain(escapeText(portfolio.identity.title));
+    expect(terminal).toContain(portfolio.labels.terminalSystems);
+    expect(terminal).toContain(portfolio.labels.terminalOperational);
+    expect(terminal).not.toContain('aria-live=');
   });
 
   it.each(['en', 'fr'] as const)('preserves credentials, education, contact and localized resumes in %s', (locale) => {
