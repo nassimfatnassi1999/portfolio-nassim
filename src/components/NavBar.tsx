@@ -1,15 +1,14 @@
+import { useEffect } from 'react';
 import { BookOpen, Languages, Menu, Moon, Sun, X } from 'lucide-react';
-import { translations } from '../translations';
-import { ProfileSelector } from './ProfileSelector';
-import { useProfile } from '../context/ProfileContext';
-
-type Translation = (typeof translations)[keyof typeof translations];
+import type { LocalizedPortfolio, Locale } from '../types/portfolio';
+import { useActiveSection } from '../hooks/useActiveSection';
+import { RotatingInfraPath } from './RotatingInfraPath';
 
 type NavBarProps = {
-  t: Translation;
-  navIds: string[];
+  portfolio: LocalizedPortfolio;
+  navIds: readonly string[];
   onNavClick: (id: string) => void;
-  language: 'en' | 'fr';
+  language: Locale;
   toggleLanguage: () => void;
   dark: boolean;
   toggleTheme: () => void;
@@ -18,7 +17,7 @@ type NavBarProps = {
 };
 
 export function NavBar({
-  t,
+  portfolio,
   navIds,
   onNavClick,
   language,
@@ -28,94 +27,80 @@ export function NavBar({
   menuOpen,
   setMenuOpen,
 }: NavBarProps) {
-  const { profile } = useProfile();
+  const activeSection = useActiveSection(navIds);
 
-  // CV link from profile, fallback to empty
-  const cvLink = profile.cvLinks[language] || '#';
-  const hasCvLink = !!profile.cvLinks[language];
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [menuOpen, setMenuOpen]);
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200/60 dark:border-gray-800/60 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        {/* Logo + Profile Selector */}
-        <div className="flex items-center gap-3">
-          <button onClick={() => onNavClick('home')} className="flex items-center gap-2 group">
-            <img
-              src="/photo-cv.png"
-              alt="NF"
-              className="w-9 h-9 rounded-lg object-cover group-hover:scale-110 transition-transform ring-1 ring-brand-500/30"
-            />
-            <span className="hidden sm:inline font-mono text-sm text-gray-500 dark:text-gray-400">~/nassim</span>
+    <nav aria-label={portfolio.labels.navigation} className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl transition-colors dark:border-slate-800/80 dark:bg-[#070b13]/90">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div data-nav-identity className="flex items-center gap-3">
+          <button onClick={() => onNavClick('home')} className="group flex min-h-11 items-center gap-2" aria-label={portfolio.navigation[0].label}>
+            <img src={portfolio.identity.portrait} alt="" className="h-9 w-9 rounded-lg object-cover ring-1 ring-brand-500/30 transition-transform group-hover:scale-105" />
+            <span className="hidden font-mono text-sm text-gray-500 dark:text-gray-400 2xl:inline">~/nassim</span>
           </button>
-          <span className="hidden sm:block text-gray-300 dark:text-gray-600">|</span>
-          <ProfileSelector />
+          <span className="hidden text-gray-300 dark:text-gray-600 2xl:block">|</span>
+          <RotatingInfraPath />
         </div>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-1">
-          {t.nav.items.map((item, idx) => (
+        <div data-nav-links className="hidden items-center gap-1 xl:flex">
+          {portfolio.navigation.map((item, index) => (
             <button
-              key={navIds[idx]}
-              onClick={() => onNavClick(navIds[idx])}
-              className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/60 transition-all"
+              key={item.id}
+              onClick={() => onNavClick(navIds[index])}
+              aria-current={activeSection === navIds[index] ? 'page' : undefined}
+              data-section-target={navIds[index]}
+              className={`relative min-h-11 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                activeSection === navIds[index]
+                  ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-brand-700 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-brand-400'
+              }`}
             >
-              {item}
+              {item.label}
+              {activeSection === navIds[index] && <span aria-hidden="true" className="absolute inset-x-3 -bottom-px h-px bg-brand-500" />}
             </button>
           ))}
         </div>
 
-        {/* Right side */}
-        <div className="flex items-center gap-3">
-          {hasCvLink ? (
-            <a
-              href={cvLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-lg hover:shadow-lg hover:shadow-brand-500/25 transition-all hover:scale-105"
-            >
-              <BookOpen className="w-4 h-4" /> {t.nav.resume}
-            </a>
-          ) : (
-            <span
-              className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-lg opacity-60 cursor-not-allowed"
-              title="CV coming soon"
-            >
-              <BookOpen className="w-4 h-4" /> {t.nav.resume}
-            </span>
-          )}
-          <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Toggle language"
-          >
-            <Languages className="w-4 h-4" />
-            {language === 'en' ? 'FR' : 'EN'}
+        <div data-nav-actions className="flex items-center gap-2 sm:gap-3">
+          <a href={portfolio.resumes.primary.url} target="_blank" rel="noopener noreferrer" className="hidden min-h-11 items-center gap-2 rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-800 2xl:flex">
+            <BookOpen aria-hidden="true" className="h-4 w-4" /> {portfolio.labels.resume}
+          </a>
+          <button onClick={toggleLanguage} className="flex min-h-11 items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-300" aria-label={portfolio.labels.language}>
+            <Languages aria-hidden="true" className="h-4 w-4" /> {language === 'en' ? 'FR' : 'EN'}
           </button>
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {dark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5" />}
+          <button onClick={toggleTheme} className="flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800" aria-label={dark ? portfolio.labels.useLightTheme : portfolio.labels.useDarkTheme}>
+            {dark ? <Sun aria-hidden="true" className="h-5 w-5 text-amber-400" /> : <Moon aria-hidden="true" className="h-5 w-5" />}
           </button>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 xl:hidden" aria-label={menuOpen ? portfolio.labels.closeMenu : portfolio.labels.menu} aria-expanded={menuOpen} aria-controls="mobile-navigation">
+            {menuOpen ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-4 space-y-1">
-          {t.nav.items.map((item, idx) => (
+        <div id="mobile-navigation" className="space-y-1 border-t border-gray-200 bg-white px-4 py-4 dark:border-gray-800 dark:bg-gray-950 xl:hidden">
+          {portfolio.navigation.map((item, index) => (
             <button
-              key={navIds[idx]}
-              onClick={() => onNavClick(navIds[idx])}
-              className="block w-full text-left px-4 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              key={item.id}
+              onClick={() => onNavClick(navIds[index])}
+              aria-current={activeSection === navIds[index] ? 'page' : undefined}
+              data-section-target={navIds[index]}
+              className={`block min-h-11 w-full rounded-lg px-4 py-2.5 text-left ${activeSection === navIds[index] ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`}
             >
-              {item}
+              {item.label}
             </button>
           ))}
+          <a href={portfolio.resumes.primary.url} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center gap-2 rounded-lg px-4 py-2.5 font-semibold text-brand-700 dark:text-brand-400">
+            <BookOpen aria-hidden="true" className="h-4 w-4" /> {portfolio.labels.resume}
+          </a>
         </div>
       )}
     </nav>

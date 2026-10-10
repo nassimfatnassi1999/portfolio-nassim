@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export function TypingText({ texts }: { texts: string[] }) {
+  const reducedMotion = useReducedMotion();
   const [textIndex, setTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    if (reducedMotion || texts.length === 0) return;
     const current = texts[textIndex];
     const timeout = setTimeout(() => {
       if (!deleting) {
@@ -20,7 +23,10 @@ export function TypingText({ texts }: { texts: string[] }) {
       }
     }, deleting ? 40 : 80);
     return () => clearTimeout(timeout);
-  }, [charIndex, deleting, textIndex, texts]);
+  }, [charIndex, deleting, reducedMotion, textIndex, texts]);
+
+  if (texts.length === 0) return null;
+  if (reducedMotion) return <span className="font-mono">{texts[0]}</span>;
 
   return (
     <span className="font-mono">

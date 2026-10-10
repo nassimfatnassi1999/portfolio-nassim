@@ -10,22 +10,28 @@ export default {
       },
       colors: {
         brand: {
-          50: '#fef2f2',
-          100: '#fee2e2',
-          200: '#fecaca',
-          300: '#fca5a5',
-          400: '#f87171',
-          500: '#ef4444',
-          600: '#dc2626',
-          700: '#b91c1c',
-          800: '#991b1b',
-          900: '#7f1d1d',
-          950: '#450a0a',
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0f9f8e',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+          950: '#042f2e',
         },
         terminal: {
-          green: '#4ade80',
-          cyan: '#f59e0b',
-          amber: '#fbbf24',
+          green: '#22c55e',
+          cyan: '#38bdf8',
+          amber: '#f59e0b',
+        },
+        console: {
+          page: '#070b14',
+          surface: '#0b1120',
+          elevated: '#111827',
+          border: '#243047',
         },
       },
       animation: {
@@ -34,8 +40,7 @@ export default {
         'slide-in-left': 'slideInLeft 0.6s ease-out forwards',
         'slide-in-right': 'slideInRight 0.6s ease-out forwards',
         'terminal-blink': 'terminalBlink 1s step-end infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'float': 'float 8s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -61,10 +66,6 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
-        },
-        pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(51, 139, 255, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(51, 139, 255, 0.6)' },
         },
       },
     },

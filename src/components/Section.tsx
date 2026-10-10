@@ -1,50 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
-/* ─── Intersection Observer Hook ─── */
-export function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
+function useInView(threshold: number) {
+  const ref = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const canObserve = typeof window !== 'undefined' && 'IntersectionObserver' in window;
+  const [inView, setInView] = useState(() => reducedMotion || !canObserve);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
+    const element = ref.current;
+    if (!element || reducedMotion || typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+
+    setInView(false);
+    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          obs.unobserve(el);
+          observer.unobserve(element);
         }
       },
-      { threshold }
+      { threshold },
     );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [reducedMotion, threshold]);
 
-  return { ref, inView } as const;
+  return { ref, inView, reducedMotion };
 }
 
-/* ─── Animated Section Wrapper ─── */
 export function Section({
   children,
   className = '',
   id,
-  threshold = 0.15,
+  threshold = 0.12,
 }: {
   children: ReactNode;
   className?: string;
   id?: string;
   threshold?: number;
 }) {
-  const { ref, inView } = useInView(threshold);
-  return (
-    <section
-      id={id}
-      ref={ref}
-      className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${className}`}
-    >
-      {children}
-    </section>
-  );
+  const { ref, inView, reducedMotion } = useInView(threshold);
+  const revealClass = reducedMotion ? '' : `transition-[opacity,transform] duration-500 ${inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'}`;
+
+  return <section id={id} ref={ref} className={`${revealClass} ${className}`}>{children}</section>;
 }

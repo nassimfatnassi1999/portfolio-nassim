@@ -1,156 +1,68 @@
+import { ExternalLink } from 'lucide-react';
+import type { Project, ProjectPriority } from '../types/portfolio';
 import { Section } from './Section';
-import { translations } from '../translations';
-import { useProfile } from '../context/ProfileContext';
-import { Check, ExternalLink, Github, Smartphone } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { SectionHeader } from './ui/SectionHeader';
+import { StatusIndicator } from './ui/StatusIndicator';
+import { SurfaceCard } from './ui/SurfaceCard';
+import { TechnologyBadge } from './ui/TechnologyBadge';
 
-type Translation = (typeof translations)[keyof typeof translations];
+type ProjectsProps = { projects: Project[]; labels: Record<string, string> };
 
-type ProjectItem = {
-  title: string;
-  subtitle: string;
-  description: string;
-  tags: string[];
-  icon: ReactNode;
-  gradient: string;
-  link?: string;
-  features?: ReadonlyArray<string>;
-  isMobile?: boolean;
-  liveDemo?: string;
-  demoLabel?: string;
-  github?: string;
-};
-
-type ProjectsProps = {
-  t: Translation;
-  projects: ProjectItem[];
-};
-
-export function Projects({ t, projects }: ProjectsProps) {
-  const { profile, currentProfileId } = useProfile();
-
-  // Filter projects based on current profile
-  const filteredProjects = profile.projectFilter
-    .filter((idx) => idx < projects.length)
-    .map((idx) => projects[idx]);
+export function Projects({ projects, labels }: ProjectsProps) {
+  const priorityLabels: Record<ProjectPriority, string> = {
+    infrastructure: labels.priorityInfrastructure,
+    mixed: labels.priorityMixed,
+    application: labels.priorityApplication,
+  };
 
   return (
-    <Section
-      id="projects"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50"
-      threshold={0}
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="section-heading text-gray-900 dark:text-white">
-            {t.projects.heading[0]}
-            <span className="gradient-text">{t.projects.heading[1]}</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-brand-500 to-terminal-cyan mx-auto rounded-full mt-4" />
-          <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{t.projects.subtitle}</p>
-        </div>
-
-        <div key={currentProfileId} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch profile-content-enter">
-          {filteredProjects.map((project) => {
-            const CardContent = (
-              <div className="flex h-full flex-col">
-                {/* Header */}
-                <div
-                  className={`h-44 flex-shrink-0 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}
-                  role="img"
-                  aria-label={`${project.title} project visual`}
-                >
-                  <div className="absolute inset-0 bg-black/10" />
-                  <div
-                    className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
-                  />
-                  {project.isMobile && (
-                    <span className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
-                      <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
-                      {t.projects.mobileBadge}
-                    </span>
-                  )}
-                  <div className="relative z-10 text-white text-center px-6">
-                    <div className="w-14 h-14 mx-auto rounded-xl bg-white/20 backdrop-blur flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                      {project.icon}
-                    </div>
-                    <p className="text-sm font-medium opacity-80">{project.subtitle}</p>
-                  </div>
-                </div>
-
-                {/* Body */}
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="flex items-start gap-2 text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    {project.isMobile && <Smartphone className="mt-0.5 h-5 w-5 flex-shrink-0" aria-hidden="true" />}
-                    <span>{project.title}</span>
-                  </h3>
-                  <div className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 whitespace-pre-line">{project.description}</div>
-                  {project.features && (
-                    <div className="mb-5">
-                      <h4 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">{t.projects.keyFeatures}</h4>
-                      <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                        {project.features.map((feature) => (
-                          <li key={feature} className="flex items-start gap-1.5 text-xs leading-snug text-gray-600 dark:text-gray-400">
-                            <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-brand-500" aria-hidden="true" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  <div className="mt-auto flex flex-wrap gap-2">
-                    {project.tags.map((tag, tagIdx) => (
-                      <span key={tagIdx} className="skill-badge text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  {(project.liveDemo || project.github) && (
-                    <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-gray-200/70 pt-5 dark:border-gray-700/70">
-                      {project.liveDemo && (
-                        <a
-                          href={project.liveDemo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 px-3 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25"
-                        >
-                          <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                          {project.demoLabel ?? t.projects.liveDemo}
-                        </a>
-                      )}
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex w-fit items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition-all duration-200 hover:scale-105 hover:border-brand-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
-                        >
-                          <Github className="h-4 w-4" aria-hidden="true" />
-                          {t.projects.github}
-                        </a>
-                      )}
-                    </div>
-                  )}
+    <Section id="projects" className="scroll-mt-20 bg-white/50 px-4 py-24 dark:bg-slate-900/35 sm:px-6 lg:px-8" threshold={0}>
+      <div className="mx-auto max-w-7xl">
+        <SectionHeader eyebrow={`04 / ${labels.projects}`} title={labels.projects} description={labels.projectsIntro} />
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {projects.map((project) => (
+            <SurfaceCard
+              key={project.id}
+              as="article"
+              data-project-id={project.id}
+              data-project-priority={project.priority}
+              className="flex h-full flex-col overflow-hidden p-0"
+            >
+              <div className="border-b border-slate-200/80 bg-slate-100/55 px-6 py-4 dark:border-slate-800 dark:bg-slate-950/45">
+                <div className="flex items-center justify-between gap-3">
+                  <StatusIndicator label={project.status} />
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">{priorityLabels[project.priority]}</span>
                 </div>
               </div>
-            );
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">{project.title}</h3>
+                <p className="mt-1 text-sm font-medium text-brand-700 dark:text-brand-400">{project.subtitle}</p>
 
-            return (
-              <article
-                key={project.title}
-                className={`glass-card h-full overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${project.link ? 'cursor-pointer' : ''}`}
-              >
-                {project.link ? (
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    {CardContent}
-                  </a>
-                ) : (
-                  <div className="h-full">{CardContent}</div>
+                <dl className="mt-6 space-y-5 text-sm leading-6">
+                  <div><dt className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">{labels.problem}</dt><dd className="mt-1 text-slate-600 dark:text-slate-400">{project.problem}</dd></div>
+                  <div><dt className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">{labels.architecture}</dt><dd className="mt-1 border-l-2 border-sky-500/40 pl-3 text-slate-600 dark:text-slate-400">{project.architecture}</dd></div>
+                  <div><dt className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">{labels.role}</dt><dd className="mt-1 text-slate-600 dark:text-slate-400">{project.role}</dd></div>
+                  <div data-outcome-kind={project.outcome.kind} className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-4">
+                    <dt className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-emerald-700 dark:text-emerald-400">{labels[project.outcome.kind]}</dt>
+                    <dd className="mt-1 text-slate-700 dark:text-slate-300">{project.outcome.text}</dd>
+                  </div>
+                </dl>
+
+                {project.details.length > 0 && (
+                  <ul className="mt-5 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                    {project.details.map((detail) => <li key={detail} className="flex gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" /><span>{detail}</span></li>)}
+                  </ul>
                 )}
-              </article>
-            );
-          })}
+
+                <div className="mt-6 flex flex-wrap gap-2">{project.technologies.map((item) => <TechnologyBadge key={item}>{item}</TechnologyBadge>)}</div>
+                {project.links.length > 0 && (
+                  <div className="mt-auto flex flex-wrap gap-x-5 pt-6">
+                    {project.links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.label}: ${project.title}`} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-800 dark:text-brand-400">{link.label}<ExternalLink aria-hidden="true" className="h-4 w-4" /></a>)}
+                  </div>
+                )}
+              </div>
+            </SurfaceCard>
+          ))}
         </div>
       </div>
     </Section>
