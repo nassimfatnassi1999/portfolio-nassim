@@ -94,6 +94,16 @@ describe('unified portfolio rendering', () => {
     const experiencePositions = portfolio.experiences.map((item) => experience.indexOf(`data-experience-id="${item.id}"`));
     expect(experiencePositions.every((position) => position >= 0)).toBe(true);
     expect(experiencePositions).toEqual([...experiencePositions].sort((a, b) => a - b));
+    expect([...experience.matchAll(/data-experience-direction="(left|right)"/g)].map((match) => match[1])).toEqual([
+      'left',
+      'right',
+      'left',
+      'right',
+      'left',
+    ]);
+    for (const part of ['connector', 'marker', 'company', 'role', 'content']) {
+      expect(experience.match(new RegExp(`data-experience-part="${part}"`, 'g'))).toHaveLength(5);
+    }
 
     const projectPositions = portfolio.projects.map((item) => projects.indexOf(`data-project-id="${item.id}"`));
     expect(projectPositions.every((position) => position >= 0)).toBe(true);
@@ -140,6 +150,16 @@ describe('unified portfolio rendering', () => {
     expect(toolbox).toContain('role="tablist"');
     expect(toolbox).toContain('role="tabpanel"');
     expect(toolbox).toContain('aria-selected="true"');
+    expect(toolbox).toMatch(/class="[^"]*self-start[^"]*" role="tabpanel"/);
+    const visibleTechnologies = portfolio.technologyDomains[0].technologies;
+    expect(toolbox.match(/data-technology-visual=/g)).toHaveLength(visibleTechnologies.length);
+    for (const technology of visibleTechnologies) {
+      expect(toolbox).toContain(`data-technology-name="${escapeText(technology)}"`);
+    }
+    for (const brandedTechnology of ['Linux', 'RHEL', 'Ubuntu', 'Windows Server']) {
+      expect(toolbox).toMatch(new RegExp(`data-technology-name="${brandedTechnology}"[^>]*data-technology-visual="brand"`));
+    }
+    expect(toolbox).toMatch(/data-technology-name="AIX"[^>]*data-technology-visual="fallback"/);
     for (const domain of portfolio.technologyDomains) {
       expect(toolbox).toContain(`data-domain-id="${domain.id}"`);
     }

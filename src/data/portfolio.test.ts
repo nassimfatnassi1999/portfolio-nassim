@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getPortfolio } from './portfolio';
+import { getTechnologyVisual } from './technologyVisuals';
 
 const experienceIds = [
   'apprensur',
@@ -161,5 +162,19 @@ describe('unified portfolio content', () => {
     ];
 
     expect(technologies).toEqual(expect.arrayContaining(inventoriedTechnologies));
+  });
+
+  it('assigns a concrete visual strategy to every toolbox technology', () => {
+    const technologies = getPortfolio('en').technologyDomains.flatMap((domain) => domain.technologies);
+    const unresolved = technologies.filter((technology) => {
+      try {
+        getTechnologyVisual(technology);
+        return false;
+      } catch {
+        return true;
+      }
+    });
+
+    expect(unresolved).toEqual([]);
   });
 });

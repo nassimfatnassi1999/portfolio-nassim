@@ -1,9 +1,10 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
+import { getTechnologyVisual } from '../data/technologyVisuals';
 import type { LocalizedPortfolio } from '../types/portfolio';
 import { Section } from './Section';
 import { SectionHeader } from './ui/SectionHeader';
 import { SurfaceCard } from './ui/SurfaceCard';
-import { TechnologyBadge } from './ui/TechnologyBadge';
+import { TechnologyLogo } from './ui/TechnologyLogo';
 
 export function ProductionToolbox({ portfolio }: { portfolio: LocalizedPortfolio }) {
   const domains = portfolio.technologyDomains;
@@ -61,13 +62,28 @@ export function ProductionToolbox({ portfolio }: { portfolio: LocalizedPortfolio
             id={`toolbox-${activeDomain.id}-panel`}
             aria-labelledby={`toolbox-${activeDomain.id}-tab`}
             data-active-domain={activeDomain.id}
-            className="p-6 sm:p-8"
+            className="self-start p-6 sm:p-8"
           >
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-brand-700 dark:text-brand-400">{activeDomain.label}</p>
             <p className="mt-3 max-w-2xl leading-7 text-slate-600 dark:text-slate-400">{activeDomain.description}</p>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              {activeDomain.technologies.map((technology) => <TechnologyBadge key={technology}>{technology}</TechnologyBadge>)}
-            </div>
+            <ul key={activeDomain.id} className="technology-logo-grid mt-7">
+              {activeDomain.technologies.map((technology) => {
+                const visual = getTechnologyVisual(technology);
+                return (
+                  <li
+                    key={technology}
+                    data-technology-name={technology}
+                    data-technology-visual={visual.kind}
+                    className="technology-logo-item"
+                  >
+                    <span className="technology-logo-circle">
+                      <TechnologyLogo visual={visual} />
+                    </span>
+                    <span className="technology-logo-name">{technology}</span>
+                  </li>
+                );
+              })}
+            </ul>
           </SurfaceCard>
         </div>
       </div>

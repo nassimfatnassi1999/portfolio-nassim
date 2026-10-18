@@ -157,6 +157,184 @@
   animation: console-step-in 280ms ease-out both;
 }
 
+.experience-item {
+  --experience-enter-x: -22px;
+}
+
+.experience-item.experience-from-right {
+  --experience-enter-x: 22px;
+}
+
+.experience-card,
+.experience-marker,
+.experience-connector-segment,
+.experience-card [data-experience-part] {
+  transition-duration: 620ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-card {
+  transition-property: opacity, transform, border-color, box-shadow;
+}
+
+.experience-marker {
+  transition-property: opacity, transform, box-shadow;
+}
+
+.experience-connector-segment {
+  position: absolute;
+  left: 0.4375rem;
+  top: 0.75rem;
+  bottom: -1.75rem;
+  z-index: 1;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgb(45 212 191 / 0.75), rgb(56 189 248 / 0));
+  transform-origin: top;
+  transition-property: opacity, transform;
+}
+
+.experience-card [data-experience-part] {
+  transition-property: opacity, transform;
+}
+
+.experience-item[data-reveal-ready='true'][data-revealed='false'] .experience-card {
+  opacity: 0;
+  transform: translateX(var(--experience-enter-x));
+}
+
+.experience-item[data-reveal-ready='true'][data-revealed='false'] .experience-marker {
+  opacity: 0;
+  transform: scale(0.55);
+}
+
+.experience-item[data-reveal-ready='true'][data-revealed='false'] .experience-connector-segment {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.experience-item[data-reveal-ready='true'][data-revealed='false'] .experience-card [data-experience-part] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.experience-item[data-revealed='true'] .experience-marker {
+  transition-delay: 30ms;
+}
+
+.experience-item[data-revealed='true'] .experience-connector-segment {
+  transition-delay: 70ms;
+}
+
+.experience-item[data-revealed='true'] [data-experience-part='company'] {
+  transition-delay: 110ms;
+}
+
+.experience-item[data-revealed='true'] [data-experience-part='role'] {
+  transition-delay: 160ms;
+}
+
+.experience-item[data-revealed='true'] [data-experience-part='content'] {
+  transition-delay: 220ms;
+}
+
+.technology-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
+  gap: 1.25rem 1rem;
+  animation: toolbox-grid-enter 220ms ease-out both;
+}
+
+.technology-logo-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.technology-logo-circle {
+  display: grid;
+  width: 4.25rem;
+  height: 4.25rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgb(203 213 225 / 0.9);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.96);
+  padding: 0.85rem;
+  box-shadow: 0 10px 30px -22px rgb(15 23 42 / 0.55);
+  transition: transform 210ms ease-out, border-color 210ms ease-out, box-shadow 210ms ease-out;
+}
+
+.dark .technology-logo-circle {
+  border-color: #243047;
+  background: rgb(248 250 252 / 0.96);
+  box-shadow: 0 12px 32px -24px rgb(56 189 248 / 0.35);
+}
+
+.technology-logo-name {
+  max-width: 8.5rem;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: rgb(71 85 105);
+  transition: color 210ms ease-out;
+}
+
+.dark .technology-logo-name {
+  color: rgb(148 163 184);
+}
+
+.technology-logo-item:hover .technology-logo-circle {
+  transform: scale(1.05);
+  border-color: rgb(45 212 191 / 0.78);
+  box-shadow: 0 14px 38px -20px rgb(13 148 136 / 0.58);
+}
+
+.technology-logo-item:hover .technology-logo-name {
+  color: rgb(15 118 110);
+}
+
+.dark .technology-logo-item:hover .technology-logo-name {
+  color: rgb(94 234 212);
+}
+
+.technology-fallback-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: rgb(15 118 110);
+}
+
+@keyframes toolbox-grid-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 640px) {
+  .experience-item {
+    --experience-enter-x: -48px;
+  }
+
+  .experience-item.experience-from-right {
+    --experience-enter-x: 48px;
+  }
+
+  .experience-connector-segment {
+    left: 8.45rem;
+  }
+}
+
 @keyframes console-step-in {
   from {
     opacity: 0;
@@ -194,5 +372,13 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .experience-card,
+  .experience-marker,
+  .experience-connector-segment,
+  .experience-card [data-experience-part] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
