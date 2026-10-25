@@ -8,6 +8,7 @@ import { About } from './About';
 import { EngineeringExpertise } from './EngineeringExpertise';
 import { Experience } from './Experience';
 import { Projects } from './Projects';
+import { ProjectDetailsDialog } from './projects/ProjectDetailsDialog';
 import { InfrastructureStack } from './InfrastructureStack';
 import { InfrastructureTerminal } from './InfrastructureTerminal';
 import { ProductionToolbox } from './ProductionToolbox';
@@ -117,11 +118,77 @@ describe('unified portfolio rendering', () => {
 
     for (const project of portfolio.projects) {
       expect(projects).toContain(`data-project-priority="${project.priority}"`);
-      expect(projects).toContain(`data-outcome-kind="${project.outcome.kind}"`);
-      expect(projects).toContain(escapeText(project.role));
-      expect(projects).toContain(escapeText(project.outcome.text));
+      expect(projects).toContain(escapeText(project.problem));
+      expect(projects).not.toContain(escapeText(project.role));
+      expect(projects).not.toContain(escapeText(project.outcome.text));
     }
     expect(projects).not.toContain('type="checkbox"');
+  });
+
+  it.each([
+    ['en', 'Previous project', 'Next project', 'View details'],
+    ['fr', 'Projet précédent', 'Projet suivant', 'Voir les détails'],
+  ] as const)('renders a compact manual project carousel in %s', (locale, previous, next, viewDetails) => {
+    const portfolio = getPortfolio(locale);
+    const projects = renderToStaticMarkup(<Projects projects={portfolio.projects} labels={portfolio.labels} />);
+
+    expect(projects).toContain('data-project-carousel="true"');
+    expect(projects).toContain(`aria-label="${previous}"`);
+    expect(projects).toContain(`aria-label="${next}"`);
+    expect(projects).toContain(`${String(1).padStart(2, '0')} / ${String(16).padStart(2, '0')}`);
+    expect(projects.match(new RegExp(`>${viewDetails}<`, 'g'))).toHaveLength(16);
+    expect(projects.match(/data-project-card=/g)).toHaveLength(16);
+    expect(projects.match(new RegExp(`role="group" aria-label="${portfolio.labels.technologies}"`, 'g'))).toHaveLength(16);
+    expect(projects).not.toContain('aria-controls="project-details-dialog"');
+    expect(projects).not.toContain('grid-cols-2');
+  });
+
+  it.each(['en', 'fr'] as const)('renders complete selected-project evidence in the details dialog in %s', (locale) => {
+    const portfolio = getPortfolio(locale);
+    const project = portfolio.projects.find((item) => item.id === 'z-ai-voice-email');
+    expect(project).toBeDefined();
+    if (!project) return;
+
+    const dialog = renderToStaticMarkup(
+      <ProjectDetailsDialog
+        project={project}
+        category={portfolio.labels.priorityMixed}
+        labels={portfolio.labels}
+        returnFocusTo={null}
+        onClose={() => undefined}
+      />,
+    );
+
+    expect(dialog).toContain('role="dialog"');
+    expect(dialog).toContain('aria-modal="true"');
+    expect(dialog).toContain(escapeText(project.title));
+    expect(dialog).toContain(escapeText(project.subtitle));
+    expect(dialog).toContain(escapeText(project.problem));
+    expect(dialog).toContain(escapeText(project.architecture));
+    expect(dialog).toContain(escapeText(project.role));
+    expect(dialog).toContain(escapeText(project.outcome.text));
+    for (const detail of project.details) expect(dialog).toContain(escapeText(detail));
+    for (const technology of project.technologies) expect(dialog).toContain(`>${escapeText(technology)}<`);
+    for (const link of project.links) expect(dialog).toContain(link.url.replace(/&/g, '&amp;'));
+  });
+
+  it('uses a pipeline only when the verified architecture contains explicit relationships', () => {
+    const portfolio = getPortfolio('en');
+    const pipelineProject = portfolio.projects[0];
+    const textualProject = portfolio.projects[1];
+    const renderDialog = (project: typeof pipelineProject) => renderToStaticMarkup(
+      <ProjectDetailsDialog
+        project={project}
+        category={portfolio.labels.priorityInfrastructure}
+        labels={portfolio.labels}
+        returnFocusTo={null}
+        onClose={() => undefined}
+      />,
+    );
+
+    expect(renderDialog(pipelineProject)).toContain('role="img"');
+    expect(renderDialog(pipelineProject)).toContain('data-architecture-kind="pipeline"');
+    expect(renderDialog(textualProject)).toContain('data-architecture-kind="text"');
   });
 
   it.each(['en', 'fr'] as const)('models infrastructure capabilities without presenting a fictional stack in %s', (locale) => {

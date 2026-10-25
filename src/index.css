@@ -94,6 +94,103 @@
   }
 }
 
+.project-carousel {
+  --project-card-basis: calc(100% - 2rem);
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  margin-inline: -0.25rem;
+  padding: 0.25rem 0.25rem 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: thin;
+  touch-action: pan-x pan-y;
+}
+
+.project-carousel::after {
+  content: '';
+  flex: 0 0 calc(100% - var(--project-card-basis));
+}
+
+.project-carousel-item {
+  display: flex;
+  flex: 0 0 var(--project-card-basis);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+.project-card {
+  width: 100%;
+  transition-duration: 200ms;
+}
+
+.project-card-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (min-width: 640px) {
+  .project-carousel {
+    --project-card-basis: 64%;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .project-carousel {
+    --project-card-basis: 46%;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .project-carousel {
+    --project-card-basis: 31%;
+  }
+}
+
+.project-dialog-backdrop {
+  animation: project-dialog-backdrop-in 220ms ease-out both;
+}
+
+.project-dialog-panel {
+  max-height: calc(100dvh - 1rem);
+  animation: project-dialog-panel-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (min-width: 640px) {
+  .project-dialog-panel {
+    max-height: 88vh;
+  }
+}
+
+@keyframes project-dialog-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes project-dialog-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .infrastructure-backdrop {
   position: fixed;
   inset: 0;
