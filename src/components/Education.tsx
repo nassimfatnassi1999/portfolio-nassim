@@ -9,7 +9,7 @@ export function Education({ education, heading }: { education: EducationRecord[]
   return (
     <Section id="education" className="scroll-mt-20 bg-white/50 px-4 py-24 dark:bg-slate-900/35 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
-        <SectionHeader eyebrow={`07 / ${heading}`} title={heading} />
+        <SectionHeader eyebrow={`08 / ${heading}`} title={heading} />
         <ol className="mt-10 space-y-5">
           {education.map((item) => (
             <li key={item.id}>

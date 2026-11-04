@@ -1,4 +1,5 @@
 export type Locale = 'en' | 'fr';
+export type UiStyle = 'console' | 'sysadmin';
 export type LocalizedText = Record<Locale, string>;
 export type ProjectPriority = 'infrastructure' | 'mixed' | 'application';
 export type CaseStudyOutcome =
@@ -169,6 +170,7 @@ export interface PortfolioSource {
       projects: LocalizedText;
       infrastructure: LocalizedText;
       contact: LocalizedText;
+      lab: LocalizedText;
     };
     facts: Array<{ value: string; label: LocalizedText }>;
   };
@@ -212,7 +214,7 @@ export interface LocalizedPortfolio {
   navigation: Array<{ id: string; label: string }>;
   hero: {
     disciplines: string[];
-    actions: { projects: string; infrastructure: string; contact: string };
+    actions: { projects: string; infrastructure: string; contact: string; lab: string };
     facts: Array<{ value: string; label: string }>;
   };
   about: { heading: string; profileLabel: string; paragraphs: string[] };

@@ -8,7 +8,7 @@ export function Certifications({ certifications, heading }: { certifications: Ce
   return (
     <Section id="certifications" className="scroll-mt-20 px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
-        <SectionHeader eyebrow={`06 / ${heading}`} title={heading} />
+        <SectionHeader eyebrow={`07 / ${heading}`} title={heading} />
         <div className="mt-10">
           {certifications.map((certification) => (
             <SurfaceCard key={certification.id} as="article" data-certification-id={certification.id} className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:p-8">

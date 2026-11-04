@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { BookOpen, Languages, Menu, Moon, Sun, X } from 'lucide-react';
-import type { LocalizedPortfolio, Locale } from '../types/portfolio';
+import { AppWindow, BookOpen, Languages, Menu, Moon, Sun, TerminalSquare, X } from 'lucide-react';
+import type { LocalizedPortfolio, Locale, UiStyle } from '../types/portfolio';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { RotatingInfraPath } from './RotatingInfraPath';
 
@@ -12,6 +12,8 @@ type NavBarProps = {
   toggleLanguage: () => void;
   dark: boolean;
   toggleTheme: () => void;
+  uiStyle: UiStyle;
+  toggleStyle: () => void;
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
 };
@@ -24,6 +26,8 @@ export function NavBar({
   toggleLanguage,
   dark,
   toggleTheme,
+  uiStyle,
+  toggleStyle,
   menuOpen,
   setMenuOpen,
 }: NavBarProps) {
@@ -39,7 +43,7 @@ export function NavBar({
   }, [menuOpen, setMenuOpen]);
 
   return (
-    <nav aria-label={portfolio.labels.navigation} className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl transition-colors dark:border-slate-800/80 dark:bg-[#070b13]/90">
+    <nav aria-label={portfolio.labels.navigation} className="site-nav fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl transition-colors dark:border-slate-800/80 dark:bg-[#070b13]/90">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div data-nav-identity className="flex items-center gap-3">
           <button onClick={() => onNavClick('home')} className="group flex min-h-11 items-center gap-2" aria-label={portfolio.navigation[0].label}>
@@ -57,7 +61,7 @@ export function NavBar({
               onClick={() => onNavClick(navIds[index])}
               aria-current={activeSection === navIds[index] ? 'page' : undefined}
               data-section-target={navIds[index]}
-              className={`relative min-h-11 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              className={`relative min-h-11 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 activeSection === navIds[index]
                   ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
                   : 'text-slate-600 hover:bg-slate-100 hover:text-brand-700 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-brand-400'
@@ -75,6 +79,16 @@ export function NavBar({
           </a>
           <button onClick={toggleLanguage} className="flex min-h-11 items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-300" aria-label={portfolio.labels.language}>
             <Languages aria-hidden="true" className="h-4 w-4" /> {language === 'en' ? 'FR' : 'EN'}
+          </button>
+          <button
+            onClick={toggleStyle}
+            data-ui-style={uiStyle}
+            className="flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-3 py-2 font-mono text-xs font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+            aria-label={uiStyle === 'console' ? portfolio.labels.styleSysadmin : portfolio.labels.styleConsole}
+            title={uiStyle === 'console' ? portfolio.labels.styleSysadmin : portfolio.labels.styleConsole}
+          >
+            {uiStyle === 'console' ? <TerminalSquare aria-hidden="true" className="h-4 w-4" /> : <AppWindow aria-hidden="true" className="h-4 w-4" />}
+            <span aria-hidden="true" className="hidden sm:inline">{uiStyle === 'console' ? 'TTY' : 'GUI'}</span>
           </button>
           <button onClick={toggleTheme} className="flex min-h-11 min-w-11 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800" aria-label={dark ? portfolio.labels.useLightTheme : portfolio.labels.useDarkTheme}>
             {dark ? <Sun aria-hidden="true" className="h-5 w-5 text-amber-400" /> : <Moon aria-hidden="true" className="h-5 w-5" />}

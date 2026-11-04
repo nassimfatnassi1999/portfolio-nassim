@@ -5,6 +5,33 @@
 @layer base {
   :root {
     color-scheme: light;
+    /* Default "Console" style: teal brand palette (RGB triplets for Tailwind alpha support). */
+    --brand-50: 240 253 250;
+    --brand-100: 204 251 241;
+    --brand-200: 153 246 228;
+    --brand-300: 94 234 212;
+    --brand-400: 45 212 191;
+    --brand-500: 20 184 166;
+    --brand-600: 15 159 142;
+    --brand-700: 15 118 110;
+    --brand-800: 17 94 89;
+    --brand-900: 19 78 74;
+    --brand-950: 4 47 46;
+  }
+
+  /* "SysAdmin TTY" style: phosphor-green palette. Other overrides live in styles/sysadmin.css. */
+  :root[data-style='sysadmin'] {
+    --brand-50: 240 253 244;
+    --brand-100: 220 252 231;
+    --brand-200: 187 247 208;
+    --brand-300: 134 239 172;
+    --brand-400: 74 222 128;
+    --brand-500: 34 197 94;
+    --brand-600: 22 163 74;
+    --brand-700: 21 128 61;
+    --brand-800: 22 101 52;
+    --brand-900: 20 83 45;
+    --brand-950: 5 46 22;
   }
 
   :root.dark {
@@ -477,5 +504,64 @@
   .experience-card [data-experience-part] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ---------- Ops Lab game ---------- */
+
+.lab-output {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+.lab-pod {
+  animation: lab-pod-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lab-pod[data-status='ContainerCreating'] {
+  background-image: repeating-linear-gradient(-45deg, rgb(245 158 11 / 0.16) 0 6px, transparent 6px 12px);
+  background-size: 33.94px 33.94px;
+  animation: lab-pod-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both, lab-stripes 900ms linear infinite;
+}
+
+.lab-pod[data-status='Terminating'] {
+  opacity: 0.5;
+}
+
+.lab-pod[data-status='Terminating'] .truncate {
+  text-decoration: line-through;
+}
+
+.lab-dot-pulse {
+  animation: lab-pulse 1.4s ease-out infinite;
+}
+
+.lab-bar {
+  transition: width 700ms cubic-bezier(0.16, 1, 0.3, 1), background-color 300ms ease;
+}
+
+@keyframes lab-pod-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lab-stripes {
+  to {
+    background-position: 33.94px 0;
+  }
+}
+
+@keyframes lab-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(244 63 94 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 7px rgb(244 63 94 / 0);
   }
 }

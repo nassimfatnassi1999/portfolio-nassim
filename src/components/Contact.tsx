@@ -17,7 +17,7 @@ export function Contact({ portfolio }: { portfolio: LocalizedPortfolio }) {
         <div className="surface-card overflow-hidden">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
             <div className="p-8 sm:p-10">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">08 / {portfolio.contact.terminalStatus}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">09 / {portfolio.contact.terminalStatus}</p>
               <h2 className="mt-4 text-4xl font-bold sm:text-5xl">{portfolio.contact.heading}</h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400">{portfolio.contact.subheading}</p>
               <div className="mt-8 grid gap-3 sm:grid-cols-2">

@@ -17,6 +17,7 @@ import { Education } from './Education';
 import { Contact } from './Contact';
 import { Footer } from './Footer';
 import { NavBar } from './NavBar';
+import { OpsLab } from './lab/OpsLab';
 import { SectionHeader } from './ui/SectionHeader';
 import { StatusIndicator } from './ui/StatusIndicator';
 import { SurfaceCard } from './ui/SurfaceCard';
@@ -332,6 +333,32 @@ describe('unified portfolio rendering', () => {
     expect(markup).toContain('portfolio interface operational ✓');
   });
 
+  it.each(['en', 'fr'] as const)('renders the guided Ops Lab with an accessible terminal in %s', (locale) => {
+    const portfolio = getPortfolio(locale);
+    const lab = renderToStaticMarkup(<OpsLab portfolio={portfolio} language={locale} onContactClick={() => undefined} />);
+
+    expect(lab).toContain('id="lab"');
+    expect(lab).toContain(escapeText(portfolio.labels.labTitle));
+    expect(lab).toContain('role="log"');
+    expect(lab).toContain('for="ops-lab-input"');
+    expect(lab).toContain('id="ops-lab-input"');
+    expect(lab).toContain('data-objective="whoami"');
+    expect(lab).toContain('data-state="current"');
+    expect(lab).toContain('data-lab-scene="shell"');
+    expect(lab).toContain(locale === 'fr' ? 'Première connexion' : 'First login');
+    expect(lab).not.toContain('aria-live=');
+  });
+
+  it('places the Ops Lab between infrastructure and credentials and offers both visual styles', () => {
+    const markup = renderToStaticMarkup(<App />);
+    expect(markup.indexOf('id="toolbox"')).toBeLessThan(markup.indexOf('id="lab"'));
+    expect(markup.indexOf('id="lab"')).toBeLessThan(markup.indexOf('id="certifications"'));
+    expect(markup).toContain('data-section-target="lab"');
+    expect(markup).toContain('data-lab-cta');
+    expect(markup).toContain(`aria-label="${getPortfolio('en').labels.styleSysadmin}"`);
+    expect(markup).toContain('class="sysadmin-only');
+  });
+
   it('renders the language-specific primary resume in navigation', () => {
     const props = {
       navIds: getPortfolio('en').navigation.map((item) => item.id),
@@ -339,6 +366,8 @@ describe('unified portfolio rendering', () => {
       toggleLanguage: () => undefined,
       dark: true,
       toggleTheme: () => undefined,
+      uiStyle: 'console' as const,
+      toggleStyle: () => undefined,
       menuOpen: false,
       setMenuOpen: () => undefined,
     };

@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/photo-cv.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Apply the saved theme and visual style before the first paint (avoids a flash).
+      (function () {
+        var root = document.documentElement;
+        try {
+          if (localStorage.getItem('theme') !== 'light') root.classList.add('dark');
+          if (localStorage.getItem('ui-style') === 'sysadmin') root.setAttribute('data-style', 'sysadmin');
+        } catch (error) {
+          root.classList.add('dark');
+        }
+      })();
+    </script>
     <title>Nassim Fatnassi Hnifi | Cloud, DevOps &amp; Systems Engineer</title>
     <meta name="description" content="Cloud &amp; DevOps Engineer and Systems Administrator specializing in Linux, Kubernetes, VMware, automation, monitoring and production infrastructure." />
     <meta name="keywords" content="Cloud Engineer, DevOps Engineer, Systems Administrator, Infrastructure Engineer, Linux Administrator, Kubernetes, VMware, Azure, AWS, Terraform, Ansible, Jenkins, Prometheus, Grafana, middleware, production engineering" />

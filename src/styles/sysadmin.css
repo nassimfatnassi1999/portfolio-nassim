@@ -1,0 +1,286 @@
+/*
+ * "SysAdmin TTY" visual style.
+ * Enabled by <html data-style="sysadmin">. Dark mode = green phosphor console,
+ * light mode = printed operations log on paper. The brand palette itself is
+ * swapped in index.css through CSS variables; this file re-skins the neutrals.
+ */
+
+:root[data-style='sysadmin'] {
+  --tty-bg: #f1eee2;
+  --tty-surface: #faf8f0;
+  --tty-raised: #e8e3d0;
+  --tty-border: #d6cfb4;
+  --tty-ink: #15231a;
+  --tty-muted: #43554a;
+  --tty-faint: #6b7b6f;
+  --tty-accent: #b45309;
+}
+
+:root[data-style='sysadmin'].dark {
+  --tty-bg: #030703;
+  --tty-surface: #06100a;
+  --tty-raised: #0b1a10;
+  --tty-border: #183a23;
+  --tty-ink: #d4f7dc;
+  --tty-muted: #93c49f;
+  --tty-faint: #67906f;
+  --tty-accent: #fcd34d;
+}
+
+/* ---------- Base ---------- */
+
+:root[data-style='sysadmin'] body,
+:root[data-style='sysadmin'] .app-shell {
+  background-color: var(--tty-bg);
+  color: var(--tty-ink);
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root[data-style='sysadmin'] .site-nav {
+  background-color: var(--tty-bg);
+  background-color: color-mix(in srgb, var(--tty-bg) 92%, transparent);
+  border-color: var(--tty-border);
+}
+
+:root[data-style='sysadmin'] :is(.rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .surface-card, .terminal-window, .technology-badge) {
+  border-radius: 3px;
+}
+
+/* Monospace is wider: keep every nav link on one line. */
+:root[data-style='sysadmin'] [data-nav-links] button {
+  padding-inline: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+/* ---------- Text ---------- */
+
+:root[data-style='sysadmin']:not(.dark) :is(.text-gray-900, .text-gray-800, .text-slate-950, .text-slate-900, .text-slate-800) {
+  color: var(--tty-ink);
+}
+
+:root[data-style='sysadmin']:not(.dark) :is(.text-gray-700, .text-gray-600, .text-slate-700, .text-slate-600) {
+  color: var(--tty-muted);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:text-white, .dark\:text-slate-50, .dark\:text-slate-100, .dark\:text-slate-200, .dark\:text-gray-100) {
+  color: var(--tty-ink);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:text-slate-300, .dark\:text-slate-400, .dark\:text-gray-300, .dark\:text-gray-400) {
+  color: var(--tty-muted);
+}
+
+:root[data-style='sysadmin'] :is(.text-slate-500, .text-gray-500, .text-gray-400) {
+  color: var(--tty-faint);
+}
+
+/* ---------- Borders ---------- */
+
+:root[data-style='sysadmin']:not(.dark) :is(.border-slate-200, .border-slate-200\/80, .border-slate-200\/70, .border-gray-200, .border-gray-300, .border-slate-300, .border-slate-300\/70) {
+  border-color: var(--tty-border);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:border-slate-800, .dark\:border-slate-800\/80, .dark\:border-slate-700, .dark\:border-gray-800, .dark\:border-gray-700) {
+  border-color: var(--tty-border);
+}
+
+/* ---------- Surfaces ---------- */
+
+:root[data-style='sysadmin']:not(.dark) .bg-white,
+:root[data-style='sysadmin']:not(.dark) .bg-white\/85 {
+  background-color: var(--tty-surface);
+}
+
+:root[data-style='sysadmin']:not(.dark) :is(.bg-white\/50, .bg-white\/60) {
+  background-color: rgb(250 248 240 / 0.55);
+}
+
+:root[data-style='sysadmin']:not(.dark) :is(.bg-gray-100, .bg-slate-100, .bg-slate-100\/80, .bg-slate-100\/55, .bg-slate-100\/50, .bg-slate-50, .bg-slate-50\/70, .bg-slate-200) {
+  background-color: var(--tty-raised);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:bg-gray-800, .dark\:bg-slate-800, .dark\:bg-slate-800\/70, .dark\:bg-gray-900) {
+  background-color: var(--tty-raised);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:bg-slate-900\/35, .dark\:bg-slate-950\/30, .dark\:bg-slate-950\/40, .dark\:bg-slate-950\/45) {
+  background-color: rgb(6 16 10 / 0.55);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:bg-gray-950, .dark\:bg-\[\#070b13\]\/90) {
+  background-color: var(--tty-bg);
+}
+
+:root[data-style='sysadmin'].dark :is(.dark\:bg-\[\#0d1728\], .dark\:bg-\[\#0b1120\], .dark\:bg-slate-900\/95, .dark\:bg-slate-900\/85) {
+  background-color: var(--tty-surface);
+}
+
+:root[data-style='sysadmin'] .surface-card,
+:root[data-style='sysadmin'] .glass-card {
+  border-color: var(--tty-border);
+  background-color: var(--tty-surface);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+:root[data-style='sysadmin'] .surface-card:hover,
+:root[data-style='sysadmin'] .glass-card:hover {
+  border-color: rgb(var(--brand-500) / 0.55);
+}
+
+:root[data-style='sysadmin'] .technology-badge,
+:root[data-style='sysadmin'] .skill-badge {
+  border-color: var(--tty-border);
+  background-color: transparent;
+  color: var(--tty-muted);
+}
+
+/* ---------- Primary buttons: inverse video in the dark console ---------- */
+
+:root[data-style='sysadmin'].dark .bg-brand-700 {
+  background-color: rgb(var(--brand-400));
+  color: #03140a;
+}
+
+:root[data-style='sysadmin'].dark .hover\:bg-brand-800:hover {
+  background-color: rgb(var(--brand-300));
+}
+
+/* ---------- Headings: shell flavour ---------- */
+
+:root[data-style='sysadmin'] .section-eyebrow::before {
+  content: '# ';
+  opacity: 0.7;
+}
+
+:root[data-style='sysadmin'] .section-heading {
+  letter-spacing: -0.03em;
+}
+
+:root[data-style='sysadmin'] .section-heading::before {
+  content: '$ ';
+  color: rgb(var(--brand-500));
+}
+
+:root[data-style='sysadmin'] #hero-title {
+  font-size: clamp(2.35rem, 5.4vw, 4.25rem);
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+:root[data-style='sysadmin'] .hero-name::after {
+  content: '_';
+  margin-left: 0.04em;
+  color: rgb(var(--brand-500));
+  animation: tty-blink 1.1s step-end infinite;
+}
+
+.sysadmin-only {
+  display: none;
+}
+
+:root[data-style='sysadmin'] .sysadmin-only {
+  display: block;
+}
+
+/* ---------- Terminals ---------- */
+
+:root[data-style='sysadmin'] .terminal-window {
+  border-color: var(--tty-border);
+  background-color: #010401;
+  box-shadow: 0 0 0 1px rgb(74 222 128 / 0.06), 0 24px 70px -48px rgb(74 222 128 / 0.55);
+}
+
+:root[data-style='sysadmin'] .terminal-header,
+:root[data-style='sysadmin'] .lab-input-bar,
+:root[data-style='sysadmin'] .lab-chips,
+:root[data-style='sysadmin'] .lab-completions,
+:root[data-style='sysadmin'] .bg-\[\#080d17\] {
+  border-color: #12301b;
+  background-color: #031007;
+}
+
+:root[data-style='sysadmin'] .terminal-window :is(.text-slate-100, .text-slate-200, .text-slate-300, .text-white) {
+  color: #c8f7d2;
+}
+
+:root[data-style='sysadmin'] .terminal-window .text-slate-400 {
+  color: #8fc49b;
+}
+
+:root[data-style='sysadmin'] .terminal-window :is(.text-slate-500, .text-slate-600) {
+  color: #5f8d69;
+}
+
+:root[data-style='sysadmin'] .terminal-window :is(.text-sky-300, .text-sky-400, .text-cyan-200) {
+  color: #fcd34d;
+}
+
+:root[data-style='sysadmin'] .terminal-window :is(.border-slate-700, .border-slate-700\/80, .border-slate-800) {
+  border-color: #17401f;
+}
+
+:root[data-style='sysadmin'] .terminal-window .text-emerald-400,
+:root[data-style='sysadmin'] .terminal-window .text-emerald-300 {
+  text-shadow: 0 0 6px rgb(74 222 128 / 0.45);
+}
+
+/* ---------- Backdrop and CRT effect ---------- */
+
+:root[data-style='sysadmin'] .infrastructure-backdrop {
+  color: rgb(74 222 128 / 0.14);
+}
+
+:root[data-style='sysadmin'] .infrastructure-grid {
+  background-image:
+    linear-gradient(rgb(21 128 61 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(21 128 61 / 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+:root[data-style='sysadmin'] .infrastructure-glow-primary {
+  background: #22c55e;
+}
+
+:root[data-style='sysadmin'] .infrastructure-glow-secondary {
+  background: #f59e0b;
+}
+
+:root[data-style='sysadmin']:not(.dark) .infrastructure-glow {
+  opacity: 0.06;
+}
+
+.crt-overlay {
+  display: none;
+}
+
+:root[data-style='sysadmin'].dark .crt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: block;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 62%, rgb(0 0 0 / 0.35) 100%),
+    repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.14) 2px 3px);
+}
+
+:root[data-style='sysadmin'] ::-webkit-scrollbar-track {
+  background: var(--tty-bg);
+}
+
+:root[data-style='sysadmin'] ::-webkit-scrollbar-thumb {
+  background: var(--tty-border);
+}
+
+@keyframes tty-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-style='sysadmin'] .hero-name::after {
+    animation: none;
+  }
+}
